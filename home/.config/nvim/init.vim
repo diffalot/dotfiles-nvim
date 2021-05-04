@@ -313,6 +313,7 @@ function! Lightswitch()
   endif
 endfunction
 
+command! -nargs=* LightSwitch call GoLight()
 command! -nargs=* LightsOn call GoLight()
 command! -nargs=* LightsOff call GoDark()
 
@@ -334,11 +335,15 @@ function GoDark()
   set background=dark
   let g:background='dark'
   let g:airline_theme='distinguished'
-  "colorscheme PaperColor
-  colorscheme lucius
+  "colorscheme lucius
   "LuciusBlack
-  LuciusDark
+  "LuciusDark
   "LuciusDarkHighContrast
+  " Material's Config goes before setting the theme
+  let g:material_terminal_italics = 1
+  let g:material_theme_style = 'default'
+  colorscheme material
+  "colorscheme PaperColor
   "colorscheme minimalist
   "colorscheme distinguished
 endfunction
@@ -349,6 +354,27 @@ if strftime("%H") < 19 && strftime("%H") > 5
 else
   call GoDark()
 endif
+
+" todo(alice): I still don't know how to change the styling of the highlight
+" CursorLine, and I really want to style the tiny line cursor anyway.  I
+" think iTerm is overriding what I vim tells it :q
+" :to do?
+"   " Enable CursorLine
+"   "set cursorline
+"   
+"   " Disable CursorLine
+"   set cursorline&
+"   
+"   " CursorLine Properties
+"   
+"   " Default Colors for CursorLine
+"   highlight  CursorLine term=None ctermbg=Yellow ctermfg=Red
+"   
+"   " Change Color when entering Insert Mode
+"   autocmd InsertEnter * highlight  term=None CursorLine ctermbg=Green ctermfg=Red
+"   
+"   " Revert Color to default when leaving Insert Mode
+"   autocmd InsertLeave * highlight term=None  CursorLine ctermbg=Yellow ctermfg=Cyan
 
 "" Base 16 Shell integration
 "if filereadable(expand("~/.vimrc_background"))
