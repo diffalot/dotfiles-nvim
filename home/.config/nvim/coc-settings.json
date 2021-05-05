@@ -1,44 +1,53 @@
 {
-	"languageserver": {
-		"graphql": {
-			"command": "graphql-lsp",
-			"args": ["server", "-m", "stream"],
-			"filetypes": ["javascript", "typescript", "typescriptreact", "graphql"]
-		}
-	},
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "javascriptreact",
+    "css",
+    "markdown",
+    "md"
+  ],
+  "languageserver": {
+    "graphql": {
+      "command": "graphql-lsp",
+      "args": ["server", "-m", "stream"],
+      "filetypes": ["javascript", "typescript", "typescriptreact", "graphql"]
+    }
+  },
 
-	"languageserver": {
-		"dockerfile": {
-			"command": "docker-langserver",
-			"filetypes": ["dockerfile"],
-			"args": ["--stdio"]
-		}
-	},
+  "languageserver": {
+    "dockerfile": {
+      "command": "docker-langserver",
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
+    }
+  },
 
-	"languageserver": {
-		"bash": {
-			"command": "bash-language-server",
-			"args": ["start"],
-			"filetypes": ["sh"],
-			"ignoredRootPaths": ["~"]
-		}
-	},
+  "languageserver": {
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    }
+  },
 
-	"languageserver": {
-		"terraform": {
-			"command": "terraform-lsp",
-			"filetypes": ["terraform"],
-			"initializationOptions": {}
-		}
-	},
+  "languageserver": {
+    "terraform": {
+      "command": "terraform-lsp",
+      "filetypes": ["terraform"],
+      "initializationOptions": {}
+    }
+  },
 
-	"languageserver": {
-		"terraform": {
-			"command": "terraform-ls",
-			"args": ["serve"],
-			"filetypes": ["terraform", "tf"],
-			"initializationOptions": {}
-		}
-	}
+  "languageserver": {
+    "terraform": {
+      "command": "terraform-ls",
+      "args": ["serve"],
+      "filetypes": ["terraform", "tf"],
+      "initializationOptions": {}
+    }
+  }
 }
-

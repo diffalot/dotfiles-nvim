@@ -145,6 +145,13 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'Raimondi/delimitMate'
 Plug 'godlygeek/tabular'
 
+" Persistent Scratch 
+Plug 'mtth/scratch.vim'
+let g:scratch_height = 24 
+let g:scratch_persistence_file = '.scratch.md'
+let g:scratch_autohide = &hidden
+"let g:scratch_insert_autohide = 1
+
 " Spell Checking
 " todo(alice): figure out how this works.  I can't get it to do anything
 " Step through necessary
@@ -250,6 +257,7 @@ Plug 'amdt/vim-niji'
 Plug 'ryanoasis/vim-webdevicons'
 
 " Themes
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'dikiaap/minimalist'
 Plug 'jonathanfilip/vim-lucius'
@@ -263,78 +271,30 @@ Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 " Git modifications noted in the gutter
 Plug 'airblade/vim-gitgutter'
 
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
-"let g:airline#extensions#tabline#enabled = 1
-"let g:airline_powerline_fonts = 1
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+let g:airline_powerline_fonts = 1
+let g:airline_theme='onehalfdark'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_close_button = 1
+"let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#show_tab_type = 1
+let g:airline#extensions#coc#enabled = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+" buffer index mode 1 
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+nmap <leader>0 <Plug>AirlineSelectTab0
+nmap <leader>- <Plug>AirlineSelectPrevTab
+nmap <leader>= <Plug>AirlineSelectNextTab
 
-let g:lightline = {
-      \   'colorscheme': 'one',
-      \   'active': {
-      \     'left': [ 
-      \               [ 'mode', 'paste' ],
-      \               [ 'gitbranch', 'readonly', 'filename', 'modified' ]
-      \             ],
-      \   },
-      \   'tabline': {
-      \     'left': [ 
-      \               ['close'],
-      \               ['buffers']
-      \             ],
-      \     'right': [
-      \               [  'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ]
-      \              ]
-      \   },
-      \    'component_expand': {
-      \     'buffers': 'lightline#bufferline#buffers'
-      \   },
-      \   'component_type': {
-      \     'buffers': 'tabsel'
-      \   },
-      \   'component_function': {
-      \     'gitbranch': 'FugitiveHead'
-      \   },
-      \   'component_raw': {
-      \     'buffers': 1
-      \   }
-      \ }
-Plug 'itchyny/lightline.vim'
-Plug 'josa42/vim-lightline-coc'
-Plug 'mengelbrecht/lightline-bufferline'
-set showtabline=2
-autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
-let g:lightline#colorscheme='PaperColor'
-let g:lightline#bufferline#clickable = 1
-let g:lightline#bufferline#enable_devicons = 1
-let g:lightline#bufferline#enable_nerdfont = 1
-let g:lightline#bufferline#show_number = 2
-let g:lightline#bufferline#composed_number_map = {
-\ 1:  '⑴ ', 2:  '⑵ ', 3:  '⑶ ', 4:  '⑷ ', 5:  '⑸ ',
-\ 6:  '⑹ ', 7:  '⑺ ', 8:  '⑻ ', 9:  '⑼ ', 10: '⑽ ',
-\ 11: '⑾ ', 12: '⑿ ', 13: '⒀ ', 14: '⒁ ', 15: '⒂ ',
-\ 16: '⒃ ', 17: '⒄ ', 18: '⒅ ', 19: '⒆ ', 20: '⒇ '}
-let g:lightline#bufferline#min_buffer_count = 0
-let g:lightline#bufferline#min_tab_count = 0
-nmap <Leader>1 <Plug>lightline#bufferline#go(1)
-nmap <Leader>2 <Plug>lightline#bufferline#go(2)
-nmap <Leader>3 <Plug>lightline#bufferline#go(3)
-nmap <Leader>4 <Plug>lightline#bufferline#go(4)
-nmap <Leader>5 <Plug>lightline#bufferline#go(5)
-nmap <Leader>6 <Plug>lightline#bufferline#go(6)
-nmap <Leader>7 <Plug>lightline#bufferline#go(7)
-nmap <Leader>8 <Plug>lightline#bufferline#go(8)
-nmap <Leader>9 <Plug>lightline#bufferline#go(9)
-nmap <Leader>0 <Plug>lightline#bufferline#go(10)
-nmap <Leader>e1 <Plug>lightline#bufferline#delete(1)
-nmap <Leader>e2 <Plug>lightline#bufferline#delete(2)
-nmap <Leader>e3 <Plug>lightline#bufferline#delete(3)
-nmap <Leader>e4 <Plug>lightline#bufferline#delete(4)
-nmap <Leader>e5 <Plug>lightline#bufferline#delete(5)
-nmap <Leader>e6 <Plug>lightline#bufferline#delete(6)
-nmap <Leader>e7 <Plug>lightline#bufferline#delete(7)
-nmap <Leader>e8 <Plug>lightline#bufferline#delete(8)
-nmap <Leader>e9 <Plug>lightline#bufferline#delete(9)
-nmap <Leader>e0 <Plug>lightline#bufferline#delete(10)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Just Computer Programs Being Pals
@@ -349,13 +309,11 @@ Plug 'roxma/vim-tmux-clipboard'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#end()      " Now the plugin system will initialize
-                     " so things like colorschemes can be set.
+" so things like colorschemes can be set.
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Theme Declaration (they were activated by plug earlier)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-call lightline#coc#register()
 
 command! -nargs=* IsThisNvim call ReallyIsNvim()
 function ReallyIsNvim()
@@ -390,8 +348,8 @@ command! -nargs=* LightsOff call GoDark()
 function GoLight()
   set background=light
   let g:background='light'
-  let g:lightline.colorscheme='One'
-  colorscheme PaperColor
+  let g:airline_theme='papercolor'
+  "colorscheme PaperColor
   "colorscheme lucius
   "LuciusLightHighContrast
   let g:material_terminal_italics = 1
@@ -399,25 +357,26 @@ function GoLight()
   colorscheme material
   "colorscheme minimalist
   "colorscheme distinguished
-  hi Visual  guifg=DarkMagenta guibg=DarkCyan gui=none
+  "hi Visual  guifg=DarkMagenta guibg=DarkCyan gui=none
 endfunction
 
 function GoDark()
   set background=dark
   let g:background='dark'
-  let g:lightline.colorscheme='PaperColor'
+  let g:airline_theme='onehalfdark'
+  colorscheme onehalfdark
   "colorscheme lucius
   "LuciusBlack
   "LuciusDark
   "LuciusDarkHighContrast
   " Material's Config goes before setting the theme
-  let g:material_terminal_italics = 1
-  let g:material_theme_style = 'default'
-  colorscheme material
-  "colorscheme PaperColor
-  "colorscheme minimalist
-  "colorscheme distinguished
-  hi Visual  guifg=DarkMagenta guibg=DarkCyan gui=none
+  "let g:material_terminal_italics = 1
+  "let g:material_theme_style = 'default'
+  "colorscheme material
+  " colorscheme PaperColor
+  " colorscheme minimalist
+  " colorscheme distinguished
+  "hi Visual  guifg=DarkMagenta guibg=DarkCyan gui=none
 endfunction
 
 " set the background by the time of day
@@ -427,29 +386,10 @@ else
   call GoDark()
 endif
 
-" Make the selection in visual mode show up better;
-"hi Visual  guifg=LightCyan guibg=LightGray gui=none
-"hi Visual term=reverse cterm=reverse guibg=Grey
-
-" todo(alice): I still don't know how to change the styling of the highlight
-" CursorLine, and I really want to style the tiny line cursor anyway.  I
-" think iTerm is overriding what I vim tells it to do?
-"   " Enable CursorLine
-"   "set cursorline
-"   
-"   " Disable CursorLine
-"   set cursorline&
-"   
-"   " CursorLine Properties
-"   
-"   " Default Colors for CursorLine
-"   highlight  CursorLine term=None ctermbg=Yellow ctermfg=Red
-"   
-"   " Change Color when entering Insert Mode
-"   autocmd InsertEnter * highlight  term=None CursorLine ctermbg=Green ctermfg=Red
-"   
-"   " Revert Color to default when leaving Insert Mode
-"   autocmd InsertLeave * highlight term=None  CursorLine ctermbg=Yellow ctermfg=Cyan
+" Fallback to a nice dark theme, because a light one could hurt your eyes
+set background=dark
+let g:airline_theme='onehalfdark'
+colorscheme onehalfdark
 
 "" Base 16 Shell integration
 "if filereadable(expand("~/.vimrc_background"))
