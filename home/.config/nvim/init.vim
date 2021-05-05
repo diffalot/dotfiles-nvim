@@ -1,27 +1,56 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Kill Switches for Expensive Plugins
+
+" Easytags Kill Switch will stop the scanning of source files for tags.
+" Comment this out and Easytags will scan while you are not typing
+
+let g:easytags_on_cursorhold = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" The person I copied this config from wants you to remember:
+" 'Make sure you use single quotes!'
+" 
+" todo:
+" [ ] Study how to test Vim Script with Vader
+" [ ] Figure out why home/end are broken, but only sometimes 😨
+"     [ ] get a solid fix for the tmux terminfo
+" [ ] Find find something better than `gq` for reflowing text
+"     :help formatoptions fo fo-table formatlistpat auto-format
+"     https://vim.fandom.com/wiki/Automatic_formatting_of_paragraphs
+" [ ] Make tmux clipboard sync with macOS clipboard
 "
-" The Person I copied this config from wants you to remember:
-" "Make sure you use single quotes!"
+" done:
+" [x] Make yank and put in nvim syncronize with tmux
 "
 " Compiled from an ancient `.vimrc` that had collected a lot of other people's
 " configurations and the example on the front page of the CoC git repo.
 " https://github.com/neoclide/coc.nvim
-"
-" Going forward I will not be testing this init.vim on anything but nvim.
 " 
-" Alice Davis <alice@gigantic.computer>
-" Monday, May 3, 2021
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" To Debug the Configuration, turn things off and load up minivrc
 "
-" todo:
-" [ ] Figure out why home/end are broken, but only sometimes 😨
-" [ ] Find find something better than `gq` for reflowing text
-"     https://vim.fandom.com/wiki/Automatic_formatting_of_paragraphs
+" source ~/.config/nvim/minivimrc/vimrc
 "
-" done:
-" [x] Make yank and put in nvim syncronize with tmux
-" [x] Make tmux clipboard sync with macOS clipboard
+" https://github.com/romainl/minivimrc
 "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Running vim with out any plugins everynow and then is a nice reminder of how
+" fast it can be
+" nvim -U NONE -u NONE
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" I wish people distributed more shell scripts written in fish
+if &shell =~# 'fish$'
+    set shell=zsh
+endif
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" It's worth a nasty to have italics
+set t_ZH=^[[3m
+set t_ZR=^[[23m
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Oh, I guess we're starting
+"
+
+set nocompatible
 
 set encoding=utf-8
 
@@ -39,8 +68,11 @@ set number
 
 set wrap
 " set nolist
+
+" todo:(alice) figure out good settings for markdown lists
 set linebreak
 set breakindent
+set smartindent
 
 " two spaces instead of tabs
 set tabstop=2
@@ -49,259 +81,257 @@ set expandtab
 set shiftwidth=2
 set smarttab
 
-set textwidth=80
-set colorcolumn=80
+" but not always, here's to you, Python
+autocmd FileType python set breakindentopt=shift:4
 
-set splitbelow
-set splitright
+set textwidth=79
+set colorcolumn=80
 
 " Give more space for displaying messages.
 set cmdheight=1
 
+" Open new windows to the right and below
+set splitbelow
+set splitright
+
 " let cursor move across line breaks
 set whichwrap=b,s,<,>,[,]
+
+" I don't like folding
+set nofoldenable
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin('~/.config/nvim/plugged')
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Expensive Things for a Text Editor to be Carrying Around in this Neighborhood
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Git Everything in Order
-Plug 'tpope/vim-fugitive'
-
-" Langage Server Client, Linting and Formatting Automation
-" Use release branch (recommend)
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Individual langages are configured farther down in this file in the 
-" "CoC Language Settings" section
-
-" Like Git, but for undo history
-Plug 'mbbill/undotree'
-nmap <F2> :UndotreeToggle<CR>
-
-" Open URLs under the Cursor with macOS `open`
-Plug 'henrik/vim-open-url'
-nmap <F3> :OpenURL<CR>
-
-" NERDTree for directory browsing
-Plug 'scrooloose/nerdtree'
-nnoremap <Leader>n :NERDTreeToggle<CR>
-nnoremap <Leader>ntf :NERDTreeFocus<CR>
-nnoremap <Leader>ntr :NERDTreeRefreshRoot<CR>
-au StdinReadPre * let s:std_in=1
-au VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-Plug 'preservim/tagbar'
-" brew install ctags-exuberant
-" npm install -g git+https://github.com/ramitos/jsctags.git
-" more at https://github.com/preservim/tagbar/wiki
-nmap <F9> :TagbarToggle<CR>
-
-"Plug 'xolox/vim-easytags'
-"Plug 'xolox/vim-misc'
-"let g:easytags_on_cursorhold = 1
-" if I understand the the instructions:
-" brew install --HEAD universal-ctags/universal-ctags/universal-ctags
-" that will reqire replacing ctags-exuberant
-" then you have to go into the plugged foder and compile these two???
-"
-" Commands - https://github.com/xolox/vim-easytags#commands
-"
-" `:UpdateTags` updates tags starting from the active buffer and to `:UpdateTags
-" <args>` is essentially running `ctags <args>`
-" `:UpdateTags!` prunes the global list of tags that realate to files that are
-" no longer present
-" `:HighlightTags` highlights all tags known to easytags in the current buffer
-" and runs continually when you are afk and not typing are run atomatically
-" (when `g:easytags_on_cursorhold` is false)
-" 
-" tag files are stored at `~/.vim/tags`
-"
-" The following options may be uncommented to reduce easytag's veracity in
-" consuming all computer resources
-" e.g. don't process python files
-" autocmd FileType python let b:easytags_auto_highlight = 0`
-" let g:easytags_syntax_keyword = 'always'
-"
-" Languages have been added farther down in this file in the 
-" "Universal CTags Language Settings" section
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Tools to help formatting text for readability
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Text Editing Superpowers
-Plug 'junegunn/vim-easy-align'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'Raimondi/delimitMate'
-Plug 'godlygeek/tabular'
-
-" Persistent Scratch 
-Plug 'mtth/scratch.vim'
-let g:scratch_height = 24 
-let g:scratch_persistence_file = '.scratch.md'
-let g:scratch_autohide = &hidden
-"let g:scratch_insert_autohide = 1
-
-" Spell Checking
-" todo(alice): figure out how this works.  I can't get it to do anything
-" Step through necessary
-" Correct all words in buffer.      ZL
-" Correct word under cursor.        Zl 
-
-" todo(alice): Figure out how this works, track this bug and respond, etc
-" https://github.com/kamykn/spelunker.vim/issues/60
-set nospell
-Plug 'kamykn/popup-menu.nvim'
-Plug 'kamykn/spelunker.vim'
-let g:enable_spelunker_vim = 1
-" Spellcheck type: (default: 1)
-" 1: File is checked for spelling mistakes when opening and saving. This
-" may take a bit of time on large files.
-" 2: Spellcheck displayed words in buffer. Fast and dynamic. The waiting time
-" depends on the setting of CursorHold `set updatetime=1000`.
-let g:spelunker_check_type = 1
-" Disable URI checking. (default: 0)
-let g:spelunker_disable_uri_checking = 1
-" Disable email-like words checking. (default: 0)
-let g:spelunker_disable_email_checking = 1
-" Disable account name checking, e.g. @foobar, foobar@. (default: 0)
-" NOTE: Spell checking is also disabled for JAVA annotations.
-let g:spelunker_disable_account_name_checking = 1
-" Disable acronym checking. (default: 0)
-let g:spelunker_disable_acronym_checking = 1
-" Disable checking words in backtick/backquote. (default: 0)
-let g:spelunker_disable_backquoted_checking = 1
-" Disable default autogroup. (default: 0)
-let g:spelunker_disable_auto_group = 1
-" Override highlight setting.
-highlight SpelunkerSpellBad cterm=bold ctermfg=Green
-"gui=underline guifg=#9e9e9e
-"highlight SpelunkerComplexOrCompoundWord cterm=underline ctermfg=NONE gui=underline guifg=NONE
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Syntax Highlighting
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-Plug 'vim-scripts/SyntaxComplete'
-
-" Polyglot to so at least everything is highlighted
-Plug 'sheerun/vim-polyglot'
-
-" Apparently these are now the recommended JavaScript plugins, according to
-" https://github.com/MaxMEllon/vim-jsx-pretty , and now that I've seen them in
-" action, I have to concu 
-Plug 'yuezk/vim-js'
-Plug 'othree/yajs.vim'
-Plug 'othree/es.next.syntax.vim'
-
-Plug 'othree/javascript-libraries-syntax.vim'
-let g:used_javascript_libs =
-      \ 'jquery,react,underscore,jasmine,chai,handlebars,vue,d3,tape'
-
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'HerringtonDarkholme/yats.vim'
-
-Plug 'elzr/vim-json'
-Plug 'jxnblk/vim-mdx-js'
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-
-" Python
-Plug 'jmcantrell/vim-virtualenv'
-Plug 'vim-python/python-syntax'
-let g:python_highlight_all = 1
-autocmd FileType python set breakindentopt=shift:4
-
-" Documentation
-Plug 'lervag/vimtex'
-"Plug 'plasticboy/vim-markdown'
-"let g:vim_markdown_folding_disabled = 1
-
-" Aspirational and Things that I Might actually use or learn
-Plug 'rust-lang/rust.vim'
-Plug 'elixir-editors/vim-elixir'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Visual Things that Make Life Better
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Quick controls over displaying special characters
-"set list listchars=tab:»\ ,eol:¶,nbsp:¬
-set list listchars=tab:»\ ,nbsp:¬
-command! -nargs=* CharactersOn set list listchars=tab:»,nbsp:¬
-command! -nargs=* CharactersOff set list listchars=
-
-" rainbow brackets
-Plug 'amdt/vim-niji'
-
-" fancy icons
-Plug 'ryanoasis/vim-webdevicons'
-
-" Themes
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'dikiaap/minimalist'
-Plug 'jonathanfilip/vim-lucius'
-Plug 'Lokaltog/vim-distinguished'
-Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-
-" todo(alice): fork this project and only add some of the themes, it's just
-" too many
-"Plug 'chriskempson/base16-vim'
+" File management
 
 " Git modifications noted in the gutter
 Plug 'airblade/vim-gitgutter'
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-let g:airline_powerline_fonts = 1
-let g:airline_theme='onehalfdark'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_close_button = 1
-"let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline#extensions#tabline#show_tab_type = 1
-let g:airline#extensions#coc#enabled = 1
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-" buffer index mode 1 
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
-nmap <leader>0 <Plug>AirlineSelectTab0
-nmap <leader>- <Plug>AirlineSelectPrevTab
-nmap <leader>= <Plug>AirlineSelectNextTab
+" :grep
+"
+set grepprg=rg\ --vimgrep
 
+" fuzzy finder
+" brew install fsf ag ripgrep perl git-delta 
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Just Computer Programs Being Pals
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Make the editor play well with others
 
+Plug 'editorconfig/editorconfig-vim'
+
+Plug 'tpope/vim-endwise'
+
+Plug 'vim-syntastic/syntastic'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" if you have multiple checkers for a filetype
+" let g:syntastic_<filetype>_checkers = ['<checker-name>']
+" and you can run a checker or two on command
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Syntax Highlighting Megadeals Every SuperbGame Satuday!!!
+
+" The fastest and most versitile, hopefully that'll take care of it
+Plug 'sheerun/vim-polyglot'
+
+Plug 'dag/vim-fish'
+autocmd FileType fish compiler fish
+autocmd FileType fish setlocal textwidth=79
+autocmd FileType fish setlocal foldmethod=expr
+
+" Python
+"Plug 'jmcantrell/vim-virtualenv'
+"Plug 'vim-python/python-syntax'
+"let g:python_highlight_all = 1
+
+"Plug 'rust-lang/rust.vim'
+
+" I'm not sure how fast this one is, I know it has Intellisense...
+" Plug 'vim-scripts/SyntaxComplete'
+
+" Allegedly the best, but I'm gonna try them out one at a time...
+"Plug 'yuezk/vim-js'
+"Plug 'othree/yajs.vim'
+"Plug 'othree/es.next.syntax.vim'
+
+" Allegedly the best, but I'm gonna try them out one at a time...
+"Plug 'othree/javascript-libraries-syntax.vim'
+"let g:used_javascript_libs =
+"      \ 'react,underscore,jasmine,chai,tape' 
+        " jquery,handlebars,vue,d3,
+
+" Allegedly the best, but I'm gonna try them out one at a time...
+" Plug 'maxmellon/vim-jsx-pretty'
+" Plug 'HerringtonDarkholme/yats.vim'
+
+"Plug 'jxnblk/vim-mdx-js'
+"Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+" Plug 'elzr/vim-json'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" External Includes (they're also kill-switches)
+
+" Tagbar <F9> and EasyTags
+source ~/.config/nvim/tagbar-and-easytags.vim
+
+" CoC Language Server Client
+source ~/.config/nvim/CoC-LanguageServerClients.vim
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " A little help from tmux to know when vim is focused or not
+
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'roxma/vim-tmux-clipboard'
 "Plug 'tmux-plugins/vim-tmux'
-"Plug 'tpope/vim-obsession'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Uncategorized
+
+" Persistent Scratch
+Plug 'mtth/scratch.vim'
+let g:scratch_top = 1
+let g:scratch_height = 18 
+let g:scratch_filetype = 'markdown'
+let g:scratch_persistence_file = '~/.scratch.md'
+let g:scratch_autohide = &hidden
+let g:scratch_insert_autohide = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Themes must be installed plug initialization, but they can't be activated till
+" after plug has loaded every single one, I think, maybe?
+
+" 
+let g:lights_auto = 1
+
+Plug 'rakr/vim-one'
+let g:one_allow_italics = 1
+"" colorscheme one
+
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+let g:material_terminal_italics = 1
+let g:material_theme_style = 'lighter'
+" colorscheme material
+
+"todo(alice) keep an eye on line 49 of the CoC settings file, that was randomly
+"showing up when jellybeans was enabled
+"Plug 'nanotech/jellybeans.vim'
+"let g:jellybeans_use_term_italics = 1
+"let g:jellybeans_overrides = {
+"\    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
+"\}
+"if has('termguicolors') && &termguicolors
+"    let g:jellybeans_overrides['background']['guibg'] = 'none'
+"endif
+
+
+"Plug 'NLKNguyen/papercolor-theme'
+" colorscheme PaperColor
+
+"Plug 'dracula/vim', { 'as': 'dracula' }
+" colorscheme dracula
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+call plug#end() 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-call plug#end()      " Now the plugin system will initialize
-" so things like colorschemes can be set.
+" My Own "Vim Scripts"
+
+" Learn to use this to test Vim Scripts
+" Plugin 'junegunn/vader.vim'
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LightSwitch, LightsOff, and LightsOn functions to switch between dark and
+" light modes at dusk and dawn (not accurately), or on demand.
+
+command! -nargs=* LightSwitch call __lightswitch()
+command! -nargs=* LightsOn call __light()
+command! -nargs=* LightsOff call __dark()
+command! -nargs=* LightsAuto call __auto()
+
+function! __lightswitch()
+  if (&background == 'dark')
+    :call __light()
+  else
+    :call __dark()
+  endif
+endfunction
+
+function! __light()
+  set background=light
+  let g:one_allow_italics = 1
+  colorscheme one
+endfunction
+
+function! __dark()
+  set background=dark
+  let g:material_terminal_italics = 1
+  let g:material_theme_style = 'default'
+  colorscheme material
+endfunction
+
+" Here's the bit that looks at the time when the init.vim is sourced and chooses
+" the backgrough that's least likely to cause the least eye strain
+function! __auto()
+  if strftime("%H") < 19 && strftime("%H") > 05
+    call __light()
+  else
+    call __dark()
+  endif
+endfunction
+
+"let g:lights_auto = 1
+if (exists('g:lights_auto'))
+  call __auto()
+else
+  colorscheme default
+endif
+"todo(alice) learn how to use variables :(
+"function! __manual()
+"  echo g:lights_colorscheme
+"  colorscheme g:lights_colorscheme
+"endfunction
+"let g:lights_colorscheme = 'default'
+"if (!exists('g:lights_auto') && exists('g:lights_colorscheme'))
+"  call __manual()
+"endif
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Here are some general theme escape hatches that you can call upon in an hour
+" of need when you can't see the cursor or something else like that.
+
+" hi Visual  guifg=LightBlue:White guibg=LightGray gui=none
+" hi Visual  guifg=DarkMagenta guibg=DarkCyan gui=none
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Theme Declaration (they were activated by plug earlier)
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" :reload to source from this config file
 
-command! -nargs=* IsThisNvim call ReallyIsNvim()
-function ReallyIsNvim()
+command! -nargs=* RE  source ~/.config/nvim/init.vim
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Quick controls over displaying special characters
+"tab:»\,eol:¶\,nbsp:¬\,trail:-
+set list listchars=tab:»\ ,nbsp:¬,trail:◊
+command! -nargs=* CharactersOn set list listchars=tab:»\ ,eol:¶,nbsp:¬,trail:-
+command! -nargs=* CharactersOff set list listchars=tab:»\ ,nbsp:¬,trail:-
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" when they were living together in that same cramped folder, they really startd
+" to look like each other.  It was freaky.
+" command! -nargs=* IsThisNvim call ReallyIsNvim()
+
+function! ReallyIsNvim()
   if has("nvim")
     echo 'This is nvim.'
   else
@@ -309,331 +339,42 @@ function ReallyIsNvim()
   endif
 endfunction
 
-" For Neovim > 0.1.5 and Vim > patch 7.4.1799 - https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
-" Based on Vim patch 7.4.1770 (`guicolors` option) - https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Attempts to customize my status line
+
+"set laststatus=2
+"function! StatuslineGit()
+"  let l:branchname = GitBranch()
+"  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+"endfunction
+"set statusline+=%{StatuslineGit()}
+
+" Kill Switches for Expensive Plugins
+
+" Easytags Kill Switch will stop the scanning of source files for tags.
+" Comment this out and Easytags will scan while you are not typing
+"let g:easytags_on_cursorhold = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Based on Vim patch 7.4.1770 (`guicolors` option)
+" https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
+"
+" Neovim > 0.1.5
+" Vim > patch 7.4.1799 
+"
+" https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
 " https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
 if (has('termguicolors'))
   set termguicolors
 endif
-
-" Quick controls over dark and light backgrounds
-" toggle dark and light modes
-function! Lightswitch()
-  if (&background == 'dark')
-    :call GoLight()
-  else
-    :call GoDark()
-  endif
-endfunction
-
-command! -nargs=* LightSwitch call Lightswitch()
-command! -nargs=* LightsOn call GoLight()
-command! -nargs=* LightsOff call GoDark()
-
-function GoLight()
-  set background=light
-  let g:background='light'
-  let g:airline_theme='papercolor'
-  "colorscheme PaperColor
-  "colorscheme lucius
-  "LuciusLightHighContrast
-  let g:material_terminal_italics = 1
-  let g:material_theme_style = 'lighter'
-  colorscheme material
-  "colorscheme minimalist
-  "colorscheme distinguished
-  "hi Visual  guifg=DarkMagenta guibg=DarkCyan gui=none
-endfunction
-
-function GoDark()
-  set background=dark
-  let g:background='dark'
-  let g:airline_theme='onehalfdark'
-  colorscheme onehalfdark
-  "colorscheme lucius
-  "LuciusBlack
-  "LuciusDark
-  "LuciusDarkHighContrast
-  " Material's Config goes before setting the theme
-  "let g:material_terminal_italics = 1
-  "let g:material_theme_style = 'default'
-  "colorscheme material
-  " colorscheme PaperColor
-  " colorscheme minimalist
-  " colorscheme distinguished
-  "hi Visual  guifg=DarkMagenta guibg=DarkCyan gui=none
-endfunction
-
-" set the background by the time of day
-if strftime("%H") < 19 && strftime("%H") > 5
-  call GoLight()
-else
-  call GoDark()
+" For Neovim 0.1.3 and 0.1.4 - https://github.com/neovim/neovim/pull/2198
+if (has('nvim'))
+  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 endif
-
-" Fallback to a nice dark theme, because a light one could hurt your eyes
-set background=dark
-let g:airline_theme='onehalfdark'
-colorscheme onehalfdark
-
-"" Base 16 Shell integration
-"if filereadable(expand("~/.vimrc_background"))
-"    let base16colorspace=256
-"    source ~/.vimrc_background
-"endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Universal CTags Language Settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:tagbar_type_css = {
-\ 'ctagstype' : 'Css',
-    \ 'kinds'     : [
-        \ 'c:classes',
-        \ 's:selectors',
-        \ 'i:identities'
-    \ ]
-\ }
-
-let g:tagbar_type_json = {
-    \ 'ctagstype' : 'json',
-    \ 'kinds' : [
-      \ 'o:objects',
-      \ 'a:arrays',
-      \ 'n:numbers',
-      \ 's:strings',
-      \ 'b:booleans',
-      \ 'z:nulls'
-    \ ],
-  \ 'sro' : '.',
-    \ 'scope2kind': {
-    \ 'object': 'o',
-      \ 'array': 'a',
-      \ 'number': 'n',
-      \ 'string': 's',
-      \ 'boolean': 'b',
-      \ 'null': 'z'
-    \ },
-    \ 'kind2scope': {
-    \ 'o': 'object',
-      \ 'a': 'array',
-      \ 'n': 'number',
-      \ 's': 'string',
-      \ 'b': 'boolean',
-      \ 'z': 'null'
-    \ },
-    \ 'sort' : 0
-    \ }
-
-let g:tagbar_type_markdown = {
-  \ 'ctagstype'	: 'markdown',
-  \ 'kinds'		: [
-    \ 'c:chapter:0:1',
-    \ 's:section:0:1',
-    \ 'S:subsection:0:1',
-    \ 't:subsubsection:0:1',
-    \ 'T:l4subsection:0:1',
-    \ 'u:l5subsection:0:1',
-  \ ],
-  \ 'sro'			: '""',
-  \ 'kind2scope'	: {
-    \ 'c' : 'chapter',
-    \ 's' : 'section',
-    \ 'S' : 'subsection',
-    \ 't' : 'subsubsection',
-    \ 'T' : 'l4subsection',
-  \ },
-  \ 'scope2kind'	: {
-    \ 'chapter' : 'c',
-    \ 'section' : 's',
-    \ 'subsection' : 'S',
-    \ 'subsubsection' : 't',
-    \ 'l4subsection' : 'T',
-  \ },
-\ }
-
-let g:tagbar_type_elixir = {
-    \ 'ctagstype' : 'elixir',
-    \ 'kinds' : [
-        \ 'p:protocols',
-        \ 'm:modules',
-        \ 'e:exceptions',
-        \ 'y:types',
-        \ 'd:delegates',
-        \ 'f:functions',
-        \ 'c:callbacks',
-        \ 'a:macros',
-        \ 't:tests',
-        \ 'i:implementations',
-        \ 'o:operators',
-        \ 'r:records'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 'p' : 'protocol',
-        \ 'm' : 'module'
-    \ },
-    \ 'scope2kind' : {
-        \ 'protocol' : 'p',
-        \ 'module' : 'm'
-    \ },
-    \ 'sort' : 0
-\ }
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CoC Language Settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:coc_node_path='/usr/local/bin/node'
-
-let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-tsserver',
-      \ 'coc-html', 'coc-css', 'coc-prettier', 'coc-pyright', 'coc-deno',
-      \ 'coc-markdownlint', 'coc-solargraph', 'coc-rust-analyzer', 'coc-vetur',
-      \ 'coc-vimlsp']
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location
-" list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
-
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
-
-" Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
-
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of language server.
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
-
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
-
-" Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" Mappings for CoCList
-" Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " I don't know what anthing in this section means, I just copied it from
-" https://github.com/neoclide/coc.nvim along with the CoC config above.  I
-" think it's safest here where it will override anything I mistakenly changed.
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/neoclide/coc.nvim along with the CoC config above.
 
 " TextEdit might fail if hidden is not set.
 set hidden
