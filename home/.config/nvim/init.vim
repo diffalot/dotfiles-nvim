@@ -13,10 +13,13 @@
 " Monday, May 3, 2021
 "
 " todo:
-" [ ] Figure out why home/end are broken :(
-" [ ] Make yank and put in nvim syncronize with tmux
-" [ ] Make gq aware of code so it doesn't break things as often ??? I'm sure
-" many have tried https://vim.fandom.com/wiki/Automatic_formatting_of_paragraphs
+" [ ] Figure out why home/end are broken, but only sometimes 😨
+" [ ] Find find something better than `gq` for reflowing text
+"     https://vim.fandom.com/wiki/Automatic_formatting_of_paragraphs
+"
+" done:
+" [x] Make yank and put in nvim syncronize with tmux
+" [x] Make tmux clipboard sync with macOS clipboard
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -29,10 +32,7 @@ set splitright
 
 set ignorecase
 set smartcase
-
 set nohlsearch
-
-set number &
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " I don't know what anthing in this section means, I just copied it from
@@ -105,9 +105,9 @@ Plug 'preservim/tagbar'
 " more at https://github.com/preservim/tagbar/wiki
 nmap <F9> :TagbarToggle<CR>
 
-Plug 'xolox/vim-easytags'
-Plug 'xolox/vim-misc'
-"
+"Plug 'xolox/vim-easytags'
+"Plug 'xolox/vim-misc'
+"let g:easytags_on_cursorhold = 1
 " if I understand the the instructions:
 " brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 " that will reqire replacing ctags-exuberant
@@ -144,17 +144,6 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'Raimondi/delimitMate'
 Plug 'godlygeek/tabular'
-
-" :setlocal textwidth=80
-" :setl tw=80
-set tw=80
-set colorcolumn=80
-
-" Quick controls over word wrap
-"set showbreak=â€¦
-set wrap linebreak nolist
-command! -nargs=* WrapOn set wrap linebreak nolist
-command! -nargs=* WrapOff set wrap! linebreak! nolist!
 
 " Spell Checking
 " todo(alice): figure out how this works.  I can't get it to do anything
@@ -226,8 +215,8 @@ let g:python_highlight_all = 1
 
 " Documentation
 Plug 'lervag/vimtex'
-Plug 'plasticboy/vim-markdown'
-let g:vim_markdown_folding_disabled = 1
+"Plug 'plasticboy/vim-markdown'
+"let g:vim_markdown_folding_disabled = 1
 
 " Aspirational and Things that I Might actually use or learn
 Plug 'rust-lang/rust.vim'
@@ -236,6 +225,29 @@ Plug 'elixir-editors/vim-elixir'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Visual Things that Make Life Better
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set number
+
+" two spaces instead of tabs
+set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
+
+" Optimal line length is 80 characters
+set tw=80 colorcolumn=80
+
+" Quick controls over word wrap
+set wrap linebreak nolist
+
+" Quick controls over displaying special characters
+"set list listchars=tab:»\ ,eol:¶,nbsp:¬
+set list listchars=tab:»\ ,nbsp:¬
+command! -nargs=* CharactersOn set list listchars=tab:»,nbsp:¬
+command! -nargs=* CharactersOff set list listchars=
+
+" rainbow brackets
+Plug 'amdt/vim-niji'
+
+" fancy icons
+Plug 'ryanoasis/vim-webdevicons'
 
 " Themes
 Plug 'NLKNguyen/papercolor-theme'
@@ -251,23 +263,78 @@ Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 " Git modifications noted in the gutter
 Plug 'airblade/vim-gitgutter'
 
-" Airline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline_powerline_fonts = 1
 
-let g:airline_statusline_ontop=0
-let g:airline_powerline_fonts = 1
-"let g:airline#extensions#tabline#enabled = 1           " enable airline tabline                                                           
-"let g:airline#extensions#tabline#show_close_button = 0 " remove 'X' at the end of the tabline                                            
-"let g:airline#extensions#tabline#tabs_label = ''       " can put text here like BUFFERS to denote buffers (I clear it so nothing is shown)
-"let g:airline#extensions#tabline#buffers_label = ''    " can put text here like TABS to denote tabs (I clear it so nothing is shown)      
-"let g:airline#extensions#tabline#fnamemod = ':t'       " disable file paths in the tab                                                    
-"let g:airline#extensions#tabline#show_tab_count = 0    " dont show tab numbers on the right                                                           
-"let g:airline#extensions#tabline#show_buffers = 0      " dont show buffers in the tabline                                                 
-"let g:airline#extensions#tabline#tab_min_count = 2     " minimum of 2 tabs needed to display the tabline                                  
-"let g:airline#extensions#tabline#show_splits = 0       " disables the buffer name that displays on the right of the tabline               
-"let g:airline#extensions#tabline#show_tab_nr = 0       " disable tab numbers                                                              
-"let g:airline#extensions#tabline#show_tab_type = 0     " disables the weird ornage arrow on the tabline
+let g:lightline = {
+      \   'colorscheme': 'one',
+      \   'active': {
+      \     'left': [ 
+      \               [ 'mode', 'paste' ],
+      \               [ 'gitbranch', 'readonly', 'filename', 'modified' ]
+      \             ],
+      \   },
+      \   'tabline': {
+      \     'left': [ 
+      \               ['close'],
+      \               ['buffers']
+      \             ],
+      \     'right': [
+      \               [  'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ]
+      \              ]
+      \   },
+      \    'component_expand': {
+      \     'buffers': 'lightline#bufferline#buffers'
+      \   },
+      \   'component_type': {
+      \     'buffers': 'tabsel'
+      \   },
+      \   'component_function': {
+      \     'gitbranch': 'FugitiveHead'
+      \   },
+      \   'component_raw': {
+      \     'buffers': 1
+      \   }
+      \ }
+Plug 'itchyny/lightline.vim'
+Plug 'josa42/vim-lightline-coc'
+Plug 'mengelbrecht/lightline-bufferline'
+set showtabline=2
+autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
+let g:lightline#colorscheme='PaperColor'
+let g:lightline#bufferline#clickable = 1
+let g:lightline#bufferline#enable_devicons = 1
+let g:lightline#bufferline#enable_nerdfont = 1
+let g:lightline#bufferline#show_number = 2
+let g:lightline#bufferline#composed_number_map = {
+\ 1:  '⑴ ', 2:  '⑵ ', 3:  '⑶ ', 4:  '⑷ ', 5:  '⑸ ',
+\ 6:  '⑹ ', 7:  '⑺ ', 8:  '⑻ ', 9:  '⑼ ', 10: '⑽ ',
+\ 11: '⑾ ', 12: '⑿ ', 13: '⒀ ', 14: '⒁ ', 15: '⒂ ',
+\ 16: '⒃ ', 17: '⒄ ', 18: '⒅ ', 19: '⒆ ', 20: '⒇ '}
+let g:lightline#bufferline#min_buffer_count = 0
+let g:lightline#bufferline#min_tab_count = 0
+nmap <Leader>1 <Plug>lightline#bufferline#go(1)
+nmap <Leader>2 <Plug>lightline#bufferline#go(2)
+nmap <Leader>3 <Plug>lightline#bufferline#go(3)
+nmap <Leader>4 <Plug>lightline#bufferline#go(4)
+nmap <Leader>5 <Plug>lightline#bufferline#go(5)
+nmap <Leader>6 <Plug>lightline#bufferline#go(6)
+nmap <Leader>7 <Plug>lightline#bufferline#go(7)
+nmap <Leader>8 <Plug>lightline#bufferline#go(8)
+nmap <Leader>9 <Plug>lightline#bufferline#go(9)
+nmap <Leader>0 <Plug>lightline#bufferline#go(10)
+nmap <Leader>e1 <Plug>lightline#bufferline#delete(1)
+nmap <Leader>e2 <Plug>lightline#bufferline#delete(2)
+nmap <Leader>e3 <Plug>lightline#bufferline#delete(3)
+nmap <Leader>e4 <Plug>lightline#bufferline#delete(4)
+nmap <Leader>e5 <Plug>lightline#bufferline#delete(5)
+nmap <Leader>e6 <Plug>lightline#bufferline#delete(6)
+nmap <Leader>e7 <Plug>lightline#bufferline#delete(7)
+nmap <Leader>e8 <Plug>lightline#bufferline#delete(8)
+nmap <Leader>e9 <Plug>lightline#bufferline#delete(9)
+nmap <Leader>e0 <Plug>lightline#bufferline#delete(10)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Just Computer Programs Being Pals
@@ -275,8 +342,9 @@ let g:airline_powerline_fonts = 1
 
 " A little help from tmux to know when vim is focused or not
 Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'tmux-plugins/vim-tmux'
-Plug 'tpope/vim-obsession'
+Plug 'roxma/vim-tmux-clipboard'
+"Plug 'tmux-plugins/vim-tmux'
+"Plug 'tpope/vim-obsession'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -286,6 +354,8 @@ call plug#end()      " Now the plugin system will initialize
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Theme Declaration (they were activated by plug earlier)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+call lightline#coc#register()
 
 command! -nargs=* IsThisNvim call ReallyIsNvim()
 function ReallyIsNvim()
@@ -313,14 +383,14 @@ function! Lightswitch()
   endif
 endfunction
 
-command! -nargs=* LightSwitch call GoLight()
+command! -nargs=* LightSwitch call Lightswitch()
 command! -nargs=* LightsOn call GoLight()
 command! -nargs=* LightsOff call GoDark()
 
 function GoLight()
   set background=light
   let g:background='light'
-  let g:airline_theme='papercolor'
+  let g:lightline.colorscheme='One'
   colorscheme PaperColor
   "colorscheme lucius
   "LuciusLightHighContrast
@@ -329,12 +399,13 @@ function GoLight()
   colorscheme material
   "colorscheme minimalist
   "colorscheme distinguished
+  hi Visual  guifg=DarkMagenta guibg=DarkCyan gui=none
 endfunction
 
 function GoDark()
   set background=dark
   let g:background='dark'
-  let g:airline_theme='distinguished'
+  let g:lightline.colorscheme='PaperColor'
   "colorscheme lucius
   "LuciusBlack
   "LuciusDark
@@ -346,6 +417,7 @@ function GoDark()
   "colorscheme PaperColor
   "colorscheme minimalist
   "colorscheme distinguished
+  hi Visual  guifg=DarkMagenta guibg=DarkCyan gui=none
 endfunction
 
 " set the background by the time of day
@@ -355,10 +427,13 @@ else
   call GoDark()
 endif
 
+" Make the selection in visual mode show up better;
+"hi Visual  guifg=LightCyan guibg=LightGray gui=none
+"hi Visual term=reverse cterm=reverse guibg=Grey
+
 " todo(alice): I still don't know how to change the styling of the highlight
 " CursorLine, and I really want to style the tiny line cursor anyway.  I
-" think iTerm is overriding what I vim tells it :q
-" :to do?
+" think iTerm is overriding what I vim tells it to do?
 "   " Enable CursorLine
 "   "set cursorline
 "   
