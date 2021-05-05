@@ -1,6 +1,4 @@
 {
-
-
 	"languageserver": {
 		"graphql": {
 			"command": "graphql-lsp",
@@ -42,6 +40,5 @@
 			"initializationOptions": {}
 		}
 	}
-
-
 }
+
