@@ -10,7 +10,7 @@ let g:easytags_on_cursorhold = 1
 " The person I copied this config from wants you to remember:
 " 'Make sure you use single quotes!'
 " 
-" todo:
+" Todo:
 " [ ] Study how to test Vim Script with Vader
 " [ ] Figure out why home/end are broken, but only sometimes 😨
 "     [ ] get a solid fix for the tmux terminfo
@@ -19,13 +19,33 @@ let g:easytags_on_cursorhold = 1
 "     https://vim.fandom.com/wiki/Automatic_formatting_of_paragraphs
 " [ ] Make tmux clipboard sync with macOS clipboard
 "
-" done:
+" Done:
 " [x] Make yank and put in nvim syncronize with tmux
 "
 " Compiled from an ancient `.vimrc` that had collected a lot of other people's
 " configurations and the example on the front page of the CoC git repo.
 " https://github.com/neoclide/coc.nvim
 " 
+" Notes:
+"   tmux - vim - clipboard pasting
+"   
+"   *Copying*
+"
+"   | System Type | Copy To           | How to Copy to It                                                                                             |
+"   | macOS       | the only one      | <apple> + <c>                                                                                                 |
+"   | vim         | vim yank? buffer  | (select text), <y>                                                                                            |
+"   | vim         | new tmux buffer   | sycronized with yank                                                                                          |
+"   | tmux        | new tmux buffer   | <bind-key>, [, (navigate to beginning of desired selection), <space>, (navigate to end of selection), <enter> |
+"   | tmux        | new tmux buffer   | select test with the mouse                                                                                    |
+" 
+"
+"   *Pasting*
+"
+"   | System      | Past From          | How to Paste from It                        |
+"   | tmux        | vim yank           | unknown (use paste from newest buffer)      |
+"   | tmux        | newest tmux buffer | <bind-key>, ]                               |
+"   | tmux        | macOS              | depends on terminal, usually: <apple> + <c> |
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " To Debug the Configuration, turn things off and load up minivrc
 "
@@ -124,6 +144,9 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'editorconfig/editorconfig-vim'
 
+Plug 'sindrets/diffview.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+
 Plug 'tpope/vim-endwise'
 
 Plug 'vim-syntastic/syntastic'
@@ -193,7 +216,7 @@ source ~/.config/nvim/CoC-LanguageServerClients.vim
 
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'roxma/vim-tmux-clipboard'
-"Plug 'tmux-plugins/vim-tmux'
+Plug 'tmux-plugins/vim-tmux'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Uncategorized
@@ -211,8 +234,7 @@ let g:scratch_insert_autohide = 1
 " Themes must be installed plug initialization, but they can't be activated till
 " after plug has loaded every single one, I think, maybe?
 
-" 
-let g:lights_auto = 1
+"let g:lights_auto = 1
 
 Plug 'rakr/vim-one'
 let g:one_allow_italics = 1
