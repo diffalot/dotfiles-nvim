@@ -63,12 +63,32 @@ if &shell =~# 'fish$'
     set shell=zsh
 endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" It's worth a nasty to have italics
+" It's worth a nasty bug to have italics
 set t_ZH=^[[3m
 set t_ZR=^[[23m
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Based on Vim patch 7.4.1770 (`guicolors` option)
+" https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
+"
+" Neovim > 0.1.5
+" Vim > patch 7.4.1799 
+"
+" https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
+" https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
+if (has('termguicolors'))
+  set termguicolors
+endif
+" For Neovim 0.1.3 and 0.1.4 - https://github.com/neovim/neovim/pull/2198
+if (has('nvim'))
+  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Oh, I guess we're starting
 "
+
+let mapleader=" "
+set timeoutlen=1750
 
 set nocompatible
 
@@ -138,6 +158,7 @@ set grepprg=rg\ --vimgrep
 " brew install fsf ag ripgrep perl git-delta 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+nnoremap <leader>n :FZF<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Make the editor play well with others
@@ -219,7 +240,27 @@ Plug 'roxma/vim-tmux-clipboard'
 Plug 'tmux-plugins/vim-tmux'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Uncategorized
+" Words
+
+Plug 'henrik/vim-open-url'
+" Trigger with <leader>u or :OpenURL
+
+"Plug 'preservim/nerdcommenter'
+
+" spelling
+" keybindings: https://github.com/preservim/vim-lexical#spell-check
+Plug 'preservim/vim-lexical'
+let g:lexical#spell = 1
+let g:lexical#spelllang = ['en_us','en_ca','en_gb']
+augroup lexical
+  autocmd!
+  autocmd FileType markdown,mkd call lexical#init()
+  autocmd FileType textile call lexical#init()
+  autocmd FileType text call lexical#init({ 'spell': 0 })
+augroup END
+
+Plug 'preservim/vim-wordy'
+" https://github.com/preservim/vim-wordy
 
 " Persistent Scratch
 Plug 'mtth/scratch.vim'
@@ -227,26 +268,63 @@ let g:scratch_top = 1
 let g:scratch_height = 18 
 let g:scratch_filetype = 'markdown'
 let g:scratch_persistence_file = '~/.scratch.md'
-let g:scratch_autohide = &hidden
-let g:scratch_insert_autohide = 1
+"let g:scratch_autohide = &hidden
+"let g:scratch_insert_autohide = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Themes must be installed plug initialization, but they can't be activated till
 " after plug has loaded every single one, I think, maybe?
 
+Plug 'preservim/vim-thematic'
+let g:thematic#themes = {
+\ 'bubblegum'  : {
+\                },
+\ 'jellybeans' : { 'laststatus': 0,
+\                  'ruler': 1,
+\                },
+\ 'pencil_dark' :{'colorscheme': 'pencil',
+\                 'background': 'dark',
+\                 'airline-theme': 'badwolf',
+\                 'ruler': 1,
+\                },
+\ 'pencil_lite' :{'colorscheme': 'pencil',
+\                 'background': 'light',
+\                 'airline-theme': 'light',
+\                 'ruler': 1,
+\                },
+\ }
+
 "let g:lights_auto = 1
+
+
+
+Plug 'preservim/vim-colors-pencil'
+let g:pencil_higher_contrast_ui = 1   " 0=low (def), 1=high
+let g:pencil_neutral_headings = 0   " 0=blue (def), 1=normal
+let g:pencil_neutral_code_bg = 0   " 0=gray (def), 1=normal
+let g:pencil_gutter_color = 1      " 0=mono (def), 1=color
+let g:pencil_spell_undercurl = 1       " 0=underline, 1=undercurl (def)
+let g:pencil_terminal_italics = 1
+"colorscheme pencil
 
 Plug 'rakr/vim-one'
 let g:one_allow_italics = 1
 "" colorscheme one
+
+Plug 'NLKNguyen/papercolor-theme'
+" colorscheme PaperColor
 
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 let g:material_terminal_italics = 1
 let g:material_theme_style = 'lighter'
 " colorscheme material
 
-"todo(alice) keep an eye on line 49 of the CoC settings file, that was randomly
-"showing up when jellybeans was enabled
+Plug 'ayu-theme/ayu-vim'
+"let ayucolor="light"  
+"let ayucolor="mirage" 
+"let ayucolor="dark" 
+"colorscheme ayu
+
 "Plug 'nanotech/jellybeans.vim'
 "let g:jellybeans_use_term_italics = 1
 "let g:jellybeans_overrides = {
@@ -256,9 +334,6 @@ let g:material_theme_style = 'lighter'
 "    let g:jellybeans_overrides['background']['guibg'] = 'none'
 "endif
 
-
-"Plug 'NLKNguyen/papercolor-theme'
-" colorscheme PaperColor
 
 "Plug 'dracula/vim', { 'as': 'dracula' }
 " colorscheme dracula
@@ -293,15 +368,19 @@ endfunction
 
 function! __light()
   set background=light
-  let g:one_allow_italics = 1
-  colorscheme one
+  colorscheme pencil
+  "let g:one_allow_italics = 1
+  "colorscheme one
 endfunction
 
 function! __dark()
   set background=dark
-  let g:material_terminal_italics = 1
-  let g:material_theme_style = 'default'
-  colorscheme material
+  colorscheme pencil
+  "let ayucolor="dark" 
+  "colorscheme ayu
+  "let g:material_terminal_italics = 1
+  "let g:material_theme_style = 'default'
+  "colorscheme material
 endfunction
 
 " Here's the bit that looks at the time when the init.vim is sourced and chooses
@@ -318,7 +397,13 @@ endfunction
 if (exists('g:lights_auto'))
   call __auto()
 else
-  colorscheme default
+  colorscheme PaperColor
+  "colorscheme matrix
+  "colorscheme default
+  "let ayucolor="light"  
+  "let ayucolor="mirage" 
+  "let ayucolor="dark" 
+  "colorscheme ayu
 endif
 "todo(alice) learn how to use variables :(
 "function! __manual()
@@ -376,23 +461,6 @@ endfunction
 " Easytags Kill Switch will stop the scanning of source files for tags.
 " Comment this out and Easytags will scan while you are not typing
 "let g:easytags_on_cursorhold = 1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Based on Vim patch 7.4.1770 (`guicolors` option)
-" https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
-"
-" Neovim > 0.1.5
-" Vim > patch 7.4.1799 
-"
-" https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
-" https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
-if (has('termguicolors'))
-  set termguicolors
-endif
-" For Neovim 0.1.3 and 0.1.4 - https://github.com/neovim/neovim/pull/2198
-if (has('nvim'))
-  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " I don't know what anthing in this section means, I just copied it from
