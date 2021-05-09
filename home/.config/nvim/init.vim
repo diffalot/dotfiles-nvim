@@ -1,41 +1,68 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Kill Switches for Expensive Plugins
-
-" Easytags Kill Switch will stop the scanning of source files for tags.
-" Comment this out and Easytags will scan while you are not typing
-
-let g:easytags_on_cursorhold = 1
-
+" Alice Davis <alice@gigantic.computer>                             2021-05-09
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" The person I copied this config from wants you to remember:
-" 'Make sure you use single quotes!'
+"                  The person I copied this config from wants you to remember:
+"                                           'Make sure you use single quotes!'
 " 
-" todo:
-" [ ] Study how to test Vim Script with Vader
-" [ ] Figure out why home/end are broken, but only sometimes 😨
-"     [ ] get a solid fix for the tmux terminfo
+" Todo:
+" [ ] Study how to test Vim Scripts
+" [ ] get a solid fix for the tmux terminfo
 " [ ] Find find something better than `gq` for reflowing text
 "     :help formatoptions fo fo-table formatlistpat auto-format
 "     https://vim.fandom.com/wiki/Automatic_formatting_of_paragraphs
-" [ ] Make tmux clipboard sync with macOS clipboard
 "
-" done:
+" Done:
 " [x] Make yank and put in nvim syncronize with tmux
+" [x] Make tmux clipboard sync with macOS clipboard
+" [x] Figure out why home/end are broken, but only sometimes 😨
 "
 " Compiled from an ancient `.vimrc` that had collected a lot of other people's
 " configurations and the example on the front page of the CoC git repo.
 " https://github.com/neoclide/coc.nvim
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Things to Install
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" tmux - vim - clipboard pasting
+"
+"   *Copying*
+"
+"   | System Type | Copy To           | How to Copy to It              |
+"   | macOS       | the only one      | <apple> + <c>                  |
+"   | vim         | vim yank? buffer  | (select text), <y>             |
+"   | vim         | new tmux buffer   | sycronized with yank           |
+"   | tmux        | new tmux buffer   | <bind-key>, [, (navigate to    |
+"                                       beginning of desired           |
+"                                       selection), <space>, (navigate |
+"                                       to end of selection), <enter>  |
+"   | tmux        | new tmux buffer   | select test with the mouse     |
 " 
+"
+"   *Pasting*
+"
+"   | System      | Past From          | How to Paste from It          |
+"   | tmux        | vim yank           | unknown (use paste from       |
+"                                        newest buffer)                |
+"   | tmux        | newest tmux buffer | <bind-key>, ]                 |
+"   | tmux        | macOS              | depends on terminal, usually: |
+"                                        <apple> + <c>                 |
+"
+"     ...To be continued
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" The hopefully brief section of fixes
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " To Debug the Configuration, turn things off and load up minivrc
 "
-" source ~/.config/nvim/minivimrc/vimrc
+" source ~/.config/nvim/vimrcs/minivimrc-romainl/vimrc
 "
 " https://github.com/romainl/minivimrc
 "
 " Running vim with out any plugins everynow and then is a nice reminder of how
-" fast it can be
-" nvim -U NONE -u NONE
+" fast it can be `nvim -U NONE -u NONE`
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " I wish people distributed more shell scripts written in fish
@@ -43,12 +70,30 @@ if &shell =~# 'fish$'
     set shell=zsh
 endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" It's worth a nasty to have italics
+" It's worth a nasty bug to have italics
 set t_ZH=^[[3m
 set t_ZR=^[[23m
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Oh, I guess we're starting
+" Based on Vim patch 7.4.1770 (`guicolors` option)
+" https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
 "
+" Neovim > 0.1.5
+" Vim > patch 7.4.1799 
+"
+" https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
+" https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
+if (has('termguicolors'))
+  set termguicolors
+endif
+" For Neovim 0.1.3 and 0.1.4 - https://github.com/neovim/neovim/pull/2198
+if (has('nvim'))
+  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" I've seen it worse
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Manage built in options
 
 set nocompatible
 
@@ -101,17 +146,77 @@ set whichwrap=b,s,<,>,[,]
 set nofoldenable
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Wildmenu
+
+if has("wildmenu")
+  set wildmenu
+  set wildmode=longest,list
+  set wildignore+=*.a,*.o
+  set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
+  set wildignore+=.DS_Store,.git,.hg,.svn
+  set wildignore+=*~,*.swp,*.tmp
+  set wildignorecase
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin('~/.config/nvim/plugged')
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Words
+
+Plug 'henrik/vim-open-url'
+" Trigger with <leader>u or :OpenURL
+
+"Plug 'preservim/nerdcommenter'
+
+" spelling
+" keybindings: https://github.com/preservim/vim-lexical#spell-check
+Plug 'preservim/vim-lexical'
+let g:lexical#spell = 1
+let g:lexical#spelllang = ['en_us','en_ca','en_gb']
+augroup lexical
+  autocmd!
+  autocmd FileType markdown,mkd call lexical#init()
+  autocmd FileType textile call lexical#init()
+  autocmd FileType text call lexical#init({ 'spell': 0 })
+augroup END
+
+Plug 'preservim/vim-wordy'
+" https://github.com/preservim/vim-wordy
+
+" Persistent Scratch
+Plug 'mtth/scratch.vim'
+let g:scratch_top = 1
+let g:scratch_height = 18 
+let g:scratch_filetype = 'markdown'
+let g:scratch_persistence_file = '~/.scratch.md'
+"let g:scratch_autohide = &hidden
+"let g:scratch_insert_autohide = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " File management
 
+" Fugitive - https://github.com/tpope/vim-fugitive
+Plug 'tpope/vim-fugitive'
+Plug 'rbong/vim-flog'
+
+
+" DiffView - https://github.com/sindrets/diffview.nvim
+Plug 'sindrets/diffview.nvim'
+
+" Signify - https://github.com/mhinz/vim-signify
+if has('nvim') || has('patch-8.0.902')
+  Plug 'mhinz/vim-signify'
+else
+  Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
+endif
+set updatetime=100
+
 " Git modifications noted in the gutter
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 
 " :grep
-"
 set grepprg=rg\ --vimgrep
 
 " fuzzy finder
@@ -120,11 +225,15 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Make the editor play well with others
+" Make the editor handle a lot of the thinking
 
 Plug 'editorconfig/editorconfig-vim'
 
 Plug 'tpope/vim-endwise'
+
+Plug 'mbbill/undotree'
+" there's a lot of options for undotree so it is configures in
+" ~/.config/nvim/plugins/conf.undotree.vim
 
 Plug 'vim-syntastic/syntastic'
 set statusline+=%#warningmsg#
@@ -158,18 +267,17 @@ autocmd FileType fish setlocal foldmethod=expr
 
 "Plug 'rust-lang/rust.vim'
 
+" Allegedly the best, but I'm gonna try them out one at a time...
+"Plug 'yuezk/vim-js'
+
 " I'm not sure how fast this one is, I know it has Intellisense...
 " Plug 'vim-scripts/SyntaxComplete'
 
-" Allegedly the best, but I'm gonna try them out one at a time...
-"Plug 'yuezk/vim-js'
-"Plug 'othree/yajs.vim'
-"Plug 'othree/es.next.syntax.vim'
-
-" Allegedly the best, but I'm gonna try them out one at a time...
-"Plug 'othree/javascript-libraries-syntax.vim'
-"let g:used_javascript_libs =
-"      \ 'react,underscore,jasmine,chai,tape' 
+" Plug 'othree/yajs.vim'
+" Plug 'othree/es.next.syntax.vim'
+" Plug 'othree/javascript-libraries-syntax.vim'
+" let g:used_javascript_libs =
+"       \ 'react,underscore,jasmine,chai,tape' 
         " jquery,handlebars,vue,d3,
 
 " Allegedly the best, but I'm gonna try them out one at a time...
@@ -179,52 +287,205 @@ autocmd FileType fish setlocal foldmethod=expr
 "Plug 'jxnblk/vim-mdx-js'
 "Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 " Plug 'elzr/vim-json'
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" External Includes (they're also kill-switches)
+" LSP Configs for built in LSC -  https://github.com/neovim/nvim-lspconfig
+Plug 'neovim/nvim-lspconfig'
 
-" Tagbar <F9> and EasyTags
-source ~/.config/nvim/tagbar-and-easytags.vim
+command! -nargs=* StartLSPs call __StartLSPs()
+function! __StartLSPs()
+  LspStart tsserver
+  LspStart vimls
+endfunction
 
-" CoC Language Server Client
-source ~/.config/nvim/CoC-LanguageServerClients.vim
+lua << EOF
+local lspconfig = require'lspconfig'
+  lspconfig.tsserver.setup{}
+  lspconfig.vimls.setup{}
+EOF
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+lua << EOF
+local nvim_lsp = require('lspconfig')
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+
+  -- Set some keybinds conditional on server capabilities
+  if client.resolved_capabilities.document_formatting then
+    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  end
+  if client.resolved_capabilities.document_range_formatting then
+    buf_set_keymap("v", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+  end
+
+  -- Set autocommands conditional on server_capabilities
+  if client.resolved_capabilities.document_highlight then
+    vim.api.nvim_exec([[
+      hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+      hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+      hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+      augroup lsp_document_highlight
+        autocmd! * <buffer>
+        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      augroup END
+    ]], false)
+  end
+end
+
+-- Use a loop to conveniently both setup defined servers 
+-- and map buffer local keybindings when the language server attaches
+local servers = { "pyright", "rust_analyzer", "tsserver" }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup { on_attach = on_attach }
+end
+EOF
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Keybindings
+
+set timeoutlen=1250
+let mapleader='\'
+let localmapleader = "\<Space>"
+
+" Utilities
+nnoremap <F2> :UndotreeToggle<CR>
+nnoremap <F9> :Vista!!<CR>
+" (set by plugin) <leader> u OpenUrl
+
+" File Management
+nnoremap ,p :GFiles<CR>
+nnoremap ,o :Files<CR>
+
+" Tab Controls
+nnoremap <C-k> :tabnew<CR>
+nnoremap <C-l> :tabnext<CR>
+nnoremap <C-m> :tabprevious<CR>
+nnoremap <C-n> :tabmove<CR>
+nnoremap <C-q> :tabclose<CR>
+
+" Buffer Controls
+nnoremap <C-b> :Buffers<CR>
+nnoremap <C-v> :bd<CR>
+nnoremap <M-l> :bn<CR>
+nnoremap <M-m> :bp<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
+
+Plug 'liuchengxu/vista.vim'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" EleLine - https://github.com/liuchengxu/eleline.vim
+
+Plug 'liuchengxu/eleline.vim'
+let g:eleline_powerline_fonts = 1
+" let g:eleline_slim = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Fancy Icons
+
+Plug 'kyazdani42/nvim-web-devicons'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Gutentags - https://github.com/ludovicchabant/vim-gutentags
+
+Plug 'ludovicchabant/vim-gutentags'
+set statusline+=%{gutentags#statusline()}
+"Plug 'skywind3000/gutentags_plus'
+"
+"" enable gtags module
+"let g:gutentags_modules = ['ctags'] ", 'gtags_cscope']
+"
+"" config project root markers.
+"let g:gutentags_project_root = ['.root']
+"
+"" generate datebases in my cache directory, prevent gtags files polluting my project
+"let g:gutentags_cache_dir = expand('~/.cache/tags')
+"
+"" change focus to quickfix window after search (optional).
+"let g:gutentags_plus_switch = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " A little help from tmux to know when vim is focused or not
 
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'roxma/vim-tmux-clipboard'
-"Plug 'tmux-plugins/vim-tmux'
+Plug 'tmux-plugins/vim-tmux'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Uncategorized
+" Themes must be installed during plug initialization, but they can't be
+" activated till after plug has loaded every single one, I think, maybe?
 
-" Persistent Scratch
-Plug 'mtth/scratch.vim'
-let g:scratch_top = 1
-let g:scratch_height = 18 
-let g:scratch_filetype = 'markdown'
-let g:scratch_persistence_file = '~/.scratch.md'
-let g:scratch_autohide = &hidden
-let g:scratch_insert_autohide = 1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Themes must be installed plug initialization, but they can't be activated till
-" after plug has loaded every single one, I think, maybe?
-
-" 
 let g:lights_auto = 1
+
+Plug 'preservim/vim-thematic'
+let g:thematic#themes = {
+\ 'bubblegum'  : {
+\                },
+\ 'jellybeans' : { 'laststatus': 0,
+\                  'ruler': 1,
+\                },
+\ 'pencil_dark' :{'colorscheme': 'pencil',
+\                 'background': 'dark',
+\                 'airline-theme': 'badwolf',
+\                 'ruler': 1,
+\                },
+\ 'pencil_lite' :{'colorscheme': 'pencil',
+\                 'background': 'light',
+\                 'airline-theme': 'light',
+\                 'ruler': 1,
+\                },
+\ }
+
+Plug 'preservim/vim-colors-pencil'
+let g:pencil_higher_contrast_ui = 1   " 0=low (def), 1=high
+let g:pencil_neutral_headings = 0   " 0=blue (def), 1=normal
+let g:pencil_neutral_code_bg = 0   " 0=gray (def), 1=normal
+let g:pencil_gutter_color = 1      " 0=mono (def), 1=color
+let g:pencil_spell_undercurl = 1       " 0=underline, 1=undercurl (def)
+let g:pencil_terminal_italics = 1
+"colorscheme pencil
 
 Plug 'rakr/vim-one'
 let g:one_allow_italics = 1
 "" colorscheme one
+
+Plug 'NLKNguyen/papercolor-theme'
+" colorscheme PaperColor
 
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 let g:material_terminal_italics = 1
 let g:material_theme_style = 'lighter'
 " colorscheme material
 
-"todo(alice) keep an eye on line 49 of the CoC settings file, that was randomly
-"showing up when jellybeans was enabled
+Plug 'ayu-theme/ayu-vim'
+"let ayucolor="light"  
+"let ayucolor="mirage" 
+"let ayucolor="dark" 
+"colorscheme ayu
+
 "Plug 'nanotech/jellybeans.vim'
 "let g:jellybeans_use_term_italics = 1
 "let g:jellybeans_overrides = {
@@ -234,9 +495,6 @@ let g:material_theme_style = 'lighter'
 "    let g:jellybeans_overrides['background']['guibg'] = 'none'
 "endif
 
-
-"Plug 'NLKNguyen/papercolor-theme'
-" colorscheme PaperColor
 
 "Plug 'dracula/vim', { 'as': 'dracula' }
 " colorscheme dracula
@@ -251,6 +509,7 @@ call plug#end()
 
 " Learn to use this to test Vim Scripts
 " Plugin 'junegunn/vader.vim'
+" I know there are others, but I didn't take good notes
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LightSwitch, LightsOff, and LightsOn functions to switch between dark and
@@ -271,15 +530,19 @@ endfunction
 
 function! __light()
   set background=light
-  let g:one_allow_italics = 1
-  colorscheme one
+  colorscheme pencil
+  "let g:one_allow_italics = 1
+  "colorscheme one
 endfunction
 
 function! __dark()
   set background=dark
-  let g:material_terminal_italics = 1
-  let g:material_theme_style = 'default'
-  colorscheme material
+  colorscheme pencil
+  "let ayucolor="dark" 
+  "colorscheme ayu
+  "let g:material_terminal_italics = 1
+  "let g:material_theme_style = 'default'
+  "colorscheme material
 endfunction
 
 " Here's the bit that looks at the time when the init.vim is sourced and chooses
@@ -296,7 +559,13 @@ endfunction
 if (exists('g:lights_auto'))
   call __auto()
 else
-  colorscheme default
+  colorscheme PaperColor
+  "colorscheme matrix
+  "colorscheme default
+  "let ayucolor="light"  
+  "let ayucolor="mirage" 
+  "let ayucolor="dark" 
+  "colorscheme ayu
 endif
 "todo(alice) learn how to use variables :(
 "function! __manual()
@@ -338,66 +607,6 @@ function! ReallyIsNvim()
     echo 'This is not nvim.'
   endif
 endfunction
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Attempts to customize my status line
-
-"set laststatus=2
-"function! StatuslineGit()
-"  let l:branchname = GitBranch()
-"  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
-"endfunction
-"set statusline+=%{StatuslineGit()}
-
-" Kill Switches for Expensive Plugins
-
-" Easytags Kill Switch will stop the scanning of source files for tags.
-" Comment this out and Easytags will scan while you are not typing
-"let g:easytags_on_cursorhold = 1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Based on Vim patch 7.4.1770 (`guicolors` option)
-" https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
-"
-" Neovim > 0.1.5
-" Vim > patch 7.4.1799 
-"
-" https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
-" https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
-if (has('termguicolors'))
-  set termguicolors
-endif
-" For Neovim 0.1.3 and 0.1.4 - https://github.com/neovim/neovim/pull/2198
-if (has('nvim'))
-  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" I don't know what anthing in this section means, I just copied it from
-" https://github.com/neoclide/coc.nvim along with the CoC config above.
-
-" TextEdit might fail if hidden is not set.
-set hidden
-
-" Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
-
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
-
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                ¯\_(ツ)_/¯
