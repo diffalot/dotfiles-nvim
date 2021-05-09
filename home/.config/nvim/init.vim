@@ -79,10 +79,34 @@ if (has('nvim'))
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Oh, I guess we're starting
-"
+" Keybindings
 
-let mapleader=" "
+let mapleader=','
+
+nnoremap <leader>n :FZF<CR>
+
+
+" Reading
+"
+" <leader> u OpenUrl
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Don't install new shit because you just installed:
+"
+" * DiffView
+"
+" You still haven't setup
+"
+" FZF key bindings and ignoring node_modules
+"
+" And you already want to try out:
+"
+" https://github.com/ludovicchabant/vim-gutentags
+" 
+" https://github.com/tpope/vim-fugitive
+" 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 set timeoutlen=1750
 
 set nocompatible
@@ -146,14 +170,12 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'airblade/vim-gitgutter'
 
 " :grep
-"
 set grepprg=rg\ --vimgrep
 
 " fuzzy finder
 " brew install fsf ag ripgrep perl git-delta 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-nnoremap <leader>n :FZF<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Make the editor play well with others
@@ -263,6 +285,8 @@ let g:scratch_persistence_file = '~/.scratch.md'
 " Themes must be installed plug initialization, but they can't be activated till
 " after plug has loaded every single one, I think, maybe?
 
+let g:lights_auto = 1
+
 Plug 'preservim/vim-thematic'
 let g:thematic#themes = {
 \ 'bubblegum'  : {
@@ -281,10 +305,6 @@ let g:thematic#themes = {
 \                 'ruler': 1,
 \                },
 \ }
-
-"let g:lights_auto = 1
-
-
 
 Plug 'preservim/vim-colors-pencil'
 let g:pencil_higher_contrast_ui = 1   " 0=low (def), 1=high
