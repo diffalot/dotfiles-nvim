@@ -89,10 +89,14 @@ let mapleader=','
 let localmapleader = "\<Space>"
 set timeoutlen=1250
 
+" Tabs
+nmap <Ctrl-.> tabnext<CR>
+
 " File Management
 noremap <Ctrl-P> :FZF<CR>
 nmap ,p :GFiles<CR>
 nmap ,o :FZF<CR>
+
 " Reading
 " <leader> u OpenUrl
 
