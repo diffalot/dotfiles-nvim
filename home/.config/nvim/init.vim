@@ -1,12 +1,12 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                                                   2021-05-09
+" Alice Davis <alice@gigantic.computer>                             2021-05-09
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" The person I copied this config from wants you to remember:
-" 'Make sure you use single quotes!'
+"                  The person I copied this config from wants you to remember:
+"                                           'Make sure you use single quotes!'
 " 
 " Todo:
-" [ ] Study how to test Vim Script with Vader
+" [ ] Study how to test Vim Scripts
 " [ ] get a solid fix for the tmux terminfo
 " [ ] Find find something better than `gq` for reflowing text
 "     :help formatoptions fo fo-table formatlistpat auto-format
@@ -21,8 +21,11 @@
 " configurations and the example on the front page of the CoC git repo.
 " https://github.com/neoclide/coc.nvim
 "
-" Notes:
-"   tmux - vim - clipboard pasting
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Things to Install
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" tmux - vim - clipboard pasting
 "
 "   *Copying*
 "
@@ -46,16 +49,20 @@
 "   | tmux        | macOS              | depends on terminal, usually: |
 "                                        <apple> + <c>                 |
 "
+"     ...To be continued
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" The hopefully brief section of fixes
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " To Debug the Configuration, turn things off and load up minivrc
 "
-" source ~/.config/nvim/minivimrc/vimrc
+" source ~/.config/nvim/vimrcs/minivimrc-romainl/vimrc
 "
 " https://github.com/romainl/minivimrc
 "
 " Running vim with out any plugins everynow and then is a nice reminder of how
-" fast it can be
-" nvim -U NONE -u NONE
+" fast it can be `nvim -U NONE -u NONE`
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " I wish people distributed more shell scripts written in fish
@@ -84,36 +91,9 @@ if (has('nvim'))
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Keybindings
-
-set timeoutlen=1250
-let mapleader='\'
-let localmapleader = "\<Space>"
-
-" File Management
-nnoremap ,p :GFiles<CR>
-nnoremap ,o :Files<CR>
-
-" Tab Controls
-nnoremap <C-k> :tabnew<CR>
-nnoremap <C-l> :tabnext<CR>
-nnoremap <C-m> :tabprevious<CR>
-nnoremap <C-n> :tabmove<CR>
-nnoremap <C-q> :tabclose<CR>
-
-" Buffer Controls
-nnoremap <C-b> :Buffers<CR>
-nnoremap <C-v> :bd<CR>
-nnoremap <M-l> :bn<CR>
-nnoremap <M-m> :bp<CR>
-
-" Code Analysis
-nnoremap <F9> :Vista!!<CR>
-
-" Reading
-" <leader> u OpenUrl
-
+" I've seen it worse
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Manage built in options
 
 set nocompatible
 
@@ -183,6 +163,38 @@ endif
 call plug#begin('~/.config/nvim/plugged')
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Words
+
+Plug 'henrik/vim-open-url'
+" Trigger with <leader>u or :OpenURL
+
+"Plug 'preservim/nerdcommenter'
+
+" spelling
+" keybindings: https://github.com/preservim/vim-lexical#spell-check
+Plug 'preservim/vim-lexical'
+let g:lexical#spell = 1
+let g:lexical#spelllang = ['en_us','en_ca','en_gb']
+augroup lexical
+  autocmd!
+  autocmd FileType markdown,mkd call lexical#init()
+  autocmd FileType textile call lexical#init()
+  autocmd FileType text call lexical#init({ 'spell': 0 })
+augroup END
+
+Plug 'preservim/vim-wordy'
+" https://github.com/preservim/vim-wordy
+
+" Persistent Scratch
+Plug 'mtth/scratch.vim'
+let g:scratch_top = 1
+let g:scratch_height = 18 
+let g:scratch_filetype = 'markdown'
+let g:scratch_persistence_file = '~/.scratch.md'
+"let g:scratch_autohide = &hidden
+"let g:scratch_insert_autohide = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " File management
 
 " Fugitive - https://github.com/tpope/vim-fugitive
@@ -220,83 +232,8 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-endwise'
 
 Plug 'mbbill/undotree'
-nnoremap <F2> :UndotreeToggle<CR>
-if has("persistent_undo")
-   let target_path = expand('~/.undodir')
-
-    " create the directory and any parent directories
-    " if the location does not exist.
-    if !isdirectory(target_path)
-        call mkdir(target_path, "p", 0700)
-    endif
-
-    let &undodir=target_path
-    set undofile
-endif
-if !exists('g:undotree_WindowLayout')
-    let g:undotree_WindowLayout = 2
-endif
-" e.g. using 'd' instead of 'days' to save some space.
-if !exists('g:undotree_ShortIndicators')
-    let g:undotree_ShortIndicators = 1
-endif
-" undotree window width
-if !exists('g:undotree_SplitWidth')
-    if g:undotree_ShortIndicators == 1
-        let g:undotree_SplitWidth = 32
-    else
-        let g:undotree_SplitWidth = 36
-    endif
-endif
-" diff window height
-if !exists('g:undotree_DiffpanelHeight')
-    let g:undotree_DiffpanelHeight = 18
-endif
-" auto open diff window
-if !exists('g:undotree_DiffAutoOpen')
-    let g:undotree_DiffAutoOpen = 1
-endif
-" if set, let undotree window get focus after being opened, otherwise
-" focus will stay in current window.
-if !exists('g:undotree_SetFocusWhenToggle')
-    let g:undotree_SetFocusWhenToggle = 1
-endif
-if !exists('g:undotree_DiffCommand')
-    let g:undotree_DiffCommand = "diff"
-endif
-" relative timestamp
-if !exists('g:undotree_RelativeTimestamp')
-    let g:undotree_RelativeTimestamp = 1
-endif
-" Highlight changed text
-if !exists('g:undotree_HighlightChangedText')
-    let g:undotree_HighlightChangedText = 1
-endif
-
-" Highlight changed text using signs in the gutter
-if !exists('g:undotree_HighlightChangedWithSign')
-    let g:undotree_HighlightChangedWithSign = 1
-endif
-" Highlight linked syntax type.
-" You may chose your favorite through ":hi" command
-if !exists('g:undotree_HighlightSyntaxAdd')
-    let g:undotree_HighlightSyntaxAdd = "DiffAdd"
-endif
-if !exists('g:undotree_HighlightSyntaxChange')
-    let g:undotree_HighlightSyntaxChange = "DiffChange"
-endif
-if !exists('g:undotree_HighlightSyntaxDel')
-    let g:undotree_HighlightSyntaxDel = "DiffDelete"
-endif
-" Show help line
-if !exists('g:undotree_HelpLine')
-    let g:undotree_HelpLine = 0
-endif
-" Show cursorline
-if !exists('g:undotree_CursorLine')
-    let g:undotree_CursorLine = 1
-endif
-
+" there's a lot of options for undotree so it is configures in
+" ~/.config/nvim/plugins/conf.undotree.vim
 
 Plug 'vim-syntastic/syntastic'
 set statusline+=%#warningmsg#
@@ -311,8 +248,6 @@ let g:syntastic_check_on_wq = 0
 " if you have multiple checkers for a filetype
 " let g:syntastic_<filetype>_checkers = ['<checker-name>']
 " and you can run a checker or two on command
-
-Plug 'kyazdani42/nvim-web-devicons'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Syntax Highlighting Megadeals Every SuperbGame Satuday!!!
@@ -354,25 +289,7 @@ autocmd FileType fish setlocal foldmethod=expr
 " Plug 'elzr/vim-json'
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Things to Install
-"
-"
-" Don't install new shit because you just installed:
-"
-" FZF - https://github.com/junegunn/fzf.vim
-"   - ignoring node_modules
-"   - key bindings
-"     - control-p to find files
-"     - control-shift-p to search test in a repo
-"
-"
-" And you already want to try out:
-" 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Code Analysis Tools
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" LSP Configs for build in LSC -  https://github.com/neovim/nvim-lspconfig
+" LSP Configs for built in LSC -  https://github.com/neovim/nvim-lspconfig
 Plug 'neovim/nvim-lspconfig'
 
 command! -nargs=* StartLSPs call __StartLSPs()
@@ -446,6 +363,52 @@ end
 EOF
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Keybindings
+
+set timeoutlen=1250
+let mapleader='\'
+let localmapleader = "\<Space>"
+
+" Utilities
+nnoremap <F2> :UndotreeToggle<CR>
+nnoremap <F9> :Vista!!<CR>
+" (set by plugin) <leader> u OpenUrl
+
+" File Management
+nnoremap ,p :GFiles<CR>
+nnoremap ,o :Files<CR>
+
+" Tab Controls
+nnoremap <C-k> :tabnew<CR>
+nnoremap <C-l> :tabnext<CR>
+nnoremap <C-m> :tabprevious<CR>
+nnoremap <C-n> :tabmove<CR>
+nnoremap <C-q> :tabclose<CR>
+
+" Buffer Controls
+nnoremap <C-b> :Buffers<CR>
+nnoremap <C-v> :bd<CR>
+nnoremap <M-l> :bn<CR>
+nnoremap <M-m> :bp<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
+
+Plug 'liuchengxu/vista.vim'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" EleLine - https://github.com/liuchengxu/eleline.vim
+
+Plug 'liuchengxu/eleline.vim'
+let g:eleline_powerline_fonts = 1
+" let g:eleline_slim = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Fancy Icons
+
+Plug 'kyazdani42/nvim-web-devicons'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Gutentags - https://github.com/ludovicchabant/vim-gutentags
 
 Plug 'ludovicchabant/vim-gutentags'
@@ -465,18 +428,6 @@ set statusline+=%{gutentags#statusline()}
 "let g:gutentags_plus_switch = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
-
-Plug 'liuchengxu/vista.vim'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" EleLine - https://github.com/liuchengxu/eleline.vim
-
-Plug 'liuchengxu/eleline.vim'
-let g:eleline_powerline_fonts = 1
-" let g:eleline_slim = 1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " A little help from tmux to know when vim is focused or not
 
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -484,40 +435,8 @@ Plug 'roxma/vim-tmux-clipboard'
 Plug 'tmux-plugins/vim-tmux'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Words
-
-Plug 'henrik/vim-open-url'
-" Trigger with <leader>u or :OpenURL
-
-"Plug 'preservim/nerdcommenter'
-
-" spelling
-" keybindings: https://github.com/preservim/vim-lexical#spell-check
-Plug 'preservim/vim-lexical'
-let g:lexical#spell = 1
-let g:lexical#spelllang = ['en_us','en_ca','en_gb']
-augroup lexical
-  autocmd!
-  autocmd FileType markdown,mkd call lexical#init()
-  autocmd FileType textile call lexical#init()
-  autocmd FileType text call lexical#init({ 'spell': 0 })
-augroup END
-
-Plug 'preservim/vim-wordy'
-" https://github.com/preservim/vim-wordy
-
-" Persistent Scratch
-Plug 'mtth/scratch.vim'
-let g:scratch_top = 1
-let g:scratch_height = 18 
-let g:scratch_filetype = 'markdown'
-let g:scratch_persistence_file = '~/.scratch.md'
-"let g:scratch_autohide = &hidden
-"let g:scratch_insert_autohide = 1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Themes must be installed plug initialization, but they can't be activated till
-" after plug has loaded every single one, I think, maybe?
+" Themes must be installed during plug initialization, but they can't be
+" activated till after plug has loaded every single one, I think, maybe?
 
 let g:lights_auto = 1
 
@@ -590,6 +509,7 @@ call plug#end()
 
 " Learn to use this to test Vim Scripts
 " Plugin 'junegunn/vader.vim'
+" I know there are others, but I didn't take good notes
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LightSwitch, LightsOff, and LightsOn functions to switch between dark and
@@ -687,49 +607,6 @@ function! ReallyIsNvim()
     echo 'This is not nvim.'
   endif
 endfunction
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Attempts to customize my status line
-
-"set laststatus=2
-"function! StatuslineGit()
-"  let l:branchname = GitBranch()
-"  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
-"endfunction
-"set statusline+=%{StatuslineGit()}
-
-" Kill Switches for Expensive Plugins
-
-" Easytags Kill Switch will stop the scanning of source files for tags.
-" Comment this out and Easytags will scan while you are not typing
-"let g:easytags_on_cursorhold = 1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" I don't know what anthing in this section means, I just copied it from
-" https://github.com/neoclide/coc.nvim along with the CoC config above.
-
-" TextEdit might fail if hidden is not set.
-set hidden
-
-" Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
-
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
-
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                ¯\_(ツ)_/¯
