@@ -65,10 +65,13 @@
 " fast it can be `nvim -U NONE -u NONE`
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" I wish people distributed more shell scripts written in fish
-if &shell =~# 'fish$'
-    set shell=zsh
+" Distribution specific initialization
+if has('win32')
+elseif has('mac')
+elseif has('unix')
+  set shell=zsh
 endif
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " It's worth a nasty bug to have italics
 set t_ZH=^[[3m
