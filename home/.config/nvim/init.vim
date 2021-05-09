@@ -85,18 +85,21 @@ endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Keybindings
+
+set timeoutlen=1250
 let mapleader=','
 let localmapleader = "\<Space>"
-set timeoutlen=1250
-
-" Tabs
-nmap <Ctrl-.> tabnext<CR>
 
 " File Management
-noremap <Ctrl-P> :FZF<CR>
-nmap ,p :GFiles<CR>
-nmap ,o :FZF<CR>
+nnoremap ,p :GFiles<CR>
+nnoremap ,o :FZF<CR>
 
+nnoremap <CTRL-/> :tabnew<CR>
+nnoremap <CTRL-.> :tabnext<CR>
+nnoremap <CTRL-,> :tabprevious<CR>
+
+" Code Analysis
+nnoremap <F9> :Vista!!<CR>
 " Reading
 " <leader> u OpenUrl
 
@@ -162,6 +165,8 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Fugitive - https://github.com/tpope/vim-fugitive
 Plug 'tpope/vim-fugitive'
+command -nargs=* Glg Git! log --graph --pretty=format:'\%h - (\%ad)\%d \%s <\%an>' --abbrev-commit --date=local <args>
+
 
 " DiffView - https://github.com/sindrets/diffview.nvim
 Plug 'sindrets/diffview.nvim'
