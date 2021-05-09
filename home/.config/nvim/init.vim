@@ -197,18 +197,17 @@ autocmd FileType fish setlocal foldmethod=expr
 
 "Plug 'rust-lang/rust.vim'
 
+" Allegedly the best, but I'm gonna try them out one at a time...
+"Plug 'yuezk/vim-js'
+
 " I'm not sure how fast this one is, I know it has Intellisense...
 " Plug 'vim-scripts/SyntaxComplete'
 
-" Allegedly the best, but I'm gonna try them out one at a time...
-"Plug 'yuezk/vim-js'
-"Plug 'othree/yajs.vim'
-"Plug 'othree/es.next.syntax.vim'
-
-" Allegedly the best, but I'm gonna try them out one at a time...
-"Plug 'othree/javascript-libraries-syntax.vim'
-"let g:used_javascript_libs =
-"      \ 'react,underscore,jasmine,chai,tape' 
+" Plug 'othree/yajs.vim'
+" Plug 'othree/es.next.syntax.vim'
+" Plug 'othree/javascript-libraries-syntax.vim'
+" let g:used_javascript_libs =
+"       \ 'react,underscore,jasmine,chai,tape' 
         " jquery,handlebars,vue,d3,
 
 " Allegedly the best, but I'm gonna try them out one at a time...
