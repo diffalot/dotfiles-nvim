@@ -87,17 +87,25 @@ endif
 " Keybindings
 
 set timeoutlen=1250
-let mapleader=','
+let mapleader='\'
 let localmapleader = "\<Space>"
 
 " File Management
 nnoremap ,p :GFiles<CR>
 nnoremap ,o :Files<CR>
 
-" Tab controls
-nnoremap <CTRL-/> :tabnew<CR>
-nnoremap <CTRL-.> :tabnext<CR>
-nnoremap <CTRL-,> :tabprevious<CR>
+" Tab Controls
+nnoremap <C-k> :tabnew<CR>
+nnoremap <C-l> :tabnext<CR>
+nnoremap <C-m> :tabprevious<CR>
+nnoremap <C-n> :tabmove<CR>
+nnoremap <C-q> :tabclose<CR>
+
+" Buffer Controls
+nnoremap <C-b> :Buffers<CR>
+nnoremap <C-v> :bd<CR>
+nnoremap <M-l> :bn<CR>
+nnoremap <M-m> :bp<CR>
 
 " Code Analysis
 nnoremap <F9> :Vista!!<CR>
