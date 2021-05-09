@@ -26,20 +26,25 @@
 "   
 "   *Copying*
 "
-"   | System Type | Copy To           | How to Copy to It                                                                                             |
-"   | macOS       | the only one      | <apple> + <c>                                                                                                 |
-"   | vim         | vim yank? buffer  | (select text), <y>                                                                                            |
-"   | vim         | new tmux buffer   | sycronized with yank                                                                                          |
-"   | tmux        | new tmux buffer   | <bind-key>, [, (navigate to beginning of desired selection), <space>, (navigate to end of selection), <enter> |
-"   | tmux        | new tmux buffer   | select test with the mouse                                                                                    |
+"   | System Type | Copy To           | How to Copy to It              |
+"   | macOS       | the only one      | <apple> + <c>                  |
+"   | vim         | vim yank? buffer  | (select text), <y>             |
+"   | vim         | new tmux buffer   | sycronized with yank           |
+"   | tmux        | new tmux buffer   | <bind-key>, [, (navigate to    |
+"                                       beginning of desired           |
+"                                       selection), <space>, (navigate |
+"                                       to end of selection), <enter>  |
+"   | tmux        | new tmux buffer   | select test with the mouse     |
 " 
 "
 "   *Pasting*
 "
-"   | System      | Past From          | How to Paste from It                        |
-"   | tmux        | vim yank           | unknown (use paste from newest buffer)      |
-"   | tmux        | newest tmux buffer | <bind-key>, ]                               |
-"   | tmux        | macOS              | depends on terminal, usually: <apple> + <c> |
+"   | System      | Past From          | How to Paste from It          |
+"   | tmux        | vim yank           | unknown (use paste from       |
+"                                        newest buffer)                |
+"   | tmux        | newest tmux buffer | <bind-key>, ]                 |
+"   | tmux        | macOS              | depends on terminal, usually: |
+"                                        <apple> + <c>                 |
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " To Debug the Configuration, turn things off and load up minivrc
@@ -80,34 +85,19 @@ endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Keybindings
-
 let mapleader=','
+let localmapleader = "\<Space>"
+set timeoutlen=1250
 
-nnoremap <leader>n :FZF<CR>
-
-
+" File Management
+noremap <Ctrl-P> :FZF<CR>
+nmap ,p :GFiles<CR>
+nmap ,o :FZF<CR>
 " Reading
-"
 " <leader> u OpenUrl
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Don't install new shit because you just installed:
-"
-" * DiffView
-"
-" You still haven't setup
-"
-" FZF key bindings and ignoring node_modules
-"
-" And you already want to try out:
-"
-" https://github.com/ludovicchabant/vim-gutentags
-" 
-" https://github.com/tpope/vim-fugitive
-" 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set timeoutlen=1750
 
 set nocompatible
 
@@ -166,8 +156,22 @@ call plug#begin('~/.config/nvim/plugged')
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " File management
 
+" Fugitive - https://github.com/tpope/vim-fugitive
+Plug 'tpope/vim-fugitive'
+
+" DiffView - https://github.com/sindrets/diffview.nvim
+Plug 'sindrets/diffview.nvim'
+
+" Signify - https://github.com/mhinz/vim-signify
+if has('nvim') || has('patch-8.0.902')
+  Plug 'mhinz/vim-signify'
+else
+  Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
+endif
+set updatetime=100
+
 " Git modifications noted in the gutter
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 
 " :grep
 set grepprg=rg\ --vimgrep
@@ -181,9 +185,6 @@ Plug 'junegunn/fzf.vim'
 " Make the editor play well with others
 
 Plug 'editorconfig/editorconfig-vim'
-
-Plug 'sindrets/diffview.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
 
 Plug 'tpope/vim-endwise'
 
@@ -200,6 +201,8 @@ let g:syntastic_check_on_wq = 0
 " if you have multiple checkers for a filetype
 " let g:syntastic_<filetype>_checkers = ['<checker-name>']
 " and you can run a checker or two on command
+
+Plug 'kyazdani42/nvim-web-devicons'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Syntax Highlighting Megadeals Every SuperbGame Satuday!!!
@@ -239,10 +242,67 @@ autocmd FileType fish setlocal foldmethod=expr
 "Plug 'jxnblk/vim-mdx-js'
 "Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 " Plug 'elzr/vim-json'
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" External Includes (they're also kill-switches)
+" Things to Install
+"
+"
+" Don't install new shit because you just installed:
+"
+" FZF - https://github.com/junegunn/fzf.vim
+"   - ignoring node_modules
+"   - key bindings
+"     - control-p to find files
+"     - control-shift-p to search test in a repo
+"
+"
+" And you already want to try out:
+" 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Code Analysis Tools
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LSP Configs for build in LSC -  https://github.com/neovim/nvim-lspconfig
+Plug 'neovim/nvim-lspconfig'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+lua << EOF
+local lspconfig = require'lspconfig'
+  lspconfig.tsserver.setup{}
+  lspconfig.vimls.setup{}
+EOF
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Gutentags - https://github.com/ludovicchabant/vim-gutentags
+
+Plug 'ludovicchabant/vim-gutentags'
+set statusline+=%{gutentags#statusline()}
+"Plug 'skywind3000/gutentags_plus'
+"
+"" enable gtags module
+"let g:gutentags_modules = ['ctags'] ", 'gtags_cscope']
+"
+"" config project root markers.
+"let g:gutentags_project_root = ['.root']
+"
+"" generate datebases in my cache directory, prevent gtags files polluting my project
+"let g:gutentags_cache_dir = expand('~/.cache/tags')
+"
+"" change focus to quickfix window after search (optional).
+"let g:gutentags_plus_switch = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
+
+Plug 'liuchengxu/vista.vim'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" EleLine - https://github.com/liuchengxu/eleline.vim
+
+Plug 'liuchengxu/eleline.vim'
+let g:eleline_powerline_fonts = 1
+" let g:eleline_slim = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " A little help from tmux to know when vim is focused or not
 
 Plug 'tmux-plugins/vim-tmux-focus-events'
