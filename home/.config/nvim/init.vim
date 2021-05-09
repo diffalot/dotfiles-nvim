@@ -1,11 +1,6 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Kill Switches for Expensive Plugins
 
-" Easytags Kill Switch will stop the scanning of source files for tags.
-" Comment this out and Easytags will scan while you are not typing
-
-let g:easytags_on_cursorhold = 1
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " The person I copied this config from wants you to remember:
 " 'Make sure you use single quotes!'
@@ -225,12 +220,6 @@ autocmd FileType fish setlocal foldmethod=expr
 " Plug 'elzr/vim-json'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " External Includes (they're also kill-switches)
-
-" Tagbar <F9> and EasyTags
-source ~/.config/nvim/tagbar-and-easytags.vim
-
-" CoC Language Server Client
-source ~/.config/nvim/CoC-LanguageServerClients.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " A little help from tmux to know when vim is focused or not
