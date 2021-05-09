@@ -114,7 +114,14 @@ set nohlsearch
 
 set number
 
-set wrap
+" echo winwidth('%')
+" reports 61 on the phone
+if winwidth('%') < 70
+  set nowrap
+else
+  set wrap
+end
+
 " set nolist
 
 " todo:(alice) figure out good settings for markdown lists
