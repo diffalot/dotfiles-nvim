@@ -7,23 +7,23 @@
 " 
 " Todo:
 " [ ] Study how to test Vim Script with Vader
-" [ ] Figure out why home/end are broken, but only sometimes 😨
-"     [ ] get a solid fix for the tmux terminfo
+" [ ] get a solid fix for the tmux terminfo
 " [ ] Find find something better than `gq` for reflowing text
 "     :help formatoptions fo fo-table formatlistpat auto-format
 "     https://vim.fandom.com/wiki/Automatic_formatting_of_paragraphs
-" [ ] Make tmux clipboard sync with macOS clipboard
 "
 " Done:
 " [x] Make yank and put in nvim syncronize with tmux
+" [x] Make tmux clipboard sync with macOS clipboard
+" [x] Figure out why home/end are broken, but only sometimes 😨
 "
 " Compiled from an ancient `.vimrc` that had collected a lot of other people's
 " configurations and the example on the front page of the CoC git repo.
 " https://github.com/neoclide/coc.nvim
-" 
+"
 " Notes:
 "   tmux - vim - clipboard pasting
-"   
+"
 "   *Copying*
 "
 "   | System Type | Copy To           | How to Copy to It              |
@@ -92,14 +92,16 @@ let localmapleader = "\<Space>"
 
 " File Management
 nnoremap ,p :GFiles<CR>
-nnoremap ,o :FZF<CR>
+nnoremap ,o :Files<CR>
 
+" Tab controls
 nnoremap <CTRL-/> :tabnew<CR>
 nnoremap <CTRL-.> :tabnext<CR>
 nnoremap <CTRL-,> :tabprevious<CR>
 
 " Code Analysis
 nnoremap <F9> :Vista!!<CR>
+
 " Reading
 " <leader> u OpenUrl
 
@@ -165,6 +167,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Fugitive - https://github.com/tpope/vim-fugitive
 Plug 'tpope/vim-fugitive'
+Plug 'rbong/vim-flog'
 command -nargs=* Glg Git! log --graph --pretty=format:'\%h - (\%ad)\%d \%s <\%an>' --abbrev-commit --date=local <args>
 
 
