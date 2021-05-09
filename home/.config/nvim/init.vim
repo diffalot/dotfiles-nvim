@@ -1,6 +1,6 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Kill Switches for Expensive Plugins
-
+"                                                                   2021-05-09
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " The person I copied this config from wants you to remember:
 " 'Make sure you use single quotes!'
