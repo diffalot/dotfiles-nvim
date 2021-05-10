@@ -233,6 +233,8 @@ set grepprg=rg\ --vimgrep
 " brew install fsf ag ripgrep perl git-delta 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+" don't search .git or node_modules by default
+let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git --exclude node_modules'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Make the editor handle a lot of the thinking
