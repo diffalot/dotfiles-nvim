@@ -411,7 +411,12 @@ Plug 'liuchengxu/vista.vim'
 
 Plug 'liuchengxu/eleline.vim'
 let g:eleline_powerline_fonts = 1
-" let g:eleline_slim = 1
+
+" echo winwidth('%')
+" reports 61 on the phone
+if winwidth('%') < 70
+  let g:eleline_slim = 1
+end
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fancy Icons
@@ -448,7 +453,11 @@ Plug 'tmux-plugins/vim-tmux'
 " Themes must be installed during plug initialization, but they can't be
 " activated till after plug has loaded every single one, I think, maybe?
 
-let g:lights_auto = 1
+" echo winwidth('%')
+" reports 61 on the phone
+if winwidth('%') > 69
+  let g:lights_auto = 1
+end
 
 Plug 'preservim/vim-thematic'
 let g:thematic#themes = {
@@ -569,7 +578,9 @@ endfunction
 if (exists('g:lights_auto'))
   call __auto()
 else
-  colorscheme PaperColor
+  set background=dark
+  colorscheme pencil
+  "colorscheme PaperColor
   "colorscheme matrix
   "colorscheme default
   "let ayucolor="light"  
