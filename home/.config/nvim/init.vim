@@ -397,9 +397,9 @@ nnoremap <C-q> :tabclose<CR>
 
 " Buffer Controls
 nnoremap <C-b> :Buffers<CR>
-nnoremap <C-v> :bd<CR>
-nnoremap <M-l> :bn<CR>
-nnoremap <M-m> :bp<CR>
+"nnoremap <C-v> :bd<CR>
+"nnoremap <M-l> :bn<CR>
+"nnoremap <M-m> :bp<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
