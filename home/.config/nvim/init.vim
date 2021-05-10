@@ -65,10 +65,13 @@
 " fast it can be `nvim -U NONE -u NONE`
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" I wish people distributed more shell scripts written in fish
-if &shell =~# 'fish$'
-    set shell=zsh
+" Distribution specific initialization
+if has('win32')
+elseif has('mac')
+elseif has('unix')
+  set shell=zsh
 endif
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " It's worth a nasty bug to have italics
 set t_ZH=^[[3m
@@ -111,7 +114,14 @@ set nohlsearch
 
 set number
 
-set wrap
+" echo winwidth('%')
+" reports 61 on the phone
+if winwidth('%') < 70
+  set nowrap
+else
+  set wrap
+end
+
 " set nolist
 
 " todo:(alice) figure out good settings for markdown lists
@@ -288,80 +298,80 @@ autocmd FileType fish setlocal foldmethod=expr
 "Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 " Plug 'elzr/vim-json'
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" LSP Configs for built in LSC -  https://github.com/neovim/nvim-lspconfig
-Plug 'neovim/nvim-lspconfig'
-
-command! -nargs=* StartLSPs call __StartLSPs()
-function! __StartLSPs()
-  LspStart tsserver
-  LspStart vimls
-endfunction
-
-lua << EOF
-local lspconfig = require'lspconfig'
-  lspconfig.tsserver.setup{}
-  lspconfig.vimls.setup{}
-EOF
-
-lua << EOF
-local nvim_lsp = require('lspconfig')
-local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  local opts = { noremap=true, silent=true }
-  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-
-  -- Set some keybinds conditional on server capabilities
-  if client.resolved_capabilities.document_formatting then
-    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  end
-  if client.resolved_capabilities.document_range_formatting then
-    buf_set_keymap("v", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-  end
-
-  -- Set autocommands conditional on server_capabilities
-  if client.resolved_capabilities.document_highlight then
-    vim.api.nvim_exec([[
-      hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-      hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-      hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
-      augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]], false)
-  end
-end
-
--- Use a loop to conveniently both setup defined servers 
--- and map buffer local keybindings when the language server attaches
-local servers = { "pyright", "rust_analyzer", "tsserver" }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup { on_attach = on_attach }
-end
-EOF
-
+"!"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"!" LSP Configs for built in LSC -  https://github.com/neovim/nvim-lspconfig
+"!Plug 'neovim/nvim-lspconfig'
+"!
+"!command! -nargs=* StartLSPs call __StartLSPs()
+"!function! __StartLSPs()
+"!  LspStart tsserver
+"!  LspStart vimls
+"!endfunction
+"!
+"!lua << EOF
+"!local lspconfig = require'lspconfig'
+"!  lspconfig.tsserver.setup{}
+"!  lspconfig.vimls.setup{}
+"!EOF
+"!
+"!lua << EOF
+"!local nvim_lsp = require('lspconfig')
+"!local on_attach = function(client, bufnr)
+"!  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+"!  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+"!
+"!  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+"!
+"!  -- Mappings.
+"!  local opts = { noremap=true, silent=true }
+"!  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+"!  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+"!  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+"!  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+"!  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+"!  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+"!  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+"!  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+"!  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+"!  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+"!  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+"!  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+"!  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+"!  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+"!  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+"!  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+"!
+"!  -- Set some keybinds conditional on server capabilities
+"!  if client.resolved_capabilities.document_formatting then
+"!    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+"!  end
+"!  if client.resolved_capabilities.document_range_formatting then
+"!    buf_set_keymap("v", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+"!  end
+"!
+"!  -- Set autocommands conditional on server_capabilities
+"!  if client.resolved_capabilities.document_highlight then
+"!    vim.api.nvim_exec([[
+"!      hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+"!      hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+"!      hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+"!      augroup lsp_document_highlight
+"!        autocmd! * <buffer>
+"!        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+"!        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+"!      augroup END
+"!    ]], false)
+"!  end
+"!end
+"!
+"!-- Use a loop to conveniently both setup defined servers 
+"!-- and map buffer local keybindings when the language server attaches
+"!local servers = { "pyright", "rust_analyzer", "tsserver" }
+"!for _, lsp in ipairs(servers) do
+"!  nvim_lsp[lsp].setup { on_attach = on_attach }
+"!end
+"!EOF
+"!
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Keybindings
 
@@ -387,9 +397,9 @@ nnoremap <C-q> :tabclose<CR>
 
 " Buffer Controls
 nnoremap <C-b> :Buffers<CR>
-nnoremap <C-v> :bd<CR>
-nnoremap <M-l> :bn<CR>
-nnoremap <M-m> :bp<CR>
+"nnoremap <C-v> :bd<CR>
+"nnoremap <M-l> :bn<CR>
+"nnoremap <M-m> :bp<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
@@ -401,7 +411,12 @@ Plug 'liuchengxu/vista.vim'
 
 Plug 'liuchengxu/eleline.vim'
 let g:eleline_powerline_fonts = 1
-" let g:eleline_slim = 1
+
+" echo winwidth('%')
+" reports 61 on the phone
+if winwidth('%') < 70
+  let g:eleline_slim = 1
+end
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fancy Icons
@@ -438,7 +453,11 @@ Plug 'tmux-plugins/vim-tmux'
 " Themes must be installed during plug initialization, but they can't be
 " activated till after plug has loaded every single one, I think, maybe?
 
-let g:lights_auto = 1
+" echo winwidth('%')
+" reports 61 on the phone
+if winwidth('%') > 69
+  let g:lights_auto = 1
+end
 
 Plug 'preservim/vim-thematic'
 let g:thematic#themes = {
@@ -499,7 +518,7 @@ Plug 'ayu-theme/ayu-vim'
 "Plug 'dracula/vim', { 'as': 'dracula' }
 " colorscheme dracula
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#end() 
 
@@ -559,7 +578,9 @@ endfunction
 if (exists('g:lights_auto'))
   call __auto()
 else
-  colorscheme PaperColor
+  set background=dark
+  colorscheme pencil
+  "colorscheme PaperColor
   "colorscheme matrix
   "colorscheme default
   "let ayucolor="light"  
