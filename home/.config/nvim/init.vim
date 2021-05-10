@@ -4,7 +4,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                  The person I copied this config from wants you to remember:
 "                                           'Make sure you use single quotes!'
-" 
+"
 " Todo:
 " [ ] Study how to test Vim Scripts
 " [ ] get a solid fix for the tmux terminfo
@@ -15,11 +15,10 @@
 " Done:
 " [x] Make yank and put in nvim syncronize with tmux
 " [x] Make tmux clipboard sync with macOS clipboard
-" [x] Figure out why home/end are broken, but only sometimes 😨
 "
 " Compiled from an ancient `.vimrc` that had collected a lot of other people's
-" configurations and the example on the front page of the CoC git repo.
-" https://github.com/neoclide/coc.nvim
+" configurations and the examples on the front page of the git repos I've
+" stumbled upon over the years during my search for the perfect plugins..
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Things to Install
@@ -152,8 +151,12 @@ set splitright
 " let cursor move across line breaks
 set whichwrap=b,s,<,>,[,]
 
-" I don't like folding
+" no folding
 set nofoldenable
+
+" tab bar and status bar display by default
+set showtabline=2
+set laststatus=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Wildmenu
@@ -195,13 +198,13 @@ augroup END
 Plug 'preservim/vim-wordy'
 " https://github.com/preservim/vim-wordy
 
-" Persistent Scratch
-Plug 'mtth/scratch.vim'
+" Persistent scratch
+Plug 'diffalot/scratch.vim'
 let g:scratch_top = 1
 let g:scratch_height = 18 
 let g:scratch_filetype = 'markdown'
 let g:scratch_persistence_file = '~/.scratch.md'
-"let g:scratch_autohide = &hidden
+let g:scratch_autohide = 1 "&hidden
 "let g:scratch_insert_autohide = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -210,7 +213,6 @@ let g:scratch_persistence_file = '~/.scratch.md'
 " Fugitive - https://github.com/tpope/vim-fugitive
 Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
-
 
 " DiffView - https://github.com/sindrets/diffview.nvim
 Plug 'sindrets/diffview.nvim'
@@ -240,8 +242,6 @@ let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git --exclude node_m
 " Make the editor handle a lot of the thinking
 
 Plug 'editorconfig/editorconfig-vim'
-
-Plug 'tpope/vim-endwise'
 
 Plug 'mbbill/undotree'
 " there's a lot of options for undotree so it is configures in
@@ -399,8 +399,8 @@ nnoremap <C-q> :tabclose<CR>
 
 " Buffer Controls
 nnoremap <C-b> :Buffers<CR>
-"nnoremap <C-v> :bd<CR>
-"nnoremap <M-l> :bn<CR>
+nnoremap <leader>qqy :bd<CR>
+"nnnoremap <M-l> :bn<CR>
 "nnoremap <M-m> :bp<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
