@@ -463,6 +463,47 @@ call plug#end()
 " I know there are others, but I didn't take good notes
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" :ManageNvimConfig & :ReloadNvimConfig
+"
+" This contains two commands for managing the vim config, I suppose one of
+" the reload command could be done away with because the file
+" automatically reloads... But nah, I'm sure I can break the management
+" command eventually.
+" 
+" required variable:
+" let g:znv_config_dir = '$HOME/.config/nvim'
+" 
+" * `ReloadNvimConfig` re-sources the init.vim, and it sources it from the
+"   dotfiles-nvim directory in ~/.homesick (at least in my setup)
+"
+" * `ManageNvimConfig` opens up a new tab at tab index 0 (farthest to the
+"   left), and sets the working directory of that tab to the
+"   `g;znv_config_dir` you set in your init.vim without affecting any
+"   other tabs you may have open.
+
+" Required variables
+let g:znv_config_dir = '$HOME/.homesick/repos/dotfiles-nvim/home/.config/nvim'
+
+" Open a new tab, switch to it, change the tab working directory to homeshick
+" dotfiles-nvim, and open the init.vim
+command! -nargs=* ManageNvimConfig call ZNV_Setup()
+
+" Run Reload to source from the config in dotfiles-nvim
+command! -nargs=* ReloadNvimConfig execute(g:znv_config_source_command)
+
+" computed variables
+let g:znv_config_source_command = 'source' . expand(g:znv_config_dir) . '/init.vim'
+
+function! ZNV_Setup()
+  execute 'tabnew' . g:znv_config_dir . '/init.vim'
+  execute 'tcd' . g:znv_config_dir
+  augroup ZNV_Config_Reloader
+    autocmd! BufWritePost <buffer> execute(g:znv_config_source_command)
+  augroup END
+  tabm0
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LightSwitch, LightsOff, and LightsOn functions to switch between dark and
 " light modes at dusk and dawn (not accurately), or on demand.
 
