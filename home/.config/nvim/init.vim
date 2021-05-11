@@ -238,6 +238,20 @@ Plug 'junegunn/fzf.vim'
 " don't search .git or node_modules by default
 let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git --exclude node_modules'
 
+" make netrw act like nerdtree :)
+" https://shapeshed.com/vim-netrw/
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netr_winsize = -35
+let g:netrw_keepdir = 0
+
+
+Plug 'kyazdani42/nvim-web-devicons'
+"" https://github.com/kyazdani42/nvim-tree.lua
+"Plug 'kyazdani42/nvim-tree.lua'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Make the editor handle a lot of the thinking
 
@@ -333,6 +347,8 @@ nnoremap <leader>qqy :bd<CR>
 "nnnoremap <M-l> :bn<CR>
 "nnoremap <M-m> :bp<CR>
 
+" NVim Tree
+nnoremap <leader>n :Vexplore<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
 
