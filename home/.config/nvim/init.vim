@@ -23,6 +23,9 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Things to Install
 "
+" https://github.com/vigoux/LanguageTool.nvim
+"
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " tmux - vim - clipboard pasting
 "
@@ -163,7 +166,7 @@ set laststatus=2
 
 if has("wildmenu")
   set wildmenu
-  set wildmode=longest,list
+  set wildmode=longest,list:full
   set wildignore+=*.a,*.o
   set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
   set wildignore+=.DS_Store,.git,.hg,.svn
@@ -261,20 +264,6 @@ Plug 'mbbill/undotree'
 " there's a lot of options for undotree so it is configures in
 " ~/.config/nvim/plugins/conf.undotree.vim
 
-Plug 'vim-syntastic/syntastic'
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" if you have multiple checkers for a filetype
-" let g:syntastic_<filetype>_checkers = ['<checker-name>']
-" and you can run a checker or two on command
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Syntax Highlighting Megadeals Every SuperbGame Satuday!!!
 
@@ -320,10 +309,245 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Keybindings
+"!"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"!" LSP Configs for built in LSC -  https://github.com/neovim/nvim-lspconfig
+"!Plug 'neovim/nvim-lspconfig'
+"!
+"!command! -nargs=* StartLSPs call __StartLSPs()
+"!function! __StartLSPs()
+"!  LspStart tsserver
+"!  LspStart vimls
+"!endfunction
+"!
+"!lua << EOF
+"!local lspconfig = require'lspconfig'
+"!  lspconfig.tsserver.setup{}
+"!  lspconfig.vimls.setup{}
+"!EOF
+"!
+"!lua << EOF
+"!local nvim_lsp = require('lspconfig')
+"!local on_attach = function(client, bufnr)
+"!  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+"!  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+"!
+"!  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+"!
+"!  -- Mappings.
+"!  local opts = { noremap=true, silent=true }
+"!  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+"!  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+"!  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+"!  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+"!  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+"!  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+"!  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+"!  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+"!  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+"!  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+"!  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+"!  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+"!  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+"!  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+"!  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+"!  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+"!
+"!  -- Set some keybinds conditional on server capabilities
+"!  if client.resolved_capabilities.document_formatting then
+"!    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+"!  end
+"!  if client.resolved_capabilities.document_range_formatting then
+"!    buf_set_keymap("v", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+"!  end
+"!
+"!  -- Set autocommands conditional on server_capabilities
+"!  if client.resolved_capabilities.document_highlight then
+"!    vim.api.nvim_exec([[
+"!      hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+"!      hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+"!      hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+"!      augroup lsp_document_highlight
+"!        autocmd! * <buffer>
+"!        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+"!        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+"!      augroup END
+"!    ]], false)
+"!  end
+"!end
+"!
+"!-- Use a loop to conveniently both setup defined servers 
+"!-- and map buffer local keybindings when the language server attaches
+"!local servers = { "pyright", "rust_analyzer", "tsserver" }
+"!for _, lsp in ipairs(servers) do
+"!  nvim_lsp[lsp].setup { on_attach = on_attach }
+"!end
+"!EOF
+"!
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Keybindings
+=======
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" To Install, etc
+
+" https://github.com/neoclide/coc-snippets
+" https://github.com/rome/tools
+" coc-rome
+"
+" https://github.com/neoclide/coc-sources
+" coc-eslint
+" coc-prisma
+" coc-vetur
+" coc-git
+" coc-yank
+" coc-gist
+" coc-translator
+" https://github.com/neoclide/coc-neco
+"
+" Installed
+" coc-dictionary coc-tag coc-word coc-emoji coc-vimlsp
+" coc-html-css-support coc-tailwindcss coc-cssmodules coc-yaml coc-sql
+" coc-graphql coc-prettier coc-stylelintplus coc-snippets
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Coc Launguage Server Client
+" Or build from source code by using yarn: https://yarnpkg.com
+Plug 'neoclide/coc.nvim', 
+  \ {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+
+" Workspace configurations should be named coc-settings.json and be in the
+" directory .vim. After a file is opened in vim, this directory is resolved
+" from the parent directories of that file. Run the command :CocLocalConfig to
+" open your workspace configuration file.
+
+let g:coc_node_path = '/Users/alice/.nvm/versions/node/v14.16.1/bin/node'
+
+" settings from https://github.com/neoclide/coc.nvim
+set encoding=utf-8
+" TextEdit might fail if hidden is not set.
+set hidden
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Coc Functions
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CoC Keybindings
+"
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+
+" the plan is to add these in one at a time, reloading each time, and we'll see
+" how it goes, lol
+
+"inoremap <silent><expr> <TAB>
+"      \ pumvisible() ? "\<C-n>" :
+"      \ <SID>check_back_space() ? "\<TAB>" :
+"      \ coc#refresh()
+"inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+"" Make <CR> auto-select the first completion item and notify coc.nvim to
+"" format on enter, <cr> could be remapped by other vim plugin
+"inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+"                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+"
+"" Use `[g` and `]g` to navigate diagnostics
+"" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+"nmap <silent> [g <Plug>(coc-diagnostic-prev)
+"nmap <silent> ]g <Plug>(coc-diagnostic-next)
+"
+"" GoTo code navigation.
+"nmap <silent> gd <Plug>(coc-definition)
+"nmap <silent> gy <Plug>(coc-type-definition)
+"nmap <silent> gi <Plug>(coc-implementation)
+"nmap <silent> gr <Plug>(coc-references)
+"
+"" Use K to show documentation in preview window.
+"nnoremap <silent> K :call <SID>show_documentation()<CR>
+"
+"" Symbol renaming.
+"nmap <leader>rn <Plug>(coc-rename)
+"
+"" Formatting selected code.
+"xmap <leader>f  <Plug>(coc-format-selected)
+"nmap <leader>f  <Plug>(coc-format-selected)
+"
+"" Applying codeAction to the selected region.
+"" Example: `<leader>aap` for current paragraph
+"xmap <leader>a  <Plug>(coc-codeaction-selected)
+"nmap <leader>a  <Plug>(coc-codeaction-selected)
+"
+"" Remap keys for applying codeAction to the current buffer.
+"nmap <leader>ac  <Plug>(coc-codeaction)
+"" Apply AutoFix to problem on the current line.
+"nmap <leader>qf  <Plug>(coc-fix-current)
+"
+"" Coc Snippets
+"" https://github.com/neoclide/coc-snippets
+"" Use <C-j> for both expand and jump (make expand higher priority.)
+"imap <C-j> <Plug>(coc-snippets-expand-jump)
+"
+"" Use <leader>x for convert visual selected code to snippet
+"xmap <leader>x  <Plug>(coc-convert-snippet)
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Personal Keybindings
 
 set timeoutlen=1250
 let mapleader='\'
-let localmapleader = "\<Space>"
 
 " Utilities
 nnoremap <F2> :UndotreeToggle<CR>
@@ -334,18 +558,13 @@ nnoremap <F9> :Vista!!<CR>
 nnoremap ,p :GFiles<CR>
 nnoremap ,o :Files<CR>
 
-" Tab Controls
-nnoremap <C-k> :tabnew<CR>
-nnoremap <C-l> :tabnext<CR>
-nnoremap <C-m> :tabprevious<CR>
-nnoremap <C-n> :tabmove<CR>
-nnoremap <C-q> :tabclose<CR>
-
 " Buffer Controls
-nnoremap <C-b> :Buffers<CR>
-nnoremap <leader>qqy :bd<CR>
-"nnnoremap <M-l> :bn<CR>
-"nnoremap <M-m> :bp<CR>
+nnoremap <C-Space> :Buffers<CR>
+
+nnoremap <silent><C-]> :tabnext<CR>
+nnoremap <silent><C-[> :tabprevious<CR>
+nnoremap <silent><C-\> :tabmove<CR>
+nnoremap <silent><C-t> :tabnew<CR>
 
 " NVim Tree
 nnoremap <leader>n :Vexplore<CR>
