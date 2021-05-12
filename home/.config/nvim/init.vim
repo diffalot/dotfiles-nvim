@@ -510,6 +510,7 @@ nnoremap ,o :Files<CR>
 
 " Buffer Controls
 nnoremap <C-Space> :Buffers<CR>
+nnoremap <Leader>W :bd<CR>
 
 nnoremap <silent><C-Right> :tabnext<CR>
 nnoremap <silent><C-Left> :tabprevious<CR>
