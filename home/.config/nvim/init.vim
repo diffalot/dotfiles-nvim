@@ -313,37 +313,51 @@ autocmd FileType fish setlocal foldmethod=expr
 "
 " Installed
 "
-" coc-vimlsp
-" coc-tsserver
+"" Basics
 " coc-json
+" coc-sh 
+" coc-yaml
+" coc-git
+" coc-vimlsp
+" coc-gist
+" coc-snippets
+" coc-yank
+" coc-markdown-lint 
+"
+"" Fun
+" coc-emoji 
+" coc-translator
+" coc-dictionary 
+"
+"" Code Analysis
+" coc-tag
+"
+"" Web Development
+" coc-tsserver
 " coc-html 
 " coc-css 
-" coc-markdown-lint 
-" coc-sh 
-" coc-dictionary 
-" coc-tag
-" coc-git
-" coc-word
-" coc-emoji 
-" coc-html-css-support
-" coc-tailwindcss
 " coc-cssmodules
-" coc-yaml
-" coc-sql
+" coc-html-css-support
+"
+""" Linters
 " coc-prettier
-" coc-stylelintplus
-" coc-snippets
-" coc-graphql
 " coc-eslint
+" coc-stylelintplus
+"
+""" Frameworks
+" coc-vetur
+" coc-tailwindcss
+"
+""" Database
+" coc-sql
+" coc-graphql
+" coc-prisma
+"
+"" Runtimes and
+"" Programming Languages
+" coc-rust-analyzer 
 " coc-deno 
 " coc-pyright
-" coc-rust-analyzer 
-" coc-prisma
-" coc-vetur
-" coc-yank
-" coc-gist
-" coc-translator
-" https://github.com/neoclide/coc-neco
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Coc Launguage Server Client
