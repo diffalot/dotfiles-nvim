@@ -498,7 +498,7 @@ xmap <leader>x  <Plug>(coc-convert-snippet)
 " Personal Keybindings
 
 set timeoutlen=1250
-let mapleader='\'
+let mapleader= ' '
 
 " Utilities
 nnoremap <F2> :UndotreeToggle<CR>
