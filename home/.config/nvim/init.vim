@@ -505,20 +505,22 @@ nnoremap <F9> :Vista!!<CR>
 " (set by plugin) <leader> u OpenUrl
 
 " File Management
-nnoremap ,p :GFiles<CR>
-nnoremap ,o :Files<CR>
+nnoremap ,P :GFiles<CR>
+nnoremap ,O :Files<CR>
 
 " Buffer Controls
 nnoremap <C-Space> :Buffers<CR>
 nnoremap <Leader>W :bd<CR>
 
-nnoremap <silent><C-Right> :tabnext<CR>
-nnoremap <silent><C-Left> :tabprevious<CR>
-nnoremap <silent><C-M> :tabmove<CR>
-nnoremap <silent><C-t> :tabnew<CR>
+" Tab Management
+nnoremap <Silent><C-Right> :tabnext<CR>
+nnoremap <Silent><C-Left> :tabprevious<CR>
+nnoremap <Silent><C-M> :tabmove<CR>
+nnoremap <Silent><C-t> :tabnew<CR>
 
-" NVim Tree
-nnoremap <leader>n :Vexplore<CR>
+" netrw Tree
+nnoremap <Leader>n :Vexplore<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
 
