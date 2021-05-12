@@ -220,6 +220,10 @@ Plug 'rbong/vim-flog'
 " DiffView - https://github.com/sindrets/diffview.nvim
 Plug 'sindrets/diffview.nvim'
 
+" Mergetool
+" https://github.com/samoshkin/vim-mergetool
+Plug 'samoshkin/vim-mergetool'
+
 " Signify - https://github.com/mhinz/vim-signify
 if has('nvim') || has('patch-8.0.902')
   Plug 'mhinz/vim-signify'
