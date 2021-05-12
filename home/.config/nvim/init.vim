@@ -511,6 +511,23 @@ nnoremap <leader>n :Vexplore<CR>
 Plug 'liuchengxu/vista.vim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/gcmt/taboo.vim
+Plug 'gcmt/taboo.vim'
+
+" make tabs in guis look the same as terminals
+set guioptions-=e
+set sessionoptions+=tabpages,globals
+
+let g:taboo_tab_format = ' %I%P > %f%l )%U%m |'
+let g:taboo_renamed_tab_format = g:taboo_tab_format
+
+" todo(alice) set name of config tab in ManageNvimConfig
+" TabooRename <tabname> Renames the current tab with the name provided.
+" todo(alice) greate fundtion mapped to new tab keybinding that uses TabooOpen
+" will require prompt to set or fallback to Taboo default
+" TabooOpen <tabname> Opens a new tab and and gives it the name provided.
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " EleLine - https://github.com/liuchengxu/eleline.vim
 
 Plug 'liuchengxu/eleline.vim'
