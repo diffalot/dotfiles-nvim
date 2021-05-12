@@ -201,14 +201,8 @@ augroup END
 Plug 'preservim/vim-wordy'
 " https://github.com/preservim/vim-wordy
 
-" Persistent scratch
-Plug 'diffalot/scratch.vim'
-let g:scratch_top = 1
-let g:scratch_height = 18 
-let g:scratch_filetype = 'markdown'
-let g:scratch_persistence_file = '~/.scratch.md'
-let g:scratch_autohide = 1 "&hidden
-"let g:scratch_insert_autohide = 1
+" https://vimwiki.github.io/
+Plug 'vimwiki/vimwiki'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " File management
