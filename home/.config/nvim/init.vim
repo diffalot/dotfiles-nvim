@@ -46,7 +46,7 @@
 "                                       selection), <space>, (navigate |
 "                                       to end of selection), <enter>  |
 "   | tmux        | new tmux buffer   | select test with the mouse     |
-" 
+"
 "
 "   *Pasting*
 "
@@ -89,7 +89,7 @@ set t_ZR=^[[23m
 " https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
 "
 " Neovim > 0.1.5
-" Vim > patch 7.4.1799 
+" Vim > patch 7.4.1799
 "
 " https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
 " https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
@@ -341,7 +341,7 @@ Plug 'mbbill/undotree'
 set grepprg=rg\ --vimgrep
 
 " fuzzy finder
-" brew install fsf ag ripgrep perl git-delta 
+" brew install fsf ag ripgrep perl git-delta
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " don't search .git or node_modules by default
@@ -379,27 +379,27 @@ Plug 'tmux-plugins/vim-tmux'
 "
 "" Basics
 " coc-json
-" coc-sh 
+" coc-sh
 " coc-yaml
 " coc-git
 " coc-vimlsp
 " coc-gist
 " coc-snippets
 " coc-yank
-" coc-markdown-lint 
+" coc-markdown-lint
 "
 "" Fun
-" coc-emoji 
+" coc-emoji
 " coc-translator
-" coc-dictionary 
+" coc-dictionary
 "
 "" Code Analysis
 " coc-tag
 "
 "" Web Development
 " coc-tsserver
-" coc-html 
-" coc-css 
+" coc-html
+" coc-css
 " coc-cssmodules
 " coc-html-css-support
 "
@@ -419,14 +419,14 @@ Plug 'tmux-plugins/vim-tmux'
 "
 "" Runtimes and
 "" Programming Languages
-" coc-rust-analyzer 
-" coc-deno 
+" coc-rust-analyzer
+" coc-deno
 " coc-pyright
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Coc Launguage Server Client
 " Or build from source code by using yarn: https://yarnpkg.com
-Plug 'neoclide/coc.nvim', 
+Plug 'neoclide/coc.nvim',
   \ {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 
 " Workspace configurations should be named coc-settings.json and be in the
@@ -593,9 +593,9 @@ let g:material_theme_style = 'lighter'
 " colorscheme material
 
 Plug 'ayu-theme/ayu-vim'
-"let ayucolor="light"  
-"let ayucolor="mirage" 
-"let ayucolor="dark" 
+"let ayucolor="light"
+"let ayucolor="mirage"
+"let ayucolor="dark"
 "colorscheme ayu
 
 Plug 'nanotech/jellybeans.vim'
@@ -613,7 +613,7 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-call plug#end() 
+call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -630,10 +630,10 @@ call plug#end()
 " the reload command could be done away with because the file
 " automatically reloads... But nah, I'm sure I can break the management
 " command eventually.
-" 
+"
 " required variable:
 " let g:znv_config_dir = '$HOME/.config/nvim'
-" 
+"
 " * `ReloadNvimConfig` re-sources the init.vim, and it sources it from the
 "   dotfiles-nvim directory in ~/.homesick (at least in my setup)
 "
@@ -694,7 +694,7 @@ endfunction
 function! __dark()
   set background=dark
   colorscheme pencil
-  "let ayucolor="dark" 
+  "let ayucolor="dark"
   "colorscheme ayu
   "let g:material_terminal_italics = 1
   "let g:material_theme_style = 'default'
@@ -720,9 +720,9 @@ else
   "colorscheme PaperColor
   "colorscheme matrix
   "colorscheme default
-  "let ayucolor="light"  
-  "let ayucolor="mirage" 
-  "let ayucolor="dark" 
+  "let ayucolor="light"
+  "let ayucolor="mirage"
+  "let ayucolor="dark"
   "colorscheme ayu
 endif
 
