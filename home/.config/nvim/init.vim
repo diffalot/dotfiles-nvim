@@ -174,6 +174,34 @@ if has("wildmenu")
   set wildignorecase
 endif
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Personal Keybindings
+
+set timeoutlen=1250
+let mapleader= ' '
+
+" Utilities
+nnoremap <F2> :UndotreeToggle<CR>
+nnoremap <F9> :Vista!!<CR>
+" (set by plugin) <leader> u OpenUrl
+
+" File Management
+nnoremap ,p :GFiles<CR>
+nnoremap ,o :Files<CR>
+
+" Buffer Controls
+nnoremap <C-space> :Buffers<CR>
+nnoremap <leader>W :bd<CR>
+
+" Tab Management
+nnoremap <silent><C-Right> :tabnext<CR>
+nnoremap <silent><C-Left> :tabprevious<CR>
+nnoremap <silent><C-m> :tabmove<CR>
+nnoremap <silent><C-t> :tabnew<CR>
+
+" netrw Tree
+nnoremap <leader>n :Vexplore<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CoC Keybindings
 "
@@ -232,34 +260,6 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 " Use <leader>x for convert visual selected code to snippet
 xmap <leader>x  <Plug>(coc-convert-snippet)
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Personal Keybindings
-
-set timeoutlen=1250
-let mapleader= ' '
-
-" Utilities
-nnoremap <F2> :UndotreeToggle<CR>
-nnoremap <F9> :Vista!!<CR>
-" (set by plugin) <leader> u OpenUrl
-
-" File Management
-nnoremap ,p :GFiles<CR>
-nnoremap ,o :Files<CR>
-
-" Buffer Controls
-nnoremap <C-space> :Buffers<CR>
-nnoremap <leader>W :bd<CR>
-
-" Tab Management
-nnoremap <silent><C-Right> :tabnext<CR>
-nnoremap <silent><C-Left> :tabprevious<CR>
-nnoremap <silent><C-m> :tabmove<CR>
-nnoremap <silent><C-t> :tabnew<CR>
-
-" netrw Tree
-nnoremap <leader>n :Vexplore<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
