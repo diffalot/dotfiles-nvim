@@ -202,6 +202,9 @@ nnoremap <silent><C-t> :tabnew<CR>
 " netrw Tree
 nnoremap <leader>n :Vexplore<CR>
 
+" vim-workspace
+nnoremap <leader>s :ToggleWorkspace<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CoC Keybindings
 "
@@ -264,6 +267,15 @@ xmap <leader>x  <Plug>(coc-convert-snippet)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin('~/.config/nvim/plugged')
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Session management
+" https://github.com/thaerkh/vim-workspace
+Plug 'thaerkh/vim-workspace'
+let g:workspace_session_disable_on_args = 1
+let g:workspace_persist_undo_history = 0
+let g:workspace_autosave_untrailspaces = 1
+let g:workspace_autosave_ignore = ['gitcommit']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Words
