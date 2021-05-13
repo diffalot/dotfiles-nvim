@@ -315,6 +315,12 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
 Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
 
+let g:flog_default_arguments = {
+                      \ 'all': 1,
+                      \ 'max_count': 2000,
+                      \ 'date': 'short',
+                      \ 'sort': 'author'}
+
 " DiffView - https://github.com/sindrets/diffview.nvim
 Plug 'sindrets/diffview.nvim'
 
