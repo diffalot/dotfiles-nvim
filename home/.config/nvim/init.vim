@@ -211,6 +211,50 @@ nnoremap <leader>n :Vexplore<CR>
 " vim-workspace
 nnoremap <leader>s :ToggleWorkspace<CR>
 
+" git workflow       TODO:make this use fewer function keys and more followers
+"   the catchup phase
+"     fetch and graph
+"       - get a review of where your code is in relation to wveryone els'
+nnoremap <F7> :Git fetch --all <bar> :Flog -all -date=short -sort=author<CR>
+"     cherry pick - when theres only one really solid feature in the middle of sea of crufty commits, start a new branch and pull in only the best code
+"     rebase --a good strategy for making your working branch merge cleanly into main
+"     merge --ff-only a great way to catch ip mon ff merges should be avoided
+"       if at all possible
+"   the work phase
+"     git status and logs
+"nnoremap <F7>s :echo system("git status")<CR>  "make this compact or a popup
+nnoremap <F7>l :Git log<CR>  "make s compact or a popupthis compact or a popup
+nnoremap <F7>o :echo system("git log -1 --oneline --pretty=format:'%s'")<CR>
+"     git diff
+nnoremap <F7>q :Git diff<CR>
+nnoremap <F7>d :Gvdiffsplit<CR>
+nnoremap <F7>m :Gclog<CR>
+"     commit a lot"
+"       [trivial]({*topic}) {*note} 
+"         - should a small cleanup and if you can git blame this on a commit that hasnt been merged to main, squash it in there
+"       [wip] {optional note and message}
+"         - you're sure this is going to be a part of the feature, and you want a checkpoint even thou you plan on squashing this all together eventually
+"       amend
+"         - old wip in progress is gone this is the new wip
+"         - works perfectly as a trivial cleanup to a commit you just mapleader
+"       undo
+"         - reset to right before the last commit when all the files had been staged but not yet committed.  leaving everything staged helps anything you edit off the staged filed will be shown in git status and git diffw
+"       stash -p
+"         - store small cleanups or experiments that aren't directly related to the feature you wanted.  store these separately and commit the lefovers as a single commit of cleanup before your geagure goed throufh
+"         - if two unrelated changes wind up in the same hunk, try to split them or handle them as single commits with undo
+"       view stash {#}
+"         - review what you have in the stashes you've collected
+"       pop stash {#}
+"         - this is a great time to group related items into a single entity
+"       interactive rebase {root branch or commit--defaults to main} {sort and collect iteration passthrough number}
+"         - arrange small commits that contain nothing but all the code for one feature- it will help other people know what the code does ig they see all of it at oncr with nothing to distract them
+"       atomic commit [{topic}]({subtopic|action}) summary of change as action
+"         - it's like squashing a pr into master, except you're doing it manuallyand removing anuthing that was not strictly a part of your feature
+"    push and pr you'll just want to use rebase and merges as necessary
+"
+
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CoC Keybindings
 "
