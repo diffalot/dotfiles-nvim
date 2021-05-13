@@ -786,11 +786,6 @@ endif
 " hi Visual  guifg=DarkMagenta guibg=DarkCyan gui=none
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" :reload to source from this config file
-
-command! -nargs=* RE  source ~/.config/nvim/init.vim
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Quick controls over displaying special characters
 "tab:»\,eol:¶\,nbsp:¬\,trail:-
 set list listchars=tab:»\ ,nbsp:¬,trail:◊
