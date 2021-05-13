@@ -214,7 +214,7 @@ nnoremap <leader>s :ToggleWorkspace<CR>
 "   the catchup phase
 "     fetch and graph
 "       - get a review of where your code is in relation to wveryone els'
-nnoremap <F7> :Git fetch --all <bar> :Flog -all -date=short -sort=author<CR>
+nnoremap <F7> :Git fetch --all <bar> :Flogsplit -all -date=short -sort=author<CR>
 "     cherry pick - when theres only one really solid feature in the middle of sea of crufty commits, start a new branch and pull in only the best code
 "     rebase --a good strategy for making your working branch merge cleanly into main
 "     merge --ff-only a great way to catch ip mon ff merges should be avoided
