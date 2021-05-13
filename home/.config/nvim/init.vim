@@ -734,6 +734,10 @@ endif
 " hi Visual  guifg=DarkMagenta guibg=DarkCyan gui=none
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" remove trailing whitespace
+command! -nargs=* WipeTrailingWhitespaces execute("%s/\s\+$//e")
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Quick controls over displaying special characters
 "tab:»\,eol:¶\,nbsp:¬\,trail:-
 set list listchars=tab:»\ ,nbsp:¬,trail:◊
