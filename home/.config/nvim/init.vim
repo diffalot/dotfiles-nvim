@@ -152,7 +152,7 @@ set textwidth=79
 set colorcolumn=80
 
 " Give more space for displaying messages.
-set cmdheight=2
+set cmdheight=1
 
 " Open new windows to the right and below
 set splitbelow
