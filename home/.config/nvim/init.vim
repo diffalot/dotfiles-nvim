@@ -271,8 +271,6 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'henrik/vim-open-url'
 " Trigger with <leader>u or :OpenURL
 
-"Plug 'preservim/nerdcommenter'
-
 " spelling
 " keybindings: https://github.com/preservim/vim-lexical#spell-check
 Plug 'preservim/vim-lexical'
@@ -311,9 +309,6 @@ else
   Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
 endif
 set updatetime=100
-
-" Git modifications noted in the gutter
-" Plug 'airblade/vim-gitgutter'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Files
@@ -494,19 +489,6 @@ Plug 'liuchengxu/vista.vim'
 
 Plug 'ludovicchabant/vim-gutentags'
 set statusline+=%{gutentags#statusline()}
-"Plug 'skywind3000/gutentags_plus'
-"
-"" enable gtags module
-"let g:gutentags_modules = ['ctags'] ", 'gtags_cscope']
-"
-"" config project root markers.
-"let g:gutentags_project_root = ['.root']
-"
-"" generate datebases in my cache directory, prevent gtags files polluting my project
-"let g:gutentags_cache_dir = expand('~/.cache/tags')
-"
-"" change focus to quickfix window after search (optional).
-"let g:gutentags_plus_switch = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Syntax Highlighting and Indentation
@@ -514,8 +496,7 @@ set statusline+=%{gutentags#statusline()}
 " Respect .editorconfig files
 Plug 'editorconfig/editorconfig-vim'
 
-" The fastest and most versitile,
-" hopefully I need is in here
+" The fastest and most versitile, hopefully everything I need is in here
 Plug 'sheerun/vim-polyglot'
 
 Plug 'dag/vim-fish'
@@ -523,34 +504,6 @@ autocmd FileType fish compiler fish
 autocmd FileType fish setlocal textwidth=79
 autocmd FileType fish setlocal foldmethod=expr
 
-" Python
-"Plug 'jmcantrell/vim-virtualenv'
-"Plug 'vim-python/python-syntax'
-"let g:python_highlight_all = 1
-
-"Plug 'rust-lang/rust.vim'
-
-" Allegedly the best, but I'm gonna try them out one at a time...
-"Plug 'yuezk/vim-js'
-
-" I'm not sure how fast this one is, I know it has Intellisense...
-" Plug 'vim-scripts/SyntaxComplete'
-
-" Plug 'othree/yajs.vim'
-" Plug 'othree/es.next.syntax.vim'
-" Plug 'othree/javascript-libraries-syntax.vim'
-" let g:used_javascript_libs =
-"       \ 'react,underscore,jasmine,chai,tape' 
-        " jquery,handlebars,vue,d3,
-
-" Allegedly the best, but I'm gonna try them out one at a time...
-" Plug 'maxmellon/vim-jsx-pretty'
-" Plug 'HerringtonDarkholme/yats.vim'
-
-"Plug 'jxnblk/vim-mdx-js'
-"Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-" Plug 'elzr/vim-json'
-"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 "    User Interface Improvements
@@ -638,25 +591,6 @@ endif
 
 Plug 'dracula/vim', { 'as': 'dracula' }
 " colorscheme dracula
-
-"Plug 'preservim/vim-thematic'
-"let g:thematic#themes = {
-"\ 'bubblegum'  : {
-"\                },
-"\ 'jellybeans' : { 'laststatus': 0,
-"\                  'ruler': 1,
-"\                },
-"\ 'pencil_dark' :{'colorscheme': 'pencil',
-"\                 'background': 'dark',
-"\                 'airline-theme': 'badwolf',
-"\                 'ruler': 1,
-"\                },
-"\ 'pencil_lite' :{'colorscheme': 'pencil',
-"\                 'background': 'light',
-"\                 'airline-theme': 'light',
-"\                 'ruler': 1,
-"\                },
-"\ }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -769,15 +703,7 @@ else
   "let ayucolor="dark" 
   "colorscheme ayu
 endif
-"todo(alice) learn how to use variables :(
-"function! __manual()
-"  echo g:lights_colorscheme
-"  colorscheme g:lights_colorscheme
-"endfunction
-"let g:lights_colorscheme = 'default'
-"if (!exists('g:lights_auto') && exists('g:lights_colorscheme'))
-"  call __manual()
-"endif
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Here are some general theme escape hatches that you can call upon in an hour
 " of need when you can't see the cursor or something else like that.
