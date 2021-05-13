@@ -123,14 +123,7 @@ set nohlsearch
 
 set number
 
-" echo winwidth('%')
-" reports 61 on the phone
-if winwidth('%') < 70
-  set nowrap
-else
-  set wrap
-end
-
+set nowrap
 " set nolist
 
 " todo:(alice) figure out good settings for markdown lists
@@ -151,8 +144,14 @@ autocmd FileType python set breakindentopt=shift:4
 set textwidth=79
 set colorcolumn=80
 
-" Give more space for displaying messages.
-set cmdheight=1
+" echo winwidth('%')
+" reports 61 on the phone
+if winwidth('%') < 70
+  set cmdheight=1
+else
+  " Give more space for displaying messages.
+  set cmdheight=2
+end
 
 " Open new windows to the right and below
 set splitbelow
