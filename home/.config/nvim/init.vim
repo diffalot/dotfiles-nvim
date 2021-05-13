@@ -175,6 +175,93 @@ if has("wildmenu")
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CoC Keybindings
+"
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+
+" the plan is to add these in one at a time, reloading each time, and we'll see
+" how it goes, lol
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Coc Snippets
+" https://github.com/neoclide/coc-snippets
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+" Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Personal Keybindings
+
+set timeoutlen=1250
+let mapleader= ' '
+
+" Utilities
+nnoremap <F2> :UndotreeToggle<CR>
+nnoremap <F9> :Vista!!<CR>
+" (set by plugin) <leader> u OpenUrl
+
+" File Management
+nnoremap ,P :GFiles<CR>
+nnoremap ,O :Files<CR>
+
+" Buffer Controls
+nnoremap <C-Space> :Buffers<CR>
+nnoremap <Leader>W :bd<CR>
+
+" Tab Management
+nnoremap <Silent><C-Right> :tabnext<CR>
+nnoremap <Silent><C-Left> :tabprevious<CR>
+nnoremap <Silent><C-M> :tabmove<CR>
+nnoremap <Silent><C-t> :tabnew<CR>
+
+" netrw Tree
+nnoremap <Leader>n :Vexplore<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -205,8 +292,7 @@ Plug 'preservim/vim-wordy'
 Plug 'vimwiki/vimwiki'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" File management
-
+" Git
 " Fugitive - https://github.com/tpope/vim-fugitive
 Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
@@ -229,6 +315,13 @@ set updatetime=100
 " Git modifications noted in the gutter
 " Plug 'airblade/vim-gitgutter'
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Files
+
+Plug 'mbbill/undotree'
+" there's a lot of options for undotree so it is configures in
+" ~/.config/nvim/plugins/conf.undotree.vim
+
 " :grep
 set grepprg=rg\ --vimgrep
 
@@ -248,60 +341,18 @@ let g:netrw_altv = 1
 let g:netrw_winsize = -30
 let g:netrw_keepdir = 0
 
-Plug 'kyazdani42/nvim-web-devicons'
-"" https://github.com/kyazdani42/nvim-tree.lua
-"Plug 'kyazdani42/nvim-tree.lua'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" A little help from tmux to know when vim is focused or not
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'roxma/vim-tmux-clipboard'
+Plug 'tmux-plugins/vim-tmux'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Make the editor handle a lot of the thinking
-
-Plug 'editorconfig/editorconfig-vim'
-
-Plug 'mbbill/undotree'
-" there's a lot of options for undotree so it is configures in
-" ~/.config/nvim/plugins/conf.undotree.vim
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Syntax Highlighting Megadeals Every SuperbGame Satuday!!!
-
-" The fastest and most versitile, hopefully that'll take care of it
-Plug 'sheerun/vim-polyglot'
-
-Plug 'dag/vim-fish'
-autocmd FileType fish compiler fish
-autocmd FileType fish setlocal textwidth=79
-autocmd FileType fish setlocal foldmethod=expr
-
-" Python
-"Plug 'jmcantrell/vim-virtualenv'
-"Plug 'vim-python/python-syntax'
-"let g:python_highlight_all = 1
-
-"Plug 'rust-lang/rust.vim'
-
-" Allegedly the best, but I'm gonna try them out one at a time...
-"Plug 'yuezk/vim-js'
-
-" I'm not sure how fast this one is, I know it has Intellisense...
-" Plug 'vim-scripts/SyntaxComplete'
-
-" Plug 'othree/yajs.vim'
-" Plug 'othree/es.next.syntax.vim'
-" Plug 'othree/javascript-libraries-syntax.vim'
-" let g:used_javascript_libs =
-"       \ 'react,underscore,jasmine,chai,tape' 
-        " jquery,handlebars,vue,d3,
-
-" Allegedly the best, but I'm gonna try them out one at a time...
-" Plug 'maxmellon/vim-jsx-pretty'
-" Plug 'HerringtonDarkholme/yats.vim'
-
-"Plug 'jxnblk/vim-mdx-js'
-"Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-" Plug 'elzr/vim-json'
+"
+"    Language Server and Client Setup
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" To Install, etc
+" Recommended Plugins
 "
 " https://github.com/neoclide/coc-snippets
 " https://github.com/rome/tools
@@ -434,93 +485,6 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CoC Keybindings
-"
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-
-" the plan is to add these in one at a time, reloading each time, and we'll see
-" how it goes, lol
-
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Coc Snippets
-" https://github.com/neoclide/coc-snippets
-" Use <C-j> for both expand and jump (make expand higher priority.)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
-
-" Use <leader>x for convert visual selected code to snippet
-xmap <leader>x  <Plug>(coc-convert-snippet)
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Personal Keybindings
-
-set timeoutlen=1250
-let mapleader= ' '
-
-" Utilities
-nnoremap <F2> :UndotreeToggle<CR>
-nnoremap <F9> :Vista!!<CR>
-" (set by plugin) <leader> u OpenUrl
-
-" File Management
-nnoremap ,P :GFiles<CR>
-nnoremap ,O :Files<CR>
-
-" Buffer Controls
-nnoremap <C-Space> :Buffers<CR>
-nnoremap <Leader>W :bd<CR>
-
-" Tab Management
-nnoremap <Silent><C-Right> :tabnext<CR>
-nnoremap <Silent><C-Left> :tabprevious<CR>
-nnoremap <Silent><C-M> :tabmove<CR>
-nnoremap <Silent><C-t> :tabnew<CR>
-
-" netrw Tree
-nnoremap <Leader>n :Vexplore<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
 
 Plug 'liuchengxu/vista.vim'
@@ -545,12 +509,52 @@ set statusline+=%{gutentags#statusline()}
 "let g:gutentags_plus_switch = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" A little help from tmux to know when vim is focused or not
+" Syntax Highlighting and Indentation
 
-Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'roxma/vim-tmux-clipboard'
-Plug 'tmux-plugins/vim-tmux'
+" Respect .editorconfig files
+Plug 'editorconfig/editorconfig-vim'
 
+" The fastest and most versitile,
+" hopefully I need is in here
+Plug 'sheerun/vim-polyglot'
+
+Plug 'dag/vim-fish'
+autocmd FileType fish compiler fish
+autocmd FileType fish setlocal textwidth=79
+autocmd FileType fish setlocal foldmethod=expr
+
+" Python
+"Plug 'jmcantrell/vim-virtualenv'
+"Plug 'vim-python/python-syntax'
+"let g:python_highlight_all = 1
+
+"Plug 'rust-lang/rust.vim'
+
+" Allegedly the best, but I'm gonna try them out one at a time...
+"Plug 'yuezk/vim-js'
+
+" I'm not sure how fast this one is, I know it has Intellisense...
+" Plug 'vim-scripts/SyntaxComplete'
+
+" Plug 'othree/yajs.vim'
+" Plug 'othree/es.next.syntax.vim'
+" Plug 'othree/javascript-libraries-syntax.vim'
+" let g:used_javascript_libs =
+"       \ 'react,underscore,jasmine,chai,tape' 
+        " jquery,handlebars,vue,d3,
+
+" Allegedly the best, but I'm gonna try them out one at a time...
+" Plug 'maxmellon/vim-jsx-pretty'
+" Plug 'HerringtonDarkholme/yats.vim'
+
+"Plug 'jxnblk/vim-mdx-js'
+"Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+" Plug 'elzr/vim-json'
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+"    User Interface Improvements
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fancy Icons
 
@@ -595,25 +599,6 @@ if winwidth('%') > 69
   let g:lights_auto = 1
 end
 
-Plug 'preservim/vim-thematic'
-let g:thematic#themes = {
-\ 'bubblegum'  : {
-\                },
-\ 'jellybeans' : { 'laststatus': 0,
-\                  'ruler': 1,
-\                },
-\ 'pencil_dark' :{'colorscheme': 'pencil',
-\                 'background': 'dark',
-\                 'airline-theme': 'badwolf',
-\                 'ruler': 1,
-\                },
-\ 'pencil_lite' :{'colorscheme': 'pencil',
-\                 'background': 'light',
-\                 'airline-theme': 'light',
-\                 'ruler': 1,
-\                },
-\ }
-
 Plug 'preservim/vim-colors-pencil'
 let g:pencil_higher_contrast_ui = 1   " 0=low (def), 1=high
 let g:pencil_neutral_headings = 0   " 0=blue (def), 1=normal
@@ -641,18 +626,37 @@ Plug 'ayu-theme/ayu-vim'
 "let ayucolor="dark" 
 "colorscheme ayu
 
-"Plug 'nanotech/jellybeans.vim'
-"let g:jellybeans_use_term_italics = 1
-"let g:jellybeans_overrides = {
-"\    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
-"\}
-"if has('termguicolors') && &termguicolors
-"    let g:jellybeans_overrides['background']['guibg'] = 'none'
-"endif
+Plug 'nanotech/jellybeans.vim'
+let g:jellybeans_use_term_italics = 1
+let g:jellybeans_overrides = {
+\    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
+\}
+if has('termguicolors') && &termguicolors
+    let g:jellybeans_overrides['background']['guibg'] = 'none'
+endif
 
 
-"Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'dracula/vim', { 'as': 'dracula' }
 " colorscheme dracula
+
+"Plug 'preservim/vim-thematic'
+"let g:thematic#themes = {
+"\ 'bubblegum'  : {
+"\                },
+"\ 'jellybeans' : { 'laststatus': 0,
+"\                  'ruler': 1,
+"\                },
+"\ 'pencil_dark' :{'colorscheme': 'pencil',
+"\                 'background': 'dark',
+"\                 'airline-theme': 'badwolf',
+"\                 'ruler': 1,
+"\                },
+"\ 'pencil_lite' :{'colorscheme': 'pencil',
+"\                 'background': 'light',
+"\                 'airline-theme': 'light',
+"\                 'ruler': 1,
+"\                },
+"\ }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
