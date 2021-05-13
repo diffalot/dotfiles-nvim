@@ -301,7 +301,6 @@ autocmd FileType fish setlocal foldmethod=expr
 " Plug 'elzr/vim-json'
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Keybindings
 " To Install, etc
 "
 " https://github.com/neoclide/coc-snippets
@@ -522,6 +521,37 @@ nnoremap <Silent><C-t> :tabnew<CR>
 nnoremap <Leader>n :Vexplore<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
+
+Plug 'liuchengxu/vista.vim'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Gutentags - https://github.com/ludovicchabant/vim-gutentags
+
+Plug 'ludovicchabant/vim-gutentags'
+set statusline+=%{gutentags#statusline()}
+"Plug 'skywind3000/gutentags_plus'
+"
+"" enable gtags module
+"let g:gutentags_modules = ['ctags'] ", 'gtags_cscope']
+"
+"" config project root markers.
+"let g:gutentags_project_root = ['.root']
+"
+"" generate datebases in my cache directory, prevent gtags files polluting my project
+"let g:gutentags_cache_dir = expand('~/.cache/tags')
+"
+"" change focus to quickfix window after search (optional).
+"let g:gutentags_plus_switch = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" A little help from tmux to know when vim is focused or not
+
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'roxma/vim-tmux-clipboard'
+Plug 'tmux-plugins/vim-tmux'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fancy Icons
 
 Plug 'kyazdani42/nvim-web-devicons'
@@ -554,37 +584,6 @@ let g:eleline_powerline_fonts = 1
 if winwidth('%') < 70
   let g:eleline_slim = 1
 end
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
-
-Plug 'liuchengxu/vista.vim'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Gutentags - https://github.com/ludovicchabant/vim-gutentags
-
-Plug 'ludovicchabant/vim-gutentags'
-set statusline+=%{gutentags#statusline()}
-"Plug 'skywind3000/gutentags_plus'
-"
-"" enable gtags module
-"let g:gutentags_modules = ['ctags'] ", 'gtags_cscope']
-"
-"" config project root markers.
-"let g:gutentags_project_root = ['.root']
-"
-"" generate datebases in my cache directory, prevent gtags files polluting my project
-"let g:gutentags_cache_dir = expand('~/.cache/tags')
-"
-"" change focus to quickfix window after search (optional).
-"let g:gutentags_plus_switch = 1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" A little help from tmux to know when vim is focused or not
-
-Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'roxma/vim-tmux-clipboard'
-Plug 'tmux-plugins/vim-tmux'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Themes must be installed during plug initialization, but they can't be
