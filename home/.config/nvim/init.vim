@@ -6,11 +6,6 @@
 "                                           'Make sure you use single quotes!'
 "
 " Todo:
-" [ ] Study how to test Vim Scripts
-" [ ] get a solid fix for the tmux terminfo
-" [ ] Find find something better than `gq` for reflowing text
-"     :help formatoptions fo fo-table formatlistpat auto-format
-"     https://vim.fandom.com/wiki/Automatic_formatting_of_paragraphs
 "
 " Done:
 " [x] Make yank and put in nvim syncronize with tmux
@@ -255,9 +250,6 @@ nnoremap <F7>m :Gclog<CR>
 "       atomic commit [{topic}]({subtopic|action}) summary of change as action
 "         - it's like squashing a pr into master, except you're doing it manuallyand removing anuthing that was not strictly a part of your feature
 "    push and pr you'll just want to use rebase and merges as necessary
-"
-
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CoC Keybindings
