@@ -205,6 +205,10 @@ nnoremap <silent><C-Left> :tabprevious<CR>
 nnoremap <silent><C-m> :tabmove<CR>
 nnoremap <silent><C-t> :tabnew<CR>
 
+" <Space-z> 
+nmap <Space>z :VimwikiToggleListItem<CR>
+
+
 " netrw Tree
 nnoremap <leader>n :Vexplore<CR>
 
@@ -350,8 +354,12 @@ Plug 'preservim/vim-wordy'
 
 " https://vimwiki.github.io/
 Plug 'vimwiki/vimwiki'
-let g:vimwiki_list = [{'path': '~/vimwiki/',
-                      \ 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_list = [{'path': '~/wiki/',
+      \ 'syntax': 'markdown', 'ext': '.md'}]
+
+let g:vimwiki_key_mappings = { 'lists': 0 }
+
+let g:vimwiki_folding = 'list'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Git
