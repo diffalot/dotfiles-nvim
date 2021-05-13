@@ -21,9 +21,16 @@
 " stumbled upon over the years during my search for the perfect plugins..
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Things to Install
+" Reading list
+" https://github.com/romainl/idiomatic-vimrc
+" https://githubmemory.com/repo/windwp/awesome-neovim
+" setting up grep: https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
+" autocommands: https://learnvimscriptthehardway.stevelosh.com/chapters/12.html
 "
+" Things to Install
 " https://github.com/vigoux/LanguageTool.nvim
+" https://github.com/preservim/vim-thematic
+" https://github.com/RishabhRD/nvim-lsputils
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " tmux - vim - clipboard pasting
