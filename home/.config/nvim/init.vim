@@ -190,7 +190,7 @@ nnoremap ,p :GFiles<CR>
 nnoremap ,o :Files<CR>
 
 " Buffer Controls
-nnoremap <C-space> :Buffers<CR>
+nnoremap <C-Space> :Buffers<CR>
 nnoremap <leader>W :bd<CR>
 
 " Tab Management
