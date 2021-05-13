@@ -522,9 +522,9 @@ nnoremap <Silent><C-t> :tabnew<CR>
 nnoremap <Leader>n :Vexplore<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
+" Fancy Icons
 
-Plug 'liuchengxu/vista.vim'
+Plug 'kyazdani42/nvim-web-devicons'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/gcmt/taboo.vim
@@ -556,9 +556,9 @@ if winwidth('%') < 70
 end
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Fancy Icons
+" LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
 
-Plug 'kyazdani42/nvim-web-devicons'
+Plug 'liuchengxu/vista.vim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Gutentags - https://github.com/ludovicchabant/vim-gutentags
