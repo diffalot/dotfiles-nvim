@@ -522,6 +522,13 @@ call plug#end()
 " Plugin 'junegunn/vader.vim'
 " I know there are others, but I didn't take good notes
 "
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Git commit each trivial cleanup task between reorgs so they git won't ever
+" give a fuck about rebasing import things since it's been well fed
+
+command! -nargs=* GitTrivial echo system('git commit % -m "[clean](trivial) small and dangerous"')
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " :ManageNvimConfig & :ReloadNvimConfig
 "
