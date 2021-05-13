@@ -25,7 +25,6 @@
 "
 " https://github.com/vigoux/LanguageTool.nvim
 "
-"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " tmux - vim - clipboard pasting
 "
