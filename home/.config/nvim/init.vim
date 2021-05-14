@@ -5,54 +5,9 @@
 "                  The person I copied this config from wants you to remember:
 "                                           'Make sure you use single quotes!'
 "
-" Todo:
-"
-" Done:
-" [x] Make yank and put in nvim syncronize with tmux
-" [x] Make tmux clipboard sync with macOS clipboard
-"
 " Compiled from an ancient `.vimrc` that had collected a lot of other people's
 " configurations and the examples on the front page of the git repos I've
 " stumbled upon over the years during my search for the perfect plugins..
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Reading list
-" https://github.com/romainl/idiomatic-vimrc
-" https://githubmemory.com/repo/windwp/awesome-neovim
-" setting up grep: https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
-" autocommands: https://learnvimscriptthehardway.stevelosh.com/chapters/12.html
-"
-" Things to Install
-" https://github.com/vigoux/LanguageTool.nvim
-" https://github.com/preservim/vim-thematic
-" https://github.com/RishabhRD/nvim-lsputils
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" tmux - vim - clipboard pasting
-"
-"   *Copying*
-"
-"   | System Type | Copy To           | How to Copy to It              |
-"   | macOS       | the only one      | <apple> + <c>                  |
-"   | vim         | vim yank? buffer  | (select text), <y>             |
-"   | vim         | new tmux buffer   | sycronized with yank           |
-"   | tmux        | new tmux buffer   | <bind-key>, [, (navigate to    |
-"                                       beginning of desired           |
-"                                       selection), <space>, (navigate |
-"                                       to end of selection), <enter>  |
-"   | tmux        | new tmux buffer   | select test with the mouse     |
-"
-"
-"   *Pasting*
-"
-"   | System      | Past From          | How to Paste from It          |
-"   | tmux        | vim yank           | unknown (use paste from       |
-"                                        newest buffer)                |
-"   | tmux        | newest tmux buffer | <bind-key>, ]                 |
-"   | tmux        | macOS              | depends on terminal, usually: |
-"                                        <apple> + <c>                 |
-"
-"     ...To be continued
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " The hopefully brief section of fixes
