@@ -268,6 +268,23 @@ let g:flog_default_arguments = {
                       \ 'max_count': 2000,
                       \ 'date': 'short',
                       \ 'sort': 'author'}
+let g:flog_custom_format = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+""" This is the same as the built-in log command (flog#build_log_command)
+""function! FlogBuildLog() abort
+""  " Same as "git --git-dir=" . flog#get_fugitive_git_dir()
+""  " The git dir will be the current buffer's ".git" directory
+""  let l:command = flog#get_fugitive_git_command()
+""  let l:command .= ' log'
+""  let l:command .= ' --'
+""  " Args and paths that would normally be passed to "git log" based on Flog options
+""  let l:command .= flog#build_log_args()
+""  let l:command .= ' -- '
+""  let l:command .= flog#build_log_paths()
+""
+""  return l:command
+""endfunction
+
+"let g:flog_build_log_command_fn = 'FlogBuildLog'
 
 " DiffView - https://github.com/sindrets/diffview.nvim
 Plug 'sindrets/diffview.nvim'
