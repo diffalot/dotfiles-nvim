@@ -545,8 +545,8 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'sheerun/vim-polyglot'
 
 Plug 'pangloss/vim-javascript'
-
 Plug 'mxw/vim-jsx'
+Plug 'kevinoid/vim-jsonc'
 
 Plug 'dag/vim-fish'
 autocmd FileType fish compiler fish
