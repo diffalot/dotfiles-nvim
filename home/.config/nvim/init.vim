@@ -666,6 +666,10 @@ Plug 'ayu-theme/ayu-vim'
 "let ayucolor="dark"
 "colorscheme ayu
 
+" not sure about these yet
+
+Plug 'Rigellute/rigel'
+
 Plug 'nanotech/jellybeans.vim'
 let g:jellybeans_use_term_italics = 1
 let g:jellybeans_overrides = {
@@ -675,6 +679,10 @@ if has('termguicolors') && &termguicolors
     let g:jellybeans_overrides['background']['guibg'] = 'none'
 endif
 
+
+Plug 'sts10/vim-pink-moon'
+
+Plug 'arcticicestudio/nord-vim'
 
 Plug 'dracula/vim', { 'as': 'dracula' }
 " colorscheme dracula
@@ -753,6 +761,7 @@ function! __lightswitch()
 endfunction
 
 function! __light()
+  "echomsg 'using light pencil colorscheme'
   set background=light
   colorscheme pencil
   "let g:one_allow_italics = 1
@@ -760,6 +769,7 @@ function! __light()
 endfunction
 
 function! __dark()
+  "echomsg 'using dark pencil colorscheme'
   set background=dark
   colorscheme pencil
   "let ayucolor="dark"
@@ -780,18 +790,31 @@ function! __auto()
 endfunction
 
 "let g:lights_auto = 1
-if (exists('g:lights_auto'))
+if (exists('g:lights_auto') && g:lights_auto == 1)
+  "echom 'using timed colorscheme'
   call __auto()
 else
-  set background=dark
-  colorscheme pencil
-  "colorscheme PaperColor
-  "colorscheme matrix
-  "colorscheme default
-  "let ayucolor="light"
-  "let ayucolor="mirage"
-  "let ayucolor="dark"
-  "colorscheme ayu
+  "echom 'using constant colorscheme'
+  if winwidth('%') <= 69
+    set background=dark
+    "echomsg 'mobile size screen using pencil colorscheme'
+    colorscheme pencil
+  else
+    "echomsg 'desktop size screen using ayu colorscheme'
+    set background=dark
+    colorscheme PaperColor
+    "colorscheme matrix
+    "let ayucolor="dark
+    "colorscheme default
+    "let ayucolor="light"
+    "let ayucolor="mirage"
+    "colorscheme ayu
+    "colorscheme rigel
+    let g:material_terminal_italics = 1
+    let g:material_theme_style = 'default'
+    colorscheme material
+    "colorscheme orange-moon
+  end
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
