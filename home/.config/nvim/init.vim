@@ -683,6 +683,11 @@ if has('termguicolors') && &termguicolors
     let g:jellybeans_overrides['background']['guibg'] = 'none'
 endif
 
+Plug 'folke/tokyonight.nvim'
+"let g:tokyonight_style = "night"
+"let g:tokyonight_style = "day"
+let g:tokyonight_transparent = 0
+"colorscheme tokyonight
 
 Plug 'sts10/vim-pink-moon'
 
@@ -767,20 +772,15 @@ endfunction
 function! __light()
   "echomsg 'using light pencil colorscheme'
   set background=light
-  colorscheme pencil
-  "let g:one_allow_italics = 1
-  "colorscheme one
+  let g:tokyonight_style = "day"
+  colorscheme tokyonight
 endfunction
 
 function! __dark()
-  "echomsg 'using dark pencil colorscheme'
+  "echomsg 'using dark colorscheme'
   set background=dark
-  colorscheme pencil
-  "let ayucolor="dark"
-  "colorscheme ayu
-  "let g:material_terminal_italics = 1
-  "let g:material_theme_style = 'default'
-  "colorscheme material
+  let g:tokyonight_style = "night"
+  colorscheme tokyonight
 endfunction
 
 " Here's the bit that looks at the time when the init.vim is sourced and chooses
@@ -798,27 +798,12 @@ if (exists('g:lights_auto') && g:lights_auto == 1)
   "echom 'using timed colorscheme'
   call __auto()
 else
-  "echom 'using constant colorscheme'
-  if winwidth('%') <= 69
-    set background=dark
-    "echomsg 'mobile size screen using pencil colorscheme'
-    colorscheme pencil
-  else
-    "echomsg 'desktop size screen using ayu colorscheme'
-    set background=dark
-    colorscheme PaperColor
-    "colorscheme matrix
-    "let ayucolor="dark
-    "colorscheme default
-    "let ayucolor="light"
-    "let ayucolor="mirage"
-    "colorscheme ayu
-    "colorscheme rigel
-    let g:material_terminal_italics = 1
-    let g:material_theme_style = 'default'
-    colorscheme material
-    "colorscheme orange-moon
-  end
+  echomsg 'no background set'
+  set background=NONE
+  let g:material_terminal_italics = 1
+  let g:material_theme_style = 'default'
+  colorscheme material
+  let g:tokyonight_style = "night"
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
