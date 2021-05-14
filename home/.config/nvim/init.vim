@@ -427,15 +427,18 @@ Plug 'tmux-plugins/vim-tmux'
 "
 " Installed
 "
-"" Basics
-" coc-json
-" coc-sh
-" coc-yaml
-" coc-git
-" coc-vimlsp
-" coc-gist
+"" Editor Enhancements
+" coc-pairs
 " coc-snippets
 " coc-yank
+" coc-gist
+" coc-git
+"
+"" Basics
+" coc-json
+" coc-yaml
+" coc-sh
+" coc-vimlsp
 " coc-markdown-lint
 "
 "" Fun
