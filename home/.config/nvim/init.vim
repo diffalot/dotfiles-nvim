@@ -587,6 +587,10 @@ Plug 'editorconfig/editorconfig-vim'
 " The fastest and most versitile, hopefully everything I need is in here
 Plug 'sheerun/vim-polyglot'
 
+Plug 'pangloss/vim-javascript'
+
+Plug 'mxw/vim-jsx'
+
 Plug 'dag/vim-fish'
 autocmd FileType fish compiler fish
 autocmd FileType fish setlocal textwidth=79
