@@ -162,9 +162,8 @@ nnoremap <silent><C-t> :tabnew<CR>
 " <Space-z>
 nmap <Space>z :VimwikiToggleListItem<CR>
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" git workflow       TODO:make this use fewer function keys and more followers
+" git workflow
 "   the catchup phase
 "     fetch and graph
 "       - get a review of where your code is in relation to wveryone els'
