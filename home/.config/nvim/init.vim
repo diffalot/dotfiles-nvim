@@ -144,8 +144,8 @@ nnoremap <F9> :Vista!!<CR>
 " (set by plugin) <leader> u OpenUrl
 
 " File Management
-nnoremap ,p :GFiles<CR>
-nnoremap ,o :Files<CR>
+nnoremap ,l :GFiles<CR>
+nnoremap ,k :Files<CR>
 
 " Buffer Controls
 nnoremap <C-Space> :Telescope<CR>
@@ -153,7 +153,9 @@ nnoremap <leader>W :bd<CR>
 
 " Tab Management
 nnoremap <silent><C-Right> :tabnext<CR>
+nnoremap <silent>tty :tabnext<CR>
 nnoremap <silent><C-Left> :tabprevious<CR>
+nnoremap <silent>ttr :tabprevious<CR>
 nnoremap <silent><C-m> :tabmove<CR>
 nnoremap <silent><C-t> :tabnew<CR>
 
