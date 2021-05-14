@@ -2,18 +2,16 @@
 " Alice Davis <alice@gigantic.computer>                             2021-05-09
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                  The person I copied this config from wants you to remember:
-"                                           'Make sure you use single quotes!'
+"         The person I copied this config from wants you to remember:
+"                     'Make sure you use single quotes!'
 "
 " Compiled from an ancient `.vimrc` that had collected a lot of other people's
 " configurations and the examples on the front page of the git repos I've
 " stumbled upon over the years during my search for the perfect plugins..
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" The hopefully brief section of fixes
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" To Debug the Configuration, turn things off and load up minivrc
+" To debug the configuration, turn everything off and load it all back in one
+" at a time with up on top of minivimrc useful debugging setup.
 "
 " source ~/.config/nvim/vimrcs/minivimrc-romainl/vimrc
 "
@@ -21,8 +19,9 @@
 "
 " Running vim with out any plugins everynow and then is a nice reminder of how
 " fast it can be `nvim -U NONE -u NONE`
-"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" The hopefully brief section of fixes
+"
 " Distribution specific initialization
 if has('win32')
 elseif has('mac')
@@ -30,13 +29,12 @@ elseif has('unix')
   set shell=zsh
 endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " It's worth a nasty bug to have italics
 " https://rsapkf.xyz/blog/enabling-italics-vim-tmux
 " note that I did not follow all of those directions, just this bit here
 set t_ZH=[3m
 set t_ZR=[23m
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Based on Vim patch 7.4.1770 (`guicolors` option)
 " https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
 "
@@ -54,7 +52,7 @@ if (has('nvim'))
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" I've seen it worse
+" I've seen worse...
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Manage built in options
@@ -148,7 +146,7 @@ nnoremap ,p :GFiles<CR>
 nnoremap ,o :Files<CR>
 
 " Buffer Controls
-nnoremap <C-Space> :Buffers<CR>
+nnoremap <C-Space> :Telescope<CR>
 nnoremap <leader>W :bd<CR>
 
 " Tab Management
@@ -161,12 +159,7 @@ nnoremap <silent><C-t> :tabnew<CR>
 nmap <Space>z :VimwikiToggleListItem<CR>
 
 
-" netrw Tree
-nnoremap <leader>n :Vexplore<CR>
-
-" vim-workspace
-nnoremap <leader>s :ToggleWorkspace<CR>
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " git workflow       TODO:make this use fewer function keys and more followers
 "   the catchup phase
 "     fetch and graph
@@ -209,78 +202,29 @@ nnoremap <F7>m :Gclog<CR>
 "    push and pr you'll just want to use rebase and merges as necessary
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CoC Keybindings
+" Telescope Bindings
 "
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+noremap <leader>fh <cmd>Telescope help_tags<cr>
 
-" the plan is to add these in one at a time, reloading each time, and we'll see
-" how it goes, lol
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Floaterm
+let g:floaterm_keymap_new = '<Leader>M'
+let g:floaterm_keymap_prev = '<Leader>,,'
+let g:floaterm_keymap_next = '<Leader> ..'
+let g:floaterm_keymap_toggle = '<Leader>mm'
+let g:floaterm_keymap_kill = '<Leader>zxc'
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Coc Snippets
-" https://github.com/neoclide/coc-snippets
-" Use <C-j> for both expand and jump (make expand higher priority.)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
-
-" Use <leader>x for convert visual selected code to snippet
-xmap <leader>x  <Plug>(coc-convert-snippet)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Floating nnn window
+nnoremap <leader>n :FloatermNew --name=Files --wintype=vsplit --width=40 --position=botright nnn<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin('~/.config/nvim/plugged')
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Session management
-" https://github.com/thaerkh/vim-workspace
-Plug 'thaerkh/vim-workspace'
-let g:workspace_session_disable_on_args = 1
-let g:workspace_persist_undo_history = 0
-let g:workspace_autosave_untrailspaces = 1
-let g:workspace_autosave_ignore = ['gitcommit']
-let g:workspace_session_name = '.vim-workspace.vim'
-let g:workspace_session_directory = $HOME . '/.config/nvim/sessions/'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Words
@@ -349,12 +293,7 @@ Plug 'mbbill/undotree'
 " :grep
 set grepprg=rg\ --vimgrep
 
-" fuzzy finder
-" brew install fsf ag ripgrep perl git-delta
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-" don't search .git or node_modules by default
-let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git --exclude node_modules'
+Plug 'BurntSushi/ripgrep'
 
 " make netrw act like nerdtree :)
 " https://shapeshed.com/vim-netrw/
@@ -366,163 +305,65 @@ let g:netrw_winsize = -30
 let g:netrw_keepdir = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" A little help from tmux to know when vim is focused or not
-Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'roxma/vim-tmux-clipboard'
-Plug 'tmux-plugins/vim-tmux'
+" https://github.com/voldikss/vim-floaterm
+Plug 'voldikss/vim-floaterm'
+
+let g:floaterm_shell = 'fish'
+let g:floaterm_wintype = 'float'
+let g:floaterm_width = 130
+let g:floaterm_height = 24
+"let g:floaterm_position = 'topright'
+let g:floaterm_opener = 'edit'
+let g:floaterm_autoclose = 0
+let g:floaterm_autohide = 2
+
+"let g:floaterm_keymap_new = '<Leader>zx'
+"let g:floaterm_keymap_prev = '<Leader>xzz'
+"let g:floaterm_keymap_next = '<Leader>xz'
+"let g:floaterm_keymap_toggle = '<Leader>xx'
+"let g:floaterm_keymap_kill = '<Leader>zxc'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Auto Pairing
-" coc-pairs
-"
-" In CocConfig
-" pairs.disableLanguages, list of language ids to disable this extension, default: [].
-" pairs.enableCharacters, list of enabled characters, default: ["(", "[", "{", "<", "'", "\"", "`"].
-" pairs.enableBackspace, enable imap for backspace to remove paired characters, default: true, won't work when <bs> is already mapped.
-"
-" In Vim:
-"
-" autocmd FileType tex let b:coc_pairs = [["$", "$"]]
-" autocmd FileType markdown let b:coc_pairs_disabled = ['`']
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-"    Language Server and Client Setup
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Recommended Plugins
-"
-" https://github.com/neoclide/coc-snippets
-" https://github.com/rome/tools
-" coc-rome
-"
-" https://github.com/neoclide/coc-sources
-"
-" Installed
-"
-"" Editor Enhancements
-" coc-pairs
-" coc-snippets
-" coc-yank
-" coc-gist
-" coc-git
-"
-"" Basics
-" coc-json
-" coc-yaml
-" coc-sh
-" coc-vimlsp
-" coc-markdown-lint
-"
-"" Fun
-" coc-emoji
-" coc-translator
-" coc-dictionary
-"
-"" Code Analysis
-" coc-tag
-"
-"" Web Development
-" coc-tsserver
-" coc-html
-" coc-css
-" coc-cssmodules
-" coc-html-css-support
-"
-""" Linters
-" coc-prettier
-" coc-eslint
-" coc-stylelintplus
-"
-""" Frameworks
-" coc-vetur
-" coc-tailwindcss
-"
-""" Database
-" coc-sql
-" coc-graphql
-" coc-prisma
-"
-"" Runtimes and
-"" Programming Languages
-" coc-rust-analyzer
-" coc-deno
-" coc-pyright
+" https://github.com/folke/todo-comments.nvim
+Plug 'folke/todo-comments.nvim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Coc Launguage Server Client
-" build from source code by using yarn: https://yarnpkg.com
-Plug 'neoclide/coc.nvim', 
-  \ {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-" Workspace configurations should be named coc-settings.json and be in the
-" directory .vim. After a file is opened in vim, this directory is resolved
-" from the parent directories of that file. Run the command :CocLocalConfig to
-" open your workspace configuration file.
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 
-let g:coc_node_path = '/Users/alice/.nvm/versions/node/v14.16.1/bin/node'
-
-" settings from https://github.com/neoclide/coc.nvim
-set encoding=utf-8
-" TextEdit might fail if hidden is not set.
-set hidden
-" Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+"echo nvim_treesitter#statusline(90)  " 90 can be any length
+"module->expression_statement->call->identifier
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Coc Functions
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" neovim-lsp
+Plug 'neovim/nvim-lspconfig'
+Plug 'kabouzeid/nvim-lspinstall'
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/nvim-telescope/telescope.nvim
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-github.nvim'
+Plug 'TC72/telescope-tele-tabby.nvim'
 
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
-
-" Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Session management
+Plug 'rmagatti/auto-session'
+Plug 'rmagatti/session-lens'
+let g:auto_session_root_dir = $HOME . '.config/nvim/sessions'
+let g:auto_session_enable_last_session = 0
+let g:auto_session_enabled = 0
+let g:auto_save_enabled = 0
+let g:auto_restore_enabled = 1
+let g:auto_session_suppress_dirs = ['~/Desktop']
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" A little help from tmux to know when vim is focused or not
+"Plug 'tmux-plugins/vim-tmux-focus-events'
+"Plug 'roxma/vim-tmux-clipboard'
+"Plug 'tmux-plugins/vim-tmux'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
@@ -535,24 +376,23 @@ Plug 'liuchengxu/vista.vim'
 Plug 'ludovicchabant/vim-gutentags'
 set statusline+=%{gutentags#statusline()}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Syntax Highlighting and Indentation
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Syntax Highlighting and Indentation
 " Respect .editorconfig files
 Plug 'editorconfig/editorconfig-vim'
 
-" The fastest and most versitile, hopefully everything I need is in here
-Plug 'sheerun/vim-polyglot'
-
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
-Plug 'kevinoid/vim-jsonc'
-
-Plug 'dag/vim-fish'
-autocmd FileType fish compiler fish
-autocmd FileType fish setlocal textwidth=79
-autocmd FileType fish setlocal foldmethod=expr
-
+"" The fastest and most versitile, hopefully everything I need is in here
+"Plug 'sheerun/vim-polyglot'
+"
+"Plug 'pangloss/vim-javascript'
+"Plug 'mxw/vim-jsx'
+"Plug 'kevinoid/vim-jsonc'
+"
+"Plug 'dag/vim-fish'
+"autocmd FileType fish compiler fish
+"autocmd FileType fish setlocal textwidth=79
+"autocmd FileType fish setlocal foldmethod=expr
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 "    User Interface Improvements
@@ -591,13 +431,21 @@ if winwidth('%') < 70
 end
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim Script
+Plug 'kyazdani42/nvim-web-devicons'
+
+Plug 'folke/trouble.nvim'
+
+Plug 'nvim-lua/lsp-status.nvim'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Themes must be installed during plug initialization, but they can't be
 " activated till after plug has loaded every single one, I think, maybe?
 
 " echo winwidth('%')
 " reports 61 on the phone
 if winwidth('%') > 69
-  let g:lights_auto = 1
+  let g:lights_auto = 0
 end
 
 Plug 'preservim/vim-colors-pencil'
@@ -611,21 +459,21 @@ let g:pencil_terminal_italics = 1
 
 Plug 'rakr/vim-one'
 let g:one_allow_italics = 1
-"" colorscheme one
+" colorscheme one
 
 Plug 'NLKNguyen/papercolor-theme'
 " colorscheme PaperColor
 
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 let g:material_terminal_italics = 1
-let g:material_theme_style = 'lighter'
+" let g:material_theme_style = 'lighter'
 " colorscheme material
 
 Plug 'ayu-theme/ayu-vim'
-"let ayucolor="light"
-"let ayucolor="mirage"
-"let ayucolor="dark"
-"colorscheme ayu
+" let ayucolor="light"
+" let ayucolor="mirage"
+" let ayucolor="dark"
+" colorscheme ayu
 
 " not sure about these yet
 
@@ -659,7 +507,7 @@ call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" My Own "Vim Scripts"
+" My Own Vim Scripts
 
 " Learn to use this to test Vim Scripts
 " Plugin 'junegunn/vader.vim'
@@ -755,12 +603,11 @@ if (exists('g:lights_auto') && g:lights_auto == 1)
   "echom 'using timed colorscheme'
   call __auto()
 else
-  echomsg 'no background set'
-  set background=NONE
+  echomsg 'automatic theme switching disabled'
+  set background=light
   let g:material_terminal_italics = 1
-  let g:material_theme_style = 'default'
+  let g:material_theme_style = 'lighter'
   colorscheme material
-  let g:tokyonight_style = "night"
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -797,3 +644,167 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                ¯\_(ツ)_/¯
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+lua << EOF
+  require("trouble").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+    position = "bottom", -- position of the list can be: bottom, top, left, right
+    height = 10, -- height of the trouble list when position is top or bottom
+    width = 50, -- width of the list when position is left or right
+    icons = true, -- use devicons for filenames
+    mode = "lsp_workspace_diagnostics", -- "lsp_workspace_diagnostics", "lsp_document_diagnostics", "quickfix", "lsp_references", "loclist"
+    fold_open = "", -- icon used for open folds
+    fold_closed = "", -- icon used for closed folds
+    action_keys = { -- key mappings for actions in the trouble list
+        close = "q", -- close the list
+        cancel = "<esc>", -- cancel the preview and get back to your last window / buffer / cursor
+        refresh = "r", -- manually refresh
+        jump = {"<cr>", "<tab>"}, -- jump to the diagnostic or open / close folds
+        jump_close = {"o"}, -- jump to the diagnostic and close the list
+        toggle_mode = "m", -- toggle between "workspace" and "document" diagnostics mode
+        toggle_preview = "P", -- toggle auto_preview
+        hover = "K", -- opens a small poup with the full multiline message
+        preview = "p", -- preview the diagnostic location
+        close_folds = {"zM", "zm"}, -- close all folds
+        open_folds = {"zR", "zr"}, -- open all folds
+        toggle_fold = {"zA", "za"}, -- toggle fold of current file
+        previous = "k", -- preview item
+        next = "j" -- next item
+    },
+    indent_lines = true, -- add an indent guide below the fold icons
+    auto_open = false, -- automatically open the list when you have diagnostics
+    auto_close = false, -- automatically close the list when you have no diagnostics
+    auto_preview = true, -- automatyically preview the location of the diagnostic. <esc> to close preview and go back to last window
+    auto_fold = false, -- automatically fold a file trouble list at creation
+    signs = {
+        -- icons / text used for a diagnostic
+        error = "",
+        warning = "",
+        hint = "",
+        information = "",
+        other = "﫠"
+    },
+    use_lsp_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
+  }
+EOF
+
+lua << EOF
+  require("todo-comments").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+     signs = true, -- show icons in the signs column
+  -- keywords recognized as todo comments
+  keywords = {
+    FIX = {
+      icon = " ", -- icon used for the sign, and in search results
+      color = "error", -- can be a hex color, or a named color (see below)
+      alt = { "FIXME", "BUG", "FIXIT", "FIX", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
+      -- signs = false, -- configure signs for some keywords individually
+    },
+    TODO = { icon = " ", color = "info" },
+    HACK = { icon = " ", color = "warning" },
+    WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+    PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+    NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+  },
+  -- highlighting of the line containing the todo comment
+  -- * before: highlights before the keyword (typically comment characters)
+  -- * keyword: highlights of the keyword
+  -- * after: highlights after the keyword (todo text)
+  highlight = {
+    before = "", -- "fg" or "bg" or empty
+    keyword = "wide", -- "fg", "bg", "wide" or empty. (wide is the same as bg, but will also highlight surrounding characters)
+    after = "fg", -- "fg" or "bg" or empty
+  },
+  -- list of named colors where we try to extract the guifg from the
+  -- list of hilight groups or use the hex color if hl not found as a fallback
+  colors = {
+    error = { "LspDiagnosticsDefaultError", "ErrorMsg", "#DC2626" },
+    warning = { "LspDiagnosticsDefaultWarning", "WarningMsg", "#FBBF24" },
+    info = { "LspDiagnosticsDefaultInformation", "#2563EB" },
+    hint = { "LspDiagnosticsDefaultHint", "#10B981" },
+    default = { "Identifier", "#7C3AED" },
+  },
+  -- regex that will be used to match keywords.
+  -- don't replace the (KEYWORDS) placeholder
+  pattern = "(KEYWORDS):",
+  -- pattern = "(KEYWORDS)", -- match without the extra colon. You'll likely get false positives
+  -- pattern = "-- (KEYWORDS):", -- only match in lua comments
+  }
+EOF
+
+
+lua << EOF
+require("telescope").load_extension("session-lens")
+require('telescope').load_extension('gh')
+require('telescope').setup{
+  extensions = {
+    tele_tabby = {
+      use_highlighter = true,
+    }
+  }
+}
+EOF
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = {  "bash", "css", "dockerfile", "fish", "graphql", "html", 
+                        "javascript", "jsdoc", "json", "jsonc", "lua", "python", 
+                        "regex", "rust", "toml", "tsx", "typescript", "yaml", 
+                        "sparql" }
+}
+EOF
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  indent = {
+    enable = true
+  }
+}
+EOF
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "grn",
+      scope_incremental = "grc",
+      node_decremental = "grm",
+    },
+  },
+}
+EOF
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    custom_captures = {
+      -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
+      ["foo.bar"] = "Identifier",
+    },
+  },
+}
+EOF
+
+
+lua <<EOF
+local function setup_servers()
+  require'lspinstall'.setup()
+  local servers = require'lspinstall'.installed_servers()
+  for _, server in pairs(servers) do
+    require'lspconfig'[server].setup{}
+  end
+end
+
+-- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+require'lspinstall'.post_install_hook = function ()
+  setup_servers() -- reload installed servers
+  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+end
+EOF
