@@ -1,4 +1,56 @@
 {
+  "emmet.preferences": {},
+  "diagnostic.virtualText": false,
+  "diagnostic.enableHighlightLineNumber": true,
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.separateRelatedInformationAsDiagnostics": true,
+  "tsserver.formatOnType": true,
+  "snippets.extends": {
+    "javascriptreact": [
+      "javascript"
+    ],
+    "typescript": [
+      "javascript"
+    ]
+  },
+  "typescript.format.semicolons": "insert",
+  "typescript.autoClosingTags": true,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+  "vimlsp.diagnostic.enable": true,
+  "coc.preferences.formatOnType": false,
+  "coc.preferences.formatOnTypeFiletypes": [
+    "markdown",
+    "html",
+    "css",
+    "cssmodules",
+    "json",
+    "javascript",
+    "typescript",
+    "jsx",
+    "vim",
+    "vimwiki",
+    "graphql",
+    "yaml",
+    "python",
+    "rust"
+  ],
+  "coc.preferences.formatOnSaveFiletypes": [
+    "markdown",
+    "html",
+    "css",
+    "cssmodules",
+    "json",
+    "javascript",
+    "typescript",
+    "jsx",
+    "vim",
+    "vimwiki",
+    "graphql",
+    "yaml",
+    "python",
+    "rust"
+
+  ],
   "pairs.enableBackspace": true,
   "pairs.enableCharacters": [
     "(",
@@ -44,6 +96,5 @@
     "snippet": "\ue60b",
     "typeParameter": "\uf728",
     "default": "\uf29c"
-  },
-  "diagnostic.checkCurrentLine": true
+  }
 }
