@@ -322,6 +322,8 @@ let g:workspace_session_disable_on_args = 1
 let g:workspace_persist_undo_history = 0
 let g:workspace_autosave_untrailspaces = 1
 let g:workspace_autosave_ignore = ['gitcommit']
+let g:workspace_session_name = '.vim-workspace.vim'
+let g:workspace_session_directory = $HOME . '/.config/nvim/sessions/'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Words
