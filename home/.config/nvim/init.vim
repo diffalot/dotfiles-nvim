@@ -200,7 +200,7 @@ nnoremap <silent><C-Left> :tabprevious<CR>
 nnoremap <silent><C-m> :tabmove<CR>
 nnoremap <silent><C-t> :tabnew<CR>
 
-" <Space-z> 
+" <Space-z>
 nmap <Space>z :VimwikiToggleListItem<CR>
 
 
@@ -229,7 +229,7 @@ nnoremap <F7>q :Git diff<CR>
 nnoremap <F7>d :Gvdiffsplit<CR>
 nnoremap <F7>m :Gclog<CR>
 "     commit a lot"
-"       [trivial]({*topic}) {*note} 
+"       [trivial]({*topic}) {*note}
 "         - should a small cleanup and if you can git blame this on a commit that hasnt been merged to main, squash it in there
 "       [wip] {optional note and message}
 "         - you're sure this is going to be a part of the feature, and you want a checkpoint even thou you plan on squashing this all together eventually
@@ -493,8 +493,8 @@ Plug 'tmux-plugins/vim-tmux'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Coc Launguage Server Client
-" Or build from source code by using yarn: https://yarnpkg.com
-Plug 'neoclide/coc.nvim',
+" build from source code by using yarn: https://yarnpkg.com
+Plug 'neoclide/coc.nvim', 
   \ {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 
 " Workspace configurations should be named coc-settings.json and be in the
