@@ -413,6 +413,19 @@ Plug 'roxma/vim-tmux-clipboard'
 Plug 'tmux-plugins/vim-tmux'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Auto Pairing
+" coc-pairs
+"
+" In CocConfig
+" pairs.disableLanguages, list of language ids to disable this extension, default: [].
+" pairs.enableCharacters, list of enabled characters, default: ["(", "[", "{", "<", "'", "\"", "`"].
+" pairs.enableBackspace, enable imap for backspace to remove paired characters, default: true, won't work when <bs> is already mapped.
+"
+" In Vim:
+"
+" autocmd FileType tex let b:coc_pairs = [["$", "$"]]
+" autocmd FileType markdown let b:coc_pairs_disabled = ['`']
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 "    Language Server and Client Setup
 "

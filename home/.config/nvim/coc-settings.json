@@ -1,4 +1,14 @@
 {
+  "pairs.enableBackspace": true,
+  "pairs.enableCharacters": [
+    "(",
+    "[",
+    "{",
+    "<",
+    "'",
+    "\"",
+    "`"
+  ],
   "suggest.enablePreselect": true,
   "suggest.enablePreview": true,
   "suggest.autoTrigger": "always",
