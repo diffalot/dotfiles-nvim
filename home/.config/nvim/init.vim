@@ -32,8 +32,10 @@ endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " It's worth a nasty bug to have italics
-set t_ZH=^[[3m
-set t_ZR=^[[23m
+" https://rsapkf.xyz/blog/enabling-italics-vim-tmux
+" note that I did not follow all of those directions, just this bit here
+set t_ZH=[3m
+set t_ZR=[23m
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Based on Vim patch 7.4.1770 (`guicolors` option)
 " https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
