@@ -364,10 +364,13 @@ let g:netrw_keepdir = 0
 Plug 'voldikss/vim-floaterm'
 
 let g:floaterm_shell = 'fish'
-let g:floaterm_wintype = 'float'
+let g:floaterm_wintype = 'split'
 let g:floaterm_width = 140
-let g:floaterm_height = 60
-let g:floaterm_position = 'topright'
+let g:floaterm_height = 0.2
+" float positions: top', 'bottom', 'left', 'right', 'topleft', 'topright', 'bottomleft', 'bottomright', 'center', 'auto'(at the cursor place). Default: 'center'
+" split positions: 'leftabove', 'aboveleft', 'rightbelow', 'belowright', 'topleft', 'botright'. Default: 'botright'
+" let g:floaterm_position = 'topright'
+let g:floaterm_position = 'belowright'
 let g:floaterm_opener = 'edit'
 let g:floaterm_autoclose = 1
 let g:floaterm_autohide = 2
