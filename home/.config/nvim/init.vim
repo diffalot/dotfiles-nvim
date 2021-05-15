@@ -139,16 +139,13 @@ endif
 " Personal Keybindings
 
 set timeoutlen=900
-let mapleader= ','
+let mapleader = 'q'
+let maplocalleader = ','
 
 " Utilities
 nnoremap <F2> :UndotreeToggle<CR>
 nnoremap <F9> :Vista!!<CR>
 " (set by plugin) <leader> u OpenUrl
-
-" File Management
-nnoremap ,l :GFiles<CR>
-nnoremap ,k :Files<CR>
 
 " Buffer Controls
 nnoremap <C-Space> :Telescope<CR>
@@ -165,7 +162,63 @@ nnoremap <silent><C-t> :tabnew<CR>
 " <Space-z>
 nmap <Space>z :VimwikiToggleListItem<CR>
 
+" Telescope Bindings
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+noremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" Floaterm
+let g:floaterm_keymap_new = '<leader>cd'
+let g:floaterm_keymap_next = '<leader>mm'
+let g:floaterm_keymap_toggle = '<leader><Space>'
+let g:floaterm_keymap_kill = '<Space>zxc'
+
+" Floating nnn window
+nnoremap <leader>n :FloatermNew --name=Files nnn<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" completion.nvim keymappings
+
+imap <c-j> <Plug>(completion_next_source) "use <c-j> to switch to previous completion
+imap <c-k> <Plug>(completion_prev_source) "use <c-k> to switch to next completion
+
+" Use <Tab> and <S-Tab> to navigate through popup menu
+" FIXME
+"inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+"map <c-p> to manually trigger completion
+imap <silent> <c-p> <Plug>(completion_trigger)
+
+"imap <tab> <Plug>(completion_smart_tab)
+"imap <s-tab> <Plug>(completion_smart_s_tab)
+
+" Expand
+imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+
+" Expand or jump
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+" FIXME snippets module not loading
+" Jump forward or backward
+"imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+"smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+"imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+"smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+" See https://github.com/hrsh7th/vim-vsnip/pull/50
+nmap        s   <Plug>(vsnip-select-text)
+xmap        s   <Plug>(vsnip-select-text)
+nmap        S   <Plug>(vsnip-cut-text)
+xmap        S   <Plug>(vsnip-cut-text)
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " git workflow
 "   the catchup phase
 "     fetch and graph
@@ -208,63 +261,10 @@ nnoremap <F7>m :Gclog<CR>
 "    push and pr you'll just want to use rebase and merges as necessary
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Telescope Bindings
-"
-" Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-noremap <leader>fh <cmd>Telescope help_tags<cr>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Floaterm
-let g:floaterm_keymap_new = '<leader>cd'
-let g:floaterm_keymap_next = '<leader>mm'
-let g:floaterm_keymap_toggle = '<leader><Space>'
-let g:floaterm_keymap_kill = '<Space>zxc'
-
-" Floating nnn window
-nnoremap <leader>n :FloatermNew --name=Files --wintype=vsplit --width=40 --position=botright nnn<CR>
+" No Key Maps Below Here!!!
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" completion.nvim keymappings go here
-
-imap <c-j> <Plug>(completion_next_source) "use <c-j> to switch to previous completion
-imap <c-k> <Plug>(completion_prev_source) "use <c-k> to switch to next completion
-
-" Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-"map <c-p> to manually trigger completion
-imap <silent> <c-p> <Plug>(completion_trigger)
-
-imap <tab> <Plug>(completion_smart_tab)
-imap <s-tab> <Plug>(completion_smart_s_tab)
-
-" Expand
-imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-
-" Expand or jump
-imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-
-" Jump forward or backward
-imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-
-" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
-" See https://github.com/hrsh7th/vim-vsnip/pull/50
-nmap        s   <Plug>(vsnip-select-text)
-xmap        s   <Plug>(vsnip-select-text)
-nmap        S   <Plug>(vsnip-cut-text)
-xmap        S   <Plug>(vsnip-cut-text)
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 call plug#begin('~/.config/nvim/plugged')
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -419,7 +419,8 @@ let g:auto_session_suppress_dirs = ['~/Desktop']
 " Completion nvim
 Plug 'nvim-lua/completion-nvim'
 " Use completion-nvim in every buffer
-autocmd BufEnter * lua require'completion'.on_attach()
+" FIXME completion lua module can't be found
+""autocmd BufEnter * lua require'completion'.on_attach()
 
 "let g:completion_chain_complete_list = [
 "    \{'complete_items': ['lsp', 'snippet']},
