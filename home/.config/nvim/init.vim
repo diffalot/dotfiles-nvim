@@ -681,6 +681,23 @@ call plug#end()
 
 command! -nargs=* GitTrivial echo system('git commit % -m "[clean](trivial) small and dangerous"')
 
+" todo(alice): learn about filetype autocommands
+"
+" keep an eye out for if
+" there's a way to assign multiple filetypes to a buffer, cause that would help
+" with formatting vimwiki/markdown pages
+"
+" * wiki pages should trigger the lsp markdown lint and format settings
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                       :help autocmd-events
+" Text File Formatting
+"
+" https://learnvimscriptthehardway.stevelosh.com/chapters/12.html
+
+":autocmd FileType javascript 
+":autocmd BufNewFile,BufRead *.html setlocal nowrap
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " :ManageNvimConfig & :ReloadNvimConfig
 "
