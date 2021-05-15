@@ -111,7 +111,7 @@ set splitright
 set whichwrap=b,s,<,>,[,]
 
 " no folding
-set nofoldenable
+"set nofoldenable
 
 " do not resize splits when closing one
 set noequalalways
