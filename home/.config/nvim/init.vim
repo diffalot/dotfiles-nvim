@@ -133,8 +133,8 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Personal Keybindings
 
-set timeoutlen=1250
-let mapleader= ' '
+set timeoutlen=900
+let mapleader= ','
 
 " Utilities
 nnoremap <F2> :UndotreeToggle<CR>
@@ -212,13 +212,11 @@ noremap <leader>fh <cmd>Telescope help_tags<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Floaterm
-let g:floaterm_keymap_new = '<Leader>M'
-let g:floaterm_keymap_prev = '<Leader>,,'
-let g:floaterm_keymap_next = '<Leader> ..'
-let g:floaterm_keymap_toggle = '<Leader>mm'
-let g:floaterm_keymap_kill = '<Leader>zxc'
+let g:floaterm_keymap_new = '<leader>cd'
+let g:floaterm_keymap_next = '<leader>mm'
+let g:floaterm_keymap_toggle = '<leader><Space>'
+let g:floaterm_keymap_kill = '<Space>zxc'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Floating nnn window
 nnoremap <leader>n :FloatermNew --name=Files --wintype=vsplit --width=40 --position=botright nnn<CR>
 
@@ -310,11 +308,11 @@ Plug 'voldikss/vim-floaterm'
 
 let g:floaterm_shell = 'fish'
 let g:floaterm_wintype = 'float'
-let g:floaterm_width = 130
-let g:floaterm_height = 24
-"let g:floaterm_position = 'topright'
+let g:floaterm_width = 140
+let g:floaterm_height = 60
+let g:floaterm_position = 'topright'
 let g:floaterm_opener = 'edit'
-let g:floaterm_autoclose = 0
+let g:floaterm_autoclose = 1
 let g:floaterm_autohide = 2
 
 "let g:floaterm_keymap_new = '<Leader>zx'
@@ -353,10 +351,10 @@ Plug 'TC72/telescope-tele-tabby.nvim'
 " Session management
 Plug 'rmagatti/auto-session'
 Plug 'rmagatti/session-lens'
-let g:auto_session_root_dir = $HOME . '.config/nvim/sessions'
+"let g:auto_session_root_dir = $HOME . '.config/nvim/sessions'
 let g:auto_session_enable_last_session = 0
 let g:auto_session_enabled = 0
-let g:auto_save_enabled = 0
+let g:auto_save_enabled = 1
 let g:auto_restore_enabled = 1
 let g:auto_session_suppress_dirs = ['~/Desktop']
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -398,11 +396,6 @@ Plug 'editorconfig/editorconfig-vim'
 "    User Interface Improvements
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Fancy Icons
-
-Plug 'kyazdani42/nvim-web-devicons'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/gcmt/taboo.vim
 Plug 'gcmt/taboo.vim'
 
@@ -419,24 +412,20 @@ let g:taboo_renamed_tab_format = ' %I(%l%m) |'
 " TabooOpen <tabname> Opens a new tab and and gives it the name provided.
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" EleLine - https://github.com/liuchengxu/eleline.vim
+"Plug 'datwaft/bubbly.nvim'
 
-Plug 'liuchengxu/eleline.vim'
-let g:eleline_powerline_fonts = 1
-
-" echo winwidth('%')
-" reports 61 on the phone
-if winwidth('%') < 70
-  let g:eleline_slim = 1
-end
+"Plug 'ojroques/nvim-hardline'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim Script
+
+"Plug 'adelarsq/vim-emoji-icon-theme'
+"Plug 'narajaon/onestatus'
+
 Plug 'kyazdani42/nvim-web-devicons'
-
-Plug 'folke/trouble.nvim'
-
 Plug 'nvim-lua/lsp-status.nvim'
+Plug 'folke/trouble.nvim'
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Themes must be installed during plug initialization, but they can't be
@@ -646,11 +635,44 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 lua << EOF
+  require('spaceline')
+EOF
+
+
+
+"lua << EOF
+"require('hardline').setup {
+"  bufferline = false,  -- enable bufferline
+"  theme = 'gruvbox_minimal',   -- change theme
+"  sections = {         -- define sections
+"    {class = 'mode', item = require('hardline.parts.mode').get_item},
+"    {class = 'high', item = require('hardline.parts.git').get_item, hide = 80},
+"    '%<',
+"    {class = 'med', item = require('hardline.parts.filename').get_item},
+"    {class = 'med', item ='%='},
+"    {class = 'low', item = require('hardline.parts.wordcount').get_item, hide = 80},
+"    {class = 'error', item = require('hardline.parts.lsp').get_error},
+"    {class = 'warning', item = require('hardline.parts.lsp').get_warning},
+"    {class = 'warning', item = require('hardline.parts.whitespace').get_item},
+"    {class = 'high', item = require('hardline.parts.filetype').get_item, hide = 80},
+"    {class = 'mode', item = require('hardline.parts.line').get_item},
+"  },
+"  bufferline_settings = {
+"    exclude_terminal = false,  -- don't show terminal buffers in bufferline
+"    show_index = true,        -- show buffer indexes (not the actual buffer numbers) in bufferline
+"  },
+"}
+"EOF
+
+lua << EOF
+
+  
+
   require("trouble").setup {
     -- your configuration comes here
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
-    position = "bottom", -- position of the list can be: bottom, top, left, right
+    position = "top", -- position of the list can be: bottom, top, left, right
     height = 10, -- height of the trouble list when position is top or bottom
     width = 50, -- width of the list when position is left or right
     icons = true, -- use devicons for filenames
