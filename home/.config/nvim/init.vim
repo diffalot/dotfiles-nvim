@@ -379,6 +379,22 @@ let g:floaterm_autohide = 2
 "let g:floaterm_keymap_kill = '<Leader>zxc'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" REPL
+Plug 'metakirby5/codi.vim'
+
+let g:codi#width = 0.2     " is the width of the Codi split.
+let g:codi#rightsplit = 0  " is whether or not Codi spawns on the right side.
+let g:codi#rightalign = 1  " is whether or not to right-align the Codi buffer.
+let g:codi#autoclose  = 0  " is whether or not to close Codi when the associated buffer is closed.
+let g:codi#raw = 0         " is whether or not to display interpreter results without alignment formatting (useful for debugging).
+let g:codi#sync = 0        " is whether or not to force synchronous execution. No reason to touch this unless you want to compare async to sync.
+" let g:codi#autocmd       " determines what autocommands trigger updates. See the documentation for more information.
+let g:codi#aliases = {
+      \ 'javascript.jsx': 'javascript',
+      \ 'typescript.tsx': 'typescript',
+      \ }
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Session management
 Plug 'rmagatti/auto-session'
 Plug 'rmagatti/session-lens'
