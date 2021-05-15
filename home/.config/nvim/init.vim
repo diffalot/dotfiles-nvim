@@ -62,7 +62,7 @@ set nocompatible
 set encoding=utf-8
 
 filetype plugin on
-syntax on
+syntax enable
 
 set mouse=a
 
@@ -221,6 +221,43 @@ let g:floaterm_keymap_kill = '<Space>zxc'
 nnoremap <leader>n :FloatermNew --name=Files --wintype=vsplit --width=40 --position=botright nnn<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" completion.nvim keymappings go here
+
+imap <c-j> <Plug>(completion_next_source) "use <c-j> to switch to previous completion
+imap <c-k> <Plug>(completion_prev_source) "use <c-k> to switch to next completion
+
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+"map <c-p> to manually trigger completion
+imap <silent> <c-p> <Plug>(completion_trigger)
+
+imap <tab> <Plug>(completion_smart_tab)
+imap <s-tab> <Plug>(completion_smart_s_tab)
+
+" Expand
+imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+
+" Expand or jump
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+" Jump forward or backward
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+" See https://github.com/hrsh7th/vim-vsnip/pull/50
+nmap        s   <Plug>(vsnip-select-text)
+xmap        s   <Plug>(vsnip-select-text)
+nmap        S   <Plug>(vsnip-cut-text)
+xmap        S   <Plug>(vsnip-cut-text)
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -322,6 +359,108 @@ let g:floaterm_autohide = 2
 "let g:floaterm_keymap_kill = '<Leader>zxc'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Session management
+Plug 'rmagatti/auto-session'
+Plug 'rmagatti/session-lens'
+"let g:auto_session_root_dir = $HOME . '.config/nvim/sessions'
+let g:auto_session_enable_last_session = 0
+let g:auto_session_enabled = 0
+let g:auto_save_enabled = 1
+let g:auto_restore_enabled = 1
+let g:auto_session_suppress_dirs = ['~/Desktop']
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Completion nvim
+Plug 'nvim-lua/completion-nvim'
+" Use completion-nvim in every buffer
+autocmd BufEnter * lua require'completion'.on_attach()
+
+"let g:completion_chain_complete_list = [
+"    \{'complete_items': ['lsp', 'snippet']},
+"    \{'mode': '<c-p>'},
+"    \{'mode': '<c-n>'}
+"\]
+"let g:completion_chain_complete_list = {
+"    \ 'vim': [
+"    \    {'mode': '<c-p>'},
+"    \    {'mode': '<c-n>'}
+"    \],
+"    \ 'lua': [
+"    \    {'mode': '<c-p>'},
+"    \    {'mode': '<c-n>'}
+"    \],
+"    \ 'default': [
+"    \    {'complete_items': ['lsp', 'snippet']},
+"    \    {'mode': '<c-p>'},
+"    \    {'mode': '<c-n>'}
+"    \]
+"\}
+
+" possible value: "length", "alphabet", "none"
+let g:completion_sorting = "length"
+
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
+
+"g:completion_matching_ignore_case = 1
+
+let g:completion_matching_smart_case = 1
+
+let g:completion_trigger_keyword_length = 3 " default = 1
+
+let g:completion_trigger_on_delete = 1
+
+let g:completion_timer_cycle = 200 "default value is 80
+
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
+
+let g:completion_auto_change_source = 1
+
+" non ins-complete method should be specified in 'mode'
+let g:completion_chain_complete_list = [
+    \{'complete_items': ['lsp']},
+    \{'complete_items': ['snippet']},
+    \{'mode': '<c-p>'},
+    \{'mode': '<c-n>'}
+\]
+
+"let g:completion_chain_complete_list = {
+"    \ 'lua': [
+"    \    'string': [
+"    \        {'mode': '<c-p>'},
+"    \        {'mode': '<c-n>'}],
+"    \    'func' : [
+"    \        {'complete_items': ['lsp']}],
+"    \    'default': [
+"    \       {'complete_items': ['lsp', 'snippet']},
+"    \       {'mode': '<c-p>'},
+"    \       {'mode': '<c-n>'}],
+"    \],
+"    \ 'default' : {
+"    \   'default': [
+"    \       {'complete_items': ['lsp', 'snippet']},
+"    \       {'mode': '<c-p>'},
+"    \       {'mode': '<c-n>'}],
+"    \   'comment': []
+"    \   }
+"    \}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Snippets
+Plug 'rafamadriz/friendly-snippets'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+
+" If you want to use snippet for multiple filetypes, you can `g:vsnip_filetypes` for it.
+let g:vsnip_filetypes = {}
+let g:vsnip_filetypes.javascriptreact = ['javascript']
+let g:vsnip_filetypes.typescriptreact = ['typescript']
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/folke/todo-comments.nvim
 Plug 'folke/todo-comments.nvim'
 
@@ -339,6 +478,10 @@ set foldexpr=nvim_treesitter#foldexpr()
 Plug 'neovim/nvim-lspconfig'
 Plug 'kabouzeid/nvim-lspinstall'
 
+Plug 'nvim-lua/lsp-status.nvim'
+Plug 'folke/lsp-colors.nvim'
+Plug 'folke/trouble.nvim'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/nvim-telescope/telescope.nvim
 Plug 'nvim-lua/popup.nvim'
@@ -348,20 +491,10 @@ Plug 'nvim-telescope/telescope-github.nvim'
 Plug 'TC72/telescope-tele-tabby.nvim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Session management
-Plug 'rmagatti/auto-session'
-Plug 'rmagatti/session-lens'
-"let g:auto_session_root_dir = $HOME . '.config/nvim/sessions'
-let g:auto_session_enable_last_session = 0
-let g:auto_session_enabled = 0
-let g:auto_save_enabled = 1
-let g:auto_restore_enabled = 1
-let g:auto_session_suppress_dirs = ['~/Desktop']
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" A little help from tmux to know when vim is focused or not
-"Plug 'tmux-plugins/vim-tmux-focus-events'
-"Plug 'roxma/vim-tmux-clipboard'
-"Plug 'tmux-plugins/vim-tmux'
+" A little help from tmux to know when vim is focused or not
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'roxma/vim-tmux-clipboard'
+Plug 'tmux-plugins/vim-tmux'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
@@ -382,21 +515,23 @@ Plug 'editorconfig/editorconfig-vim'
 "" The fastest and most versitile, hopefully everything I need is in here
 "Plug 'sheerun/vim-polyglot'
 "
-"Plug 'pangloss/vim-javascript'
-"Plug 'mxw/vim-jsx'
-"Plug 'kevinoid/vim-jsonc'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'kevinoid/vim-jsonc'
 "
-"Plug 'dag/vim-fish'
-"autocmd FileType fish compiler fish
-"autocmd FileType fish setlocal textwidth=79
-"autocmd FileType fish setlocal foldmethod=expr
-"
+Plug 'dag/vim-fish'
+autocmd FileType fish compiler fish
+autocmd FileType fish setlocal textwidth=79
+autocmd FileType fish setlocal foldmethod=expr
+
+Plug 'euclidianAce/BetterLua.vim'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 "    User Interface Improvements
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://github.com/gcmt/taboo.vim
+" Name Tabs with Taboo https://github.com/gcmt/taboo.vim
 Plug 'gcmt/taboo.vim'
 
 " make tabs in guis look the same as terminals
@@ -412,19 +547,10 @@ let g:taboo_renamed_tab_format = "\uE0BC  %l%I%m \uE0D4"
 " TabooOpen <tabname> Opens a new tab and and gives it the name provided.
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Plug 'datwaft/bubbly.nvim'
-
-"Plug 'ojroques/nvim-hardline'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vim Script
-
-"Plug 'adelarsq/vim-emoji-icon-theme'
+" I would love a single status line on tmux, please
 "Plug 'narajaon/onestatus'
-
+"Plug 'adelarsq/vim-emoji-icon-theme'
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'nvim-lua/lsp-status.nvim'
-Plug 'folke/trouble.nvim'
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -634,40 +760,19 @@ endfunction
 "                                ¯\_(ツ)_/¯
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+"lua << EOF
+"EOF
+
 lua << EOF
-  require('spaceline')
+  require('galaxyline-status-lines/spaceline')
+  --require('galaxyline-status-lines/status-line')
+  --require('galaxyline-status-lines/galaxyline')
+  --require('galaxyline-status-lines/statusline')
 EOF
 
 
 
-"lua << EOF
-"require('hardline').setup {
-"  bufferline = false,  -- enable bufferline
-"  theme = 'gruvbox_minimal',   -- change theme
-"  sections = {         -- define sections
-"    {class = 'mode', item = require('hardline.parts.mode').get_item},
-"    {class = 'high', item = require('hardline.parts.git').get_item, hide = 80},
-"    '%<',
-"    {class = 'med', item = require('hardline.parts.filename').get_item},
-"    {class = 'med', item ='%='},
-"    {class = 'low', item = require('hardline.parts.wordcount').get_item, hide = 80},
-"    {class = 'error', item = require('hardline.parts.lsp').get_error},
-"    {class = 'warning', item = require('hardline.parts.lsp').get_warning},
-"    {class = 'warning', item = require('hardline.parts.whitespace').get_item},
-"    {class = 'high', item = require('hardline.parts.filetype').get_item, hide = 80},
-"    {class = 'mode', item = require('hardline.parts.line').get_item},
-"  },
-"  bufferline_settings = {
-"    exclude_terminal = false,  -- don't show terminal buffers in bufferline
-"    show_index = true,        -- show buffer indexes (not the actual buffer numbers) in bufferline
-"  },
-"}
-"EOF
-
 lua << EOF
-
-
-
   require("trouble").setup {
     -- your configuration comes here
     -- or leave it empty to use the default settings
