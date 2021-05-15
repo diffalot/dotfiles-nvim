@@ -113,6 +113,9 @@ set whichwrap=b,s,<,>,[,]
 " no folding
 set nofoldenable
 
+" do not resize splits when closing one
+set noequalalways
+
 " tab bar and status bar display by default
 set showtabline=2
 set laststatus=2
