@@ -403,8 +403,8 @@ Plug 'gcmt/taboo.vim'
 set guioptions-=e
 set sessionoptions+=tabpages,globals
 
-let g:taboo_tab_format = ' %I%P > %f%l )%U%m |'
-let g:taboo_renamed_tab_format = ' %I(%l%m) |'
+let g:taboo_tab_format = "\uE0BC  %P%I \uE0B1 %f%l%U%m\uE0BE"
+let g:taboo_renamed_tab_format = "\uE0BC  %l%I%m \uE0D4"
 
 " TabooRename <tabname> Renames the current tab with the name provided.
 " todo(alice) greate fundtion mapped to new tab keybinding that uses TabooOpen
@@ -434,7 +434,7 @@ Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 " echo winwidth('%')
 " reports 61 on the phone
 if winwidth('%') > 69
-  let g:lights_auto = 0
+  let g:lights_auto = 1
 end
 
 Plug 'preservim/vim-colors-pencil'
@@ -595,7 +595,7 @@ else
   echomsg 'automatic theme switching disabled'
   set background=light
   let g:material_terminal_italics = 1
-  let g:material_theme_style = 'lighter'
+  let g:material_theme_style = 'bluenight'
   colorscheme material
 endif
 
@@ -666,7 +666,7 @@ EOF
 
 lua << EOF
 
-  
+
 
   require("trouble").setup {
     -- your configuration comes here
@@ -773,9 +773,9 @@ EOF
 
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {  "bash", "css", "dockerfile", "fish", "graphql", "html", 
-                        "javascript", "jsdoc", "json", "jsonc", "lua", "python", 
-                        "regex", "rust", "toml", "tsx", "typescript", "yaml", 
+  ensure_installed = {  "bash", "css", "dockerfile", "fish", "graphql", "html",
+                        "javascript", "jsdoc", "json", "jsonc", "lua", "python",
+                        "regex", "rust", "toml", "tsx", "typescript", "yaml",
                         "sparql" }
 }
 EOF
