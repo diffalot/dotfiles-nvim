@@ -146,10 +146,16 @@ let maplocalleader = 'q'
 nnoremap <F2> :UndotreeToggle<CR>
 nnoremap <F9> :Vista!!<CR>
 " (set by plugin) <leader> u OpenUrl
+nmap z<Space> :VimwikiToggleListItem<CR>
 
-" Buffer Controls
-nnoremap <C-Space> :Telescope<CR>
-nnoremap <leader>W :bd<CR>
+" Main Menu Controls
+nnoremap <Space>t :Telescope<CR>
+
+" Submenu Controls
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+noremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " Tab Management
 nnoremap <silent><C-Right> :tabnext<CR>
@@ -159,23 +165,18 @@ nnoremap <silent>ttr :tabprevious<CR>
 nnoremap <silent><C-m> :tabmove<CR>
 nnoremap <silent><C-t> :tabnew<CR>
 
-" <Space-z>
-nmap <Space>z :VimwikiToggleListItem<CR>
-
-" Telescope Bindings
-" Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-noremap <leader>fh <cmd>Telescope help_tags<cr>
-
 " Floating Terminals (should probably find a better namespace? Or maybe just
 " unify this one...)
-nnoremap <silent><leader>n :FloatermNew --name=nnnTree --wintype=float --width=38 --height=1.0 --position=right --autohide=1 --autoclose=2 nnn<CR>
-nnoremap <silent><leader>cs :FloatermNew --name=split --wintype=split --height=7 --width=1 --position=botright --autohide=0 --autoclose=2<CR>
-nnoremap <silent><leader>cd :FloatermNew --title="Console $1" --wintype=float --height=0.3 --width=7 --position=topright --autohide=0 --autoclose=2<CR>
-nnoremap <silent><leader>ce :FloatermNew --title="Logger $1" --wintype=float --height=9 --width=0.75 --position=top --autohide=1 --autoclose=1<CR>
-nnoremap <silent><leader>cf :FloatermNew --name=Inspection --wintype=float --position=topright --height=0.6 --width=0.6 --autohide=1 --autoclose=1<CR>
+"
+"      you can release the cursor from the jaws of the terminal with
+"
+"    ( Control and Backslash ) followed by ( Control and Shift and N )
+"
+"                    [ ctrl - \ ] [ ctrl - N ]
+" 
+nnoremap <silent><leader>n :FloatermNew nnn<CR>
+nnoremap <silent><leader>cs :FloatermNew --name=split --wintype=split --height=5 --width=1.0 --position=belowright --autohide=0 --autoclose=2<CR>
+nnoremap <silent><leader>cd :FloatermNew<CR>
 
 nnoremap <leader>mm :FloatermToggle<CR>
 nnoremap <leader><Space> :FloatermNext<CR>
@@ -268,13 +269,118 @@ nnoremap <F7>m :Gclog<CR>
 " No Key Maps Below Here!!!
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 call plug#begin('~/.config/nvim/plugged')
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Words
+"
+" Still Being Configured
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" I want to learn Lua and I wish I knew Vim Script better
 
-Plug 'henrik/vim-open-url'
-" Trigger with <leader>u or :OpenURL
+" Assists with converting init.vim to init.lua
+Plug 'svermeulen/vimpeccable'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim Finder
+" It's very very fast
+
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/folke/todo-comments.nvim
+Plug 'folke/todo-comments.nvim'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" REPL
+Plug 'metakirby5/codi.vim'
+
+let g:codi#width = 0.2     " is the width of the Codi split.
+let g:codi#rightsplit = 0  " is whether or not Codi spawns on the right side.
+let g:codi#rightalign = 1  " is whether or not to right-align the Codi buffer.
+let g:codi#autoclose  = 0  " is whether or not to close Codi when the associated buffer is closed.
+let g:codi#raw = 0         " is whether or not to display interpreter results without alignment formatting (useful for debugging).
+let g:codi#sync = 0        " is whether or not to force synchronous execution. No reason to touch this unless you want to compare async to sync.
+" let g:codi#autocmd       " determines what autocommands trigger updates. See the documentation for more information.
+let g:codi#aliases = {
+      \ 'javascript.jsx': 'javascript',
+      \ 'typescript.tsx': 'typescript',
+      \ }
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Completion nvim
+Plug 'nvim-lua/completion-nvim'
+" Use completion-nvim in every buffer
+" FIXME completion lua module can't be found
+""autocmd BufEnter * lua require'completion'.on_attach()
+
+"let g:completion_chain_complete_list = [
+"    \{'complete_items': ['lsp', 'snippet']},
+"    \{'mode': '<c-p>'},
+"    \{'mode': '<c-n>'}
+"\]
+"let g:completion_chain_complete_list = {
+"    \ 'lua': [
+"    \    {'mode': '<c-p>'},
+"    \    {'mode': '<c-n>'}
+"    \],
+"    \ 'default': [
+"    \    {'complete_items': ['lsp', 'snippet']},
+"    \    {'mode': '<c-p>'},
+"    \    {'mode': '<c-n>'}
+"    \]
+"\}
+
+" possible value: "length", "alphabet", "none"
+let g:completion_sorting = "length"
+
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
+
+"g:completion_matching_ignore_case = 1
+
+let g:completion_matching_smart_case = 1
+
+let g:completion_trigger_keyword_length = 3 " default = 1
+
+let g:completion_trigger_on_delete = 1
+
+let g:completion_timer_cycle = 200 "default value is 80
+
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
+
+let g:completion_auto_change_source = 1
+
+" non ins-complete method should be specified in 'mode'
+let g:completion_chain_complete_list = [
+    \{'complete_items': ['lsp']},
+    \{'complete_items': ['snippet']},
+    \{'mode': '<c-p>'},
+    \{'mode': '<c-n>'}
+\]
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Snippets
+Plug 'rafamadriz/friendly-snippets'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+
+" If you want to use snippet for multiple filetypes, you can `g:vsnip_filetypes` for it.
+let g:vsnip_filetypes = {}
+let g:vsnip_filetypes.javascriptreact = ['javascript']
+let g:vsnip_filetypes.typescriptreact = ['typescript']
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Every Day Use
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Communications
 
 " spelling
 " keybindings: https://github.com/preservim/vim-lexical#spell-check
@@ -300,6 +406,10 @@ let g:vimwiki_key_mappings = { 'lists': 0 }
 
 let g:vimwiki_folding = 'expr'
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Heavy Duty Programming shit
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Git
 " Fugitive - https://github.com/tpope/vim-fugitive
@@ -345,17 +455,23 @@ endif
 set updatetime=100
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+"    User Interface Improvements
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Files
 
 Plug 'mbbill/undotree'
 " there's a lot of options for undotree so it is configures in
 " ~/.config/nvim/plugins/conf.undotree.vim
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " :grep
 set grepprg=rg\ --vimgrep
 
 Plug 'BurntSushi/ripgrep'
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " make netrw act like nerdtree :)
 " https://shapeshed.com/vim-netrw/
 let g:netrw_banner = 0
@@ -366,44 +482,24 @@ let g:netrw_winsize = -30
 let g:netrw_keepdir = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://github.com/voldikss/vim-floaterm
-Plug 'voldikss/vim-floaterm'
-
-let g:floaterm_borderchars = '        '
-"let g:floaterm_title = 'Console $1'
-let g:floaterm_shell = 'fish'
-let g:floaterm_wintype = 'float'
-let g:floaterm_width = 0.7
-let g:floaterm_height = 17
-" float positions: top', 'bottom', 'left', 'right', 'topleft', 'topright', 'bottomleft', 'bottomright', 'center', 'auto'(at the cursor place). Default: 'center'
-" split positions: 'leftabove', 'aboveleft', 'rightbelow', 'belowright', 'topleft', 'botright'. Default: 'botright'
-" let g:floaterm_position = 'topright'
-let g:floaterm_position = 'topright'
-let g:floaterm_opener = 'edit'
-let g:floaterm_autoclose = 2
-let g:floaterm_autohide = 0
-
-"let g:floaterm_keymap_new = '<Leader>zx'
-"let g:floaterm_keymap_prev = '<Leader>xzz'
-"let g:floaterm_keymap_next = '<Leader>xz'
-"let g:floaterm_keymap_toggle = '<Leader>xx'
-"let g:floaterm_keymap_kill = '<Leader>zxc'
+Plug 'henrik/vim-open-url'
+" Trigger with <leader>u or :OpenURL
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" REPL
-Plug 'metakirby5/codi.vim'
+" Name Tabs with Taboo https://github.com/gcmt/taboo.vim
+Plug 'gcmt/taboo.vim'
 
-let g:codi#width = 0.2     " is the width of the Codi split.
-let g:codi#rightsplit = 0  " is whether or not Codi spawns on the right side.
-let g:codi#rightalign = 1  " is whether or not to right-align the Codi buffer.
-let g:codi#autoclose  = 0  " is whether or not to close Codi when the associated buffer is closed.
-let g:codi#raw = 0         " is whether or not to display interpreter results without alignment formatting (useful for debugging).
-let g:codi#sync = 0        " is whether or not to force synchronous execution. No reason to touch this unless you want to compare async to sync.
-" let g:codi#autocmd       " determines what autocommands trigger updates. See the documentation for more information.
-let g:codi#aliases = {
-      \ 'javascript.jsx': 'javascript',
-      \ 'typescript.tsx': 'typescript',
-      \ }
+" make tabs in guis look the same as terminals
+set guioptions-=e
+set sessionoptions+=tabpages,globals
+
+let g:taboo_tab_format = "\uE0BC  %P%I \uE0B1 %f%l%U%m\uE0BE"
+let g:taboo_renamed_tab_format = "\uE0BC  %l%I%m \uE0D4"
+
+" TabooRename <tabname> Renames the current tab with the name provided.
+" todo(alice) greate fundtion mapped to new tab keybinding that uses TabooOpen
+" will require prompt to set or fallback to Taboo default
+" TabooOpen <tabname> Opens a new tab and and gives it the name provided.
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Session management
@@ -421,110 +517,25 @@ let g:auto_restore_enabled = 1
 let g:auto_session_suppress_dirs = ['~/Desktop']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Completion nvim
-Plug 'nvim-lua/completion-nvim'
-" Use completion-nvim in every buffer
-" FIXME completion lua module can't be found
-""autocmd BufEnter * lua require'completion'.on_attach()
-
-"let g:completion_chain_complete_list = [
-"    \{'complete_items': ['lsp', 'snippet']},
-"    \{'mode': '<c-p>'},
-"    \{'mode': '<c-n>'}
-"\]
-"let g:completion_chain_complete_list = {
-"    \ 'vim': [
-"    \    {'mode': '<c-p>'},
-"    \    {'mode': '<c-n>'}
-"    \],
-"    \ 'lua': [
-"    \    {'mode': '<c-p>'},
-"    \    {'mode': '<c-n>'}
-"    \],
-"    \ 'default': [
-"    \    {'complete_items': ['lsp', 'snippet']},
-"    \    {'mode': '<c-p>'},
-"    \    {'mode': '<c-n>'}
-"    \]
-"\}
-
-" possible value: "length", "alphabet", "none"
-let g:completion_sorting = "length"
-
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
-
-"g:completion_matching_ignore_case = 1
-
-let g:completion_matching_smart_case = 1
-
-let g:completion_trigger_keyword_length = 3 " default = 1
-
-let g:completion_trigger_on_delete = 1
-
-let g:completion_timer_cycle = 200 "default value is 80
-
-
-" Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
-
-" Avoid showing message extra message when using completion
-set shortmess+=c
-
-let g:completion_auto_change_source = 1
-
-" non ins-complete method should be specified in 'mode'
-let g:completion_chain_complete_list = [
-    \{'complete_items': ['lsp']},
-    \{'complete_items': ['snippet']},
-    \{'mode': '<c-p>'},
-    \{'mode': '<c-n>'}
-\]
-
-"let g:completion_chain_complete_list = {
-"    \ 'lua': [
-"    \    'string': [
-"    \        {'mode': '<c-p>'},
-"    \        {'mode': '<c-n>'}],
-"    \    'func' : [
-"    \        {'complete_items': ['lsp']}],
-"    \    'default': [
-"    \       {'complete_items': ['lsp', 'snippet']},
-"    \       {'mode': '<c-p>'},
-"    \       {'mode': '<c-n>'}],
-"    \],
-"    \ 'default' : {
-"    \   'default': [
-"    \       {'complete_items': ['lsp', 'snippet']},
-"    \       {'mode': '<c-p>'},
-"    \       {'mode': '<c-n>'}],
-"    \   'comment': []
-"    \   }
-"    \}
+" A little help from tmux to know when vim is focused or not
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'roxma/vim-tmux-clipboard'
+Plug 'tmux-plugins/vim-tmux'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Snippets
-Plug 'rafamadriz/friendly-snippets'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
+" Status Line and Icons
 
-" If you want to use snippet for multiple filetypes, you can `g:vsnip_filetypes` for it.
-let g:vsnip_filetypes = {}
-let g:vsnip_filetypes.javascriptreact = ['javascript']
-let g:vsnip_filetypes.typescriptreact = ['typescript']
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+Plug 'kyazdani42/nvim-web-devicons'
+"Plug 'adelarsq/vim-emoji-icon-theme'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://github.com/folke/todo-comments.nvim
-Plug 'folke/todo-comments.nvim'
+" I would love a single status line on tmux, please
+"Plug 'narajaon/onestatus'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
-
-"echo nvim_treesitter#statusline(90)  " 90 can be any length
-"module->expression_statement->call->identifier
-
+"
+" Language Server
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " neovim-lsp
 Plug 'neovim/nvim-lspconfig'
@@ -543,10 +554,13 @@ Plug 'nvim-telescope/telescope-github.nvim'
 Plug 'TC72/telescope-tele-tabby.nvim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" A little help from tmux to know when vim is focused or not
-Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'roxma/vim-tmux-clipboard'
-Plug 'tmux-plugins/vim-tmux'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+
+"echo nvim_treesitter#statusline(90)  " 90 can be any length
+"module->expression_statement->call->identifier
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
@@ -582,29 +596,6 @@ Plug 'euclidianAce/BetterLua.vim'
 "
 "    User Interface Improvements
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Name Tabs with Taboo https://github.com/gcmt/taboo.vim
-Plug 'gcmt/taboo.vim'
-
-" make tabs in guis look the same as terminals
-set guioptions-=e
-set sessionoptions+=tabpages,globals
-
-let g:taboo_tab_format = "\uE0BC  %P%I \uE0B1 %f%l%U%m\uE0BE"
-let g:taboo_renamed_tab_format = "\uE0BC  %l%I%m \uE0D4"
-
-" TabooRename <tabname> Renames the current tab with the name provided.
-" todo(alice) greate fundtion mapped to new tab keybinding that uses TabooOpen
-" will require prompt to set or fallback to Taboo default
-" TabooOpen <tabname> Opens a new tab and and gives it the name provided.
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" I would love a single status line on tmux, please
-"Plug 'narajaon/onestatus'
-"Plug 'adelarsq/vim-emoji-icon-theme'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Themes must be installed during plug initialization, but they can't be
 " activated till after plug has loaded every single one, I think, maybe?
@@ -681,29 +672,6 @@ call plug#end()
 " Plugin 'junegunn/vader.vim'
 " I know there are others, but I didn't take good notes
 "
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Git commit each trivial cleanup task between reorgs so they git won't ever
-" give a fuck about rebasing import things since it's been well fed
-
-command! -nargs=* GitTrivial echo system('git commit % -m "[clean](trivial) small and dangerous"')
-
-" todo(alice): learn about filetype autocommands
-"
-" keep an eye out for if
-" there's a way to assign multiple filetypes to a buffer, cause that would help
-" with formatting vimwiki/markdown pages
-"
-" * wiki pages should trigger the lsp markdown lint and format settings
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                                       :help autocmd-events
-" Text File Formatting
-"
-" https://learnvimscriptthehardway.stevelosh.com/chapters/12.html
-
-":autocmd FileType javascript 
-":autocmd BufNewFile,BufRead *.html setlocal nowrap
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " :ManageNvimConfig & :ReloadNvimConfig
@@ -811,13 +779,6 @@ else
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Here are some general theme escape hatches that you can call upon in an hour
-" of need when you can't see the cursor or something else like that.
-
-" hi Visual  guifg=LightBlue:White guibg=LightGray gui=none
-" hi Visual  guifg=DarkMagenta guibg=DarkCyan gui=none
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " remove trailing whitespace
 command! -nargs=* WipeTrailingWhitespaces execute("%s/\s\+$//e")
 
@@ -827,6 +788,41 @@ command! -nargs=* WipeTrailingWhitespaces execute("%s/\s\+$//e")
 set list listchars=tab:»\ ,nbsp:¬,trail:◊
 command! -nargs=* CharactersOn set list listchars=tab:»\ ,eol:¶,nbsp:¬,trail:-
 command! -nargs=* CharactersOff set list listchars=tab:»\ ,nbsp:¬,trail:-
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" In Progress
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Git commit each trivial cleanup task between reorgs so they git won't ever
+" give a fuck about rebasing import things since it's been well fed
+
+command! -nargs=* GitTrivial echo system('git commit % -m "[clean](trivial) small and dangerous"')
+
+" todo(alice): learn about filetype autocommands
+"
+" keep an eye out for if
+" there's a way to assign multiple filetypes to a buffer, cause that would help
+" with formatting vimwiki/markdown pages
+"
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                       :help autocmd-events
+" Text File Formatting
+"
+" https://learnvimscriptthehardway.stevelosh.com/chapters/12.html
+
+":autocmd FileType javascript 
+":autocmd BufNewFile,BufRead *.html setlocal nowrap
+"
+" * wiki pages should trigger the lsp markdown lint and format settings
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Here are some general theme escape hatches that you can call upon in an hour
+" of need when you can't see the cursor or something else like that.
+
+" hi Visual  guifg=LightBlue:White guibg=LightGray gui=none
+" hi Visual  guifg=DarkMagenta guibg=DarkCyan gui=none
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " when they were living together in that same cramped folder, they really startd
