@@ -73,14 +73,6 @@ set nohlsearch
 
 set number
 
-set nowrap
-" set nolist
-
-" todo:(alice) figure out good settings for markdown lists
-set linebreak
-set breakindent
-set smartindent
-
 " two spaces instead of tabs
 set tabstop=2
 set softtabstop=0
@@ -91,8 +83,26 @@ set smarttab
 " but not always, here's to you, Python
 autocmd FileType python set breakindentopt=shift:4
 
+" hard breaks at 80 cols
 set textwidth=79
+set wrapmargin=3
 set colorcolumn=80
+
+" todo:(alice) figure out good settings for markdown lists
+set linebreak
+set breakindent
+set smartindent
+
+set nowrap
+set list
+
+" might be good to consider outsourcing gq to fmt or par from inside Vim:
+" :%! fmt -w 13
+" :%! par 13gr
+" You can also set :formatprg to par or fmt and override gq. For more info, call :help formatprg inside Vim.
+
+" let cursor move across line breaks
+set whichwrap=b,s,<,>,[,]
 
 " echo winwidth('%')
 " reports 61 on the phone
@@ -106,9 +116,6 @@ end
 " Open new windows to the right and below
 set splitbelow
 set splitright
-
-" let cursor move across line breaks
-set whichwrap=b,s,<,>,[,]
 
 " no folding
 "set nofoldenable
