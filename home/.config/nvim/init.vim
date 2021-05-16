@@ -502,6 +502,37 @@ let g:taboo_renamed_tab_format = "\uE0BC  %l%I%m \uE0D4"
 " TabooOpen <tabname> Opens a new tab and and gives it the name provided.
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"automatically `tcd` to project directories when opening a file
+Plug 'airblade/vim-rooter'
+" The public function FindRootDirectory() returns the absolute path to the root directory as a string, if a root directory is found, or an empty string otherwise.
+
+" change directory for the whole tab
+let g:rooter_cd_cmd = 'tcd'
+
+" what triggers a scan
+let g:rooter_targets = '/,*'
+"let g:rooter_targets = '*'
+"let g:rooter_targets = '/,*.yml,*.yaml'
+
+" how to identify a root directory
+let g:rooter_patterns = [
+      \ '.git',
+      \ '>~/work',
+      \ '>.config',
+      \ '>~/.homesick/repos/',
+      \ '=/home/alice',
+      \ ]
+
+" follow file and directory links
+let g:rooter_resolve_links = 1
+
+" if blank, will not change directory (can be home or current
+let g:rooter_change_directory_for_non_project_files = ''
+
+" manual mode
+let g:rooter_manual_only = 0
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Session management
 " :SaveSession " saves or creates a session in the currently set `auto_session_root_dir`.
 " :RestoreSession " restores a previously saved session based on the `cwd`.
