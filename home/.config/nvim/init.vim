@@ -173,7 +173,8 @@ noremap <leader>fh <cmd>Telescope help_tags<cr>
 " unify this one...)
 nnoremap <silent><leader>n :FloatermNew --name=nnnTree --wintype=float --width=38 --height=1.0 --position=right --autohide=1 --autoclose=2 nnn<CR>
 nnoremap <silent><leader>cs :FloatermNew --name=split --wintype=split --height=7 --width=1 --position=botright --autohide=0 --autoclose=2<CR>
-nnoremap <silent><leader>cd :FloatermNew --name=Logging --wintype=float --height=9 --width=0.75 --position=top --autohide=1 --autoclose=1<CR>
+nnoremap <silent><leader>cd :FloatermNew --title="Console $1" --wintype=float --height=0.3 --width=7 --position=topright --autohide=0 --autoclose=2<CR>
+nnoremap <silent><leader>ce :FloatermNew --title="Logger $1" --wintype=float --height=9 --width=0.75 --position=top --autohide=1 --autoclose=1<CR>
 nnoremap <silent><leader>cf :FloatermNew --name=Inspection --wintype=float --position=topright --height=0.6 --width=0.6 --autohide=1 --autoclose=1<CR>
 
 nnoremap <leader>mm :FloatermToggle<CR>
@@ -368,10 +369,12 @@ let g:netrw_keepdir = 0
 " https://github.com/voldikss/vim-floaterm
 Plug 'voldikss/vim-floaterm'
 
+let g:floaterm_borderchars = '        '
+"let g:floaterm_title = 'Console $1'
 let g:floaterm_shell = 'fish'
-let g:floaterm_wintype = 'split'
-let g:floaterm_width = 0.6
-let g:floaterm_height = 0.6
+let g:floaterm_wintype = 'float'
+let g:floaterm_width = 0.7
+let g:floaterm_height = 17
 " float positions: top', 'bottom', 'left', 'right', 'topleft', 'topright', 'bottomleft', 'bottomright', 'center', 'auto'(at the cursor place). Default: 'center'
 " split positions: 'leftabove', 'aboveleft', 'rightbelow', 'belowright', 'topleft', 'botright'. Default: 'botright'
 " let g:floaterm_position = 'topright'
@@ -609,7 +612,7 @@ Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 " echo winwidth('%')
 " reports 61 on the phone
 if winwidth('%') > 69
-  let g:lights_auto = 1
+  let g:lights_auto = 0
 end
 
 Plug 'preservim/vim-colors-pencil'
@@ -623,7 +626,7 @@ let g:pencil_terminal_italics = 1
 
 Plug 'rakr/vim-one'
 let g:one_allow_italics = 1
-" colorscheme one
+" let g:material_theme_style = 'lighter'
 
 Plug 'NLKNguyen/papercolor-theme'
 " colorscheme PaperColor
@@ -637,6 +640,7 @@ Plug 'ayu-theme/ayu-vim'
 " let ayucolor="light"
 " let ayucolor="mirage"
 " let ayucolor="dark"
+" let ayucolor="light"
 " colorscheme ayu
 
 " not sure about these yet
@@ -765,8 +769,11 @@ endfunction
 function! __light()
   "echomsg 'using light pencil colorscheme'
   set background=light
-  let g:tokyonight_style = "day"
-  colorscheme tokyonight
+  let ayucolor="light"
+  colorscheme ayu
+  "let g:material_theme_style = 'lighter'
+  "colorscheme material
+  "colorscheme one
 endfunction
 
 function! __dark()
@@ -793,9 +800,14 @@ if (exists('g:lights_auto') && g:lights_auto == 1)
 else
   echomsg 'automatic theme switching disabled'
   set background=light
-  let g:material_terminal_italics = 1
-  let g:material_theme_style = 'bluenight'
-  colorscheme material
+  "let g:material_terminal_italics = 1
+  "let g:material_theme_style = 'lighter'
+  "colorscheme material
+  let ayucolor="light"
+  colorscheme ayu
+  "let g:material_theme_style = 'lighter'
+  "colorscheme material
+  "colorscheme one
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
