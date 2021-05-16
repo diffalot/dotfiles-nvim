@@ -321,7 +321,7 @@ let g:codi#aliases = {
 Plug 'nvim-lua/completion-nvim'
 " Use completion-nvim in every buffer
 " FIXME completion lua module can't be found
-""autocmd BufEnter * lua require'completion'.on_attach()
+autocmd BufEnter * lua require'completion'.on_attach()
 
 "let g:completion_chain_complete_list = [
 "    \{'complete_items': ['lsp', 'snippet']},
@@ -345,9 +345,9 @@ let g:completion_sorting = "length"
 
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
 
-"g:completion_matching_ignore_case = 1
+let g:completion_matching_ignore_case = 1
 
-let g:completion_matching_smart_case = 1
+"let g:completion_matching_smart_case = 1
 
 let g:completion_trigger_keyword_length = 3 " default = 1
 
