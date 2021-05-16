@@ -119,6 +119,7 @@ set splitright
 
 " no folding
 "set nofoldenable
+set foldlevel=4
 
 " do not resize splits when closing one
 set noequalalways
@@ -401,9 +402,11 @@ augroup lexical
   autocmd FileType text call lexical#init({ 'spell': 0 })
 augroup END
 
-Plug 'preservim/vim-wordy'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/preservim/vim-wordy
+Plug 'preservim/vim-wordy'
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://vimwiki.github.io/
 Plug 'vimwiki/vimwiki'
 let g:vimwiki_list = [{'path': '~/wiki/',
@@ -698,6 +701,10 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'dracula/vim', { 'as': 'dracula' }
 " colorscheme dracula
 
+Plug 'marcopaganini/mojave-vim-theme'
+
+Plug 'reedes/vim-pencil'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#end()
@@ -789,9 +796,11 @@ function! __dark()
   colorscheme tokyonight
 endfunction
 
+" TODO make this setup by variables
 " Here's the bit that looks at the time when the init.vim is sourced and chooses
 " the backgrough that's least likely to cause the least eye strain
 function! __auto()
+  set t_Co=256
   if strftime("%H") < 19 && strftime("%H") > 05
     call __light()
   else
@@ -804,21 +813,19 @@ if (exists('g:lights_auto') && g:lights_auto == 1)
   "echom 'using timed colorscheme'
   call __auto()
 else
+  set t_Co=256
   echomsg 'automatic theme switching disabled'
-  set background=light
+  set background=dark
   "let g:material_terminal_italics = 1
   "let g:material_theme_style = 'lighter'
   "colorscheme material
-  let ayucolor="light"
+  "let ayucolor="light"
+  let ayucolor="dark"
   colorscheme ayu
   "let g:material_theme_style = 'lighter'
   "colorscheme material
   "colorscheme one
 endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" remove trailing whitespace
-command! -nargs=* WipeTrailingWhitespaces execute("%s/\s\+$//e")
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Quick controls over displaying special characters
@@ -828,14 +835,35 @@ command! -nargs=* CharactersOn set list listchars=tab:»\ ,eol:¶,nbsp:¬,trail:
 command! -nargs=* CharactersOff set list listchars=tab:»\ ,nbsp:¬,trail:-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" remove trailing whitespace
+command! -nargs=* WipeTrailingWhitespaces execute("%s/\s\+$//e")
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " In Progress
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" TODO change to nearest parent project directory when opening a new tab no matter
+" where the tab was created
+"
+"function! OnTabEnter(path)
+"  if isdirectory(a:path)
+"    let dirname = a:path
+"  else
+"    let dirname = fnamemodify(a:path, ":h")
+"  endif
+"  execute "tcd ". dirname
+"endfunction
+
+"autocmd TabNewEntered * call OnTabEnter(expand("<amatch>"))
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Git commit each trivial cleanup task between reorgs so they git won't ever
 " give a fuck about rebasing import things since it's been well fed
 
-command! -nargs=* GitTrivial echo system('git commit % -m "[clean](trivial) small and dangerous"')
+"command! -nargs=* GitTrivial echo system('git commit % -m "[clean](trivial) small and dangerous"')
 
 " todo(alice): learn about filetype autocommands
 "
