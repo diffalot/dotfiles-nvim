@@ -183,8 +183,9 @@ nnoremap <silent><C-t> :tabnew<CR>
 "                    [ ctrl - \ ] [ ctrl - N ]
 " 
 nnoremap <silent><leader>n :FloatermNew nnn<CR>
-nnoremap <silent><leader>cs :FloatermNew --name=split --wintype=split --height=5 --width=1.0 --position=belowright --autohide=0 --autoclose=2<CR>
-nnoremap <silent><leader>cd :FloatermNew<CR>
+nnoremap <silent><leader>cs :FloatermNew --wintype=split --height=8 --width=1.0 --position=belowright --autohide=2 --autoclose=1 tmux new-session -A -s nvim<CR>
+nnoremap <silent><leader>cd :FloatermNew --autohide=2 --autoclose=1 tmux new-session -A -s nvim<CR>
+nnoremap <silent><leader>cf :FloatermNew --wintype=float --position=bottomright --width=0.6 --height=18 --autohide=2 --autoclose=1 tmux new-session -A -s nvim<CR>
 
 nnoremap <leader>mm :FloatermToggle<CR>
 nnoremap <leader><Space> :FloatermNext<CR>
@@ -309,8 +310,8 @@ Plug 'voldikss/vim-floaterm'
 let g:floaterm_title = 'CNS$1'
 let g:floaterm_shell = 'fish'
 let g:floaterm_wintype = 'float'
-let g:floaterm_width = 0.8
-let g:floaterm_height = 0.4
+let g:floaterm_width = 0.5
+let g:floaterm_height = 0.7
 let g:floaterm_position = 'topright'
 let g:floaterm_opener = 'edit'
 let g:floaterm_autoclose = 2
