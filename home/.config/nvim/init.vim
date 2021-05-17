@@ -146,7 +146,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Personal Keybindings
 
-set timeoutlen=900
+set timeoutlen=800
 let mapleader = ','
 let maplocalleader = 'q'
 
@@ -158,6 +158,7 @@ nmap z<Space> :VimwikiToggleListItem<CR>
 
 " Main Menu Controls
 nnoremap <Space>t :Telescope<CR>
+nnoremap <Space>y :Files<CR>
 
 " Submenu Controls
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
@@ -514,14 +515,13 @@ set grepprg=rg\ --vimgrep
 Plug 'BurntSushi/ripgrep'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" make netrw act like nerdtree :)
-" https://shapeshed.com/vim-netrw/
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4
-let g:netrw_altv = 1
-let g:netrw_winsize = -30
-let g:netrw_keepdir = 0
+" FZF (the best search menu I've found :)
+" brew install fsf ag ripgrep perl git-delta 
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+" don't search .git or node_modules by default
+let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git --exclude node_modules'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'henrik/vim-open-url'
@@ -807,11 +807,11 @@ function! __light()
   set background=light
 
   " let ayucolor="light"
-  let ayucolor="mirage"
+  " let ayucolor="mirage"
   " colorscheme ayu
 
-  colorscheme PaperColor
-  " colorscheme pencil
+  " colorscheme PaperColor
+  colorscheme pencil
 
   " let g:material_terminal_italics = 1
   " let g:material_theme_style = 'lighter'
@@ -828,12 +828,12 @@ function! __dark()
   " let ayucolor="dark"
   " colorscheme ayu
 
-  " let g:tokyonight_style = "night"
-  " colorscheme tokyonight
+  let g:tokyonight_style = "night"
+  colorscheme tokyonight
 
   " colorscheme rigel
 
-  colorscheme onedark
+  " colorscheme onedark
 
   " colorscheme neodark
 
