@@ -576,9 +576,9 @@ Plug 'rmagatti/auto-session'
 Plug 'rmagatti/session-lens'
 "let g:auto_session_root_dir = $HOME . '.config/nvim/sessions'
 let g:auto_session_enable_last_session = 0
-let g:auto_session_enabled = 0
-let g:auto_save_enabled = 0
-let g:auto_restore_enabled = 1
+let g:auto_session_enabled = 1
+"let g:auto_save_enabled = 0
+"let g:auto_restore_enabled = 1
 let g:auto_session_suppress_dirs = ['~/Desktop']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
