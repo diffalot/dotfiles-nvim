@@ -543,90 +543,6 @@ Plug 'henrik/vim-open-url'
 " Trigger with <leader>u or :OpenURL
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Name Tabs with Taboo https://github.com/gcmt/taboo.vim
-Plug 'gcmt/taboo.vim'
-
-" make tabs in guis look the same as terminals
-set guioptions-=e
-set sessionoptions+=tabpages,globals
-
-let g:taboo_tab_format = "\uE0BC  %m%P%I \uE0D4"
-let g:taboo_renamed_tab_format = "\uE0BC  %l%I%m \uE0D4"
-
-" TabooRename <tabname> Renames the current tab with the name provided.
-" todo(alice) greate fundtion mapped to new tab keybinding that uses TabooOpen
-" will require prompt to set or fallback to Taboo default
-" TabooOpen <tabname> Opens a new tab and and gives it the name provided.
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"automatically `tcd` to project directories when opening a file
-Plug 'airblade/vim-rooter'
-" The public function FindRootDirectory() returns the absolute path to the root directory as a string, if a root directory is found, or an empty string otherwise.
-
-" change directory for the whole tab
-let g:rooter_cd_cmd = 'tcd'
-
-" what triggers a scan
-let g:rooter_targets = '/,*'
-"let g:rooter_targets = '*'
-"let g:rooter_targets = '/,*.yml,*.yaml'
-
-" how to identify a root directory
-let g:rooter_patterns = [
-      \ '.git',
-      \ '>~/work',
-      \ '>.config',
-      \ '>~/.homesick/repos/',
-      \ '=/home/alice',
-      \ ]
-
-" follow file and directory links
-let g:rooter_resolve_links = 1
-
-" if blank, will not change directory (can be home or current
-let g:rooter_change_directory_for_non_project_files = ''
-
-" manual mode
-let g:rooter_manual_only = 0
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Session management
-" :SaveSession " saves or creates a session in the currently set `auto_session_root_dir`.
-" :RestoreSession " restores a previously saved session based on the `cwd`.
-" :DeleteSession " deletes a session in the currently set `auto_session_root_dir`.
-
-Plug 'rmagatti/auto-session'
-Plug 'rmagatti/session-lens'
-"let g:auto_session_root_dir = $HOME . '.config/nvim/sessions'
-let g:auto_session_enable_last_session = 0
-let g:auto_session_enabled = 1
-"let g:auto_save_enabled = 0
-"let g:auto_restore_enabled = 1
-let g:auto_session_suppress_dirs = ['~/Desktop']
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" A little help from tmux to know when vim is focused or not
-Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'roxma/vim-tmux-clipboard'
-Plug 'tmux-plugins/vim-tmux'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Status Line and Icons
-" I would love a single status line on tmux, please
-"Plug 'narajaon/onestatus'
-"Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
-"Plug 'adelarsq/vim-emoji-icon-theme'
-
-Plug 'kyazdani42/nvim-web-devicons'
-
-Plug 'vim-airline/vim-airline'
-let g:airline_powerline_fonts = 1
-let g:airline_highlighting_cache = 1
-
-" fillchars+=stl:\ ,stlnc:\  "fix for special characters in the bar
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""t q
-q:"""""""""""
 "
 " Language Server
 "
@@ -672,6 +588,101 @@ set statusline+=%{gutentags#statusline()}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
+" Ui Improvements
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Name Tabs with Taboo https://github.com/gcmt/taboo.vim
+Plug 'gcmt/taboo.vim'
+
+" make tabs in guis look the same as terminals
+set guioptions-=e
+set sessionoptions+=tabpages,globals
+
+let g:taboo_tab_format = "\uE0BC  %m%P%I \uE0D4"
+let g:taboo_renamed_tab_format = "\uE0BC  %l%I%m \uE0D4"
+
+" TabooRename <tabname> Renames the current tab with the name provided.
+" todo(alice) greate fundtion mapped to new tab keybinding that uses TabooOpen
+" will require prompt to set or fallback to Taboo default
+" TabooOpen <tabname> Opens a new tab and and gives it the name provided.
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Session management
+" :SaveSession " saves or creates a session in the currently set `auto_session_root_dir`.
+" :RestoreSession " restores a previously saved session based on the `cwd`.
+" :DeleteSession " deletes a session in the currently set `auto_session_root_dir`.
+
+Plug 'rmagatti/auto-session'
+Plug 'rmagatti/session-lens'
+"let g:auto_session_root_dir = $HOME . '.config/nvim/sessions'
+let g:auto_session_enable_last_session = 0
+let g:auto_session_enabled = 1
+"let g:auto_save_enabled = 0
+"let g:auto_restore_enabled = 1
+let g:auto_session_suppress_dirs = ['~/Desktop']
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"automatically `tcd` to project directories when opening a file
+Plug 'airblade/vim-rooter'
+" The public function FindRootDirectory() returns the absolute path to the root directory as a string, if a root directory is found, or an empty string otherwise.
+
+" change directory for the whole tab
+let g:rooter_cd_cmd = 'tcd'
+
+" what triggers a scan
+let g:rooter_targets = '/,*'
+"let g:rooter_targets = '*'
+"let g:rooter_targets = '/,*.yml,*.yaml'
+
+" how to identify a root directory
+let g:rooter_patterns = [
+      \ '.git',
+      \ '>~/work',
+      \ '>.config',
+      \ '>~/.homesick/repos/',
+      \ '=/home/alice',
+      \ ]
+
+" follow file and directory links
+let g:rooter_resolve_links = 1
+
+" if blank, will not change directory (can be home or current
+let g:rooter_change_directory_for_non_project_files = ''
+
+" manual mode
+let g:rooter_manual_only = 0
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Status Line and Icons
+" I would love a single status line on tmux, please
+"Plug 'narajaon/onestatus'
+"Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+"Plug 'adelarsq/vim-emoji-icon-theme'
+
+Plug 'lambdalisue/battery.vim'
+
+Plug 'kyazdani42/nvim-web-devicons'
+
+Plug 'vim-airline/vim-airline'
+let g:airline_powerline_fonts = 1
+let g:airline_highlighting_cache = 1
+
+let g:airline#extensions#tabline#enabled = 1
+" Powerline Theme
+"let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
+
+let g:airline_skip_empty_sections = 1
+
+" fillchars+=stl:\ ,stlnc:\  "fix for special characters in the bar
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" A little help from tmux to know when vim is focused or not
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'roxma/vim-tmux-clipboard'
+Plug 'tmux-plugins/vim-tmux'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
 " Color Themes
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -689,8 +700,8 @@ Plug 'reedes/vim-pencil'
 " no dark mode
 Plug 'preservim/vim-colors-pencil'
 let g:pencil_higher_contrast_ui = 1   " 0=low (def), 1=high
-let g:pencil_neutral_headings = 0   " 0=blue (def), 1=normal
-let g:pencil_neutral_code_bg = 0   " 0=gray (def), 1=normal
+let g:pencil_neutral_headings = 1   " 0=blue (def), 1=normal
+let g:pencil_neutral_code_bg = 1   " 0=gray (def), 1=normal
 let g:pencil_gutter_color = 1      " 0=mono (def), 1=color
 let g:pencil_spell_undercurl = 1       " 0=underline, 1=undercurl (def)
 let g:pencil_terminal_italics = 1
@@ -703,7 +714,7 @@ let g:one_allow_italics = 1
 " set background=light
 
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-" let g:material_terminal_italics = 1
+let g:material_terminal_italics = 1
 " let g:material_theme_style = 'lighter'
 " colorscheme material
 
@@ -731,6 +742,7 @@ let g:onedark_termcolors=256
 let g:onedark_terminal_italics=1
 " colorscheme onedark
 
+" dark onlu
 Plug 'KeitaNakamura/neodark.vim'
 let g:neodark#use_256color = 1
 " let g:neodark#terminal_transparent = 1
@@ -738,6 +750,7 @@ let g:neodark#background = '#202020'
 " colorscheme neodark
 " colorscheme neodark
 
+" dark only
 Plug 'sts10/vim-pink-moon'
 " colorscheme orange-moon
 " colorscheme yellow-moon
@@ -803,66 +816,55 @@ endfunction
 "
 "  Copy from aboand set the Colors
 "
-let g:lights_auto = 1    "    <------------- Set the auto mode on or off
+let g:lights_auto = 1    "    <------ Set the auto mode on or off right here
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! __light()
   echomsg 'using light colorscheme'
   set background=light
-
-  let ayucolor="light"
-  " let ayucolor="mirage"
-  colorscheme ayu
-
   " colorscheme PaperColor
-  " colorscheme pencil
-
-  " let g:material_terminal_italics = 1
+  colorscheme pencil
+  let g:airline_theme = 'pencil'
   " let g:material_theme_style = 'lighter'
   " colorscheme material
-
   " colorscheme one
   " set background=light
-
 endfunction
+                          "                <---------------------------
+                          "                     "     Pick fonts 
+                          "                     "     In Here :)
 function! __dark()
-  echomsg 'using dark colorscheme'
+  "echomsg 'using dark colorscheme'
   set background=dark
-
   " let ayucolor="dark"
   " colorscheme ayu
-
-  let g:tokyonight_style = "night"
-  colorscheme tokyonight
-
+  " let g:tokyonight_style = "night"
+  " colorscheme tokyonight
   " colorscheme rigel
-
   " colorscheme onedark
-
   " colorscheme neodark
-
   " colorscheme one
   " set background=dark
-
   " colorscheme dracula
-
   " colorscheme orange-moon
-  " colorscheme pink-moon
   " colorscheme yellow-moon
-
 endfunction
+
+  " Something wrong with this one, it shows dar in a light background?
+  " let ayucolor="light"
+  " let ayucolor="mirage"
+  " colorscheme ayu
 
 if (exists('g:lights_auto') && g:lights_auto == 1)
   echomsg 'using timed colorscheme'
   call __auto()
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 else
   echomsg 'timed theme switching inactive'
   "call __light()   "           <-----------  Comment one of those out and
   call __dark()     "                         let the other set the theme
+                    "                         if you're not using auto mode
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -905,8 +907,8 @@ end
 " Quick controls over displaying special characters
 "tab:»\,eol:¶\,nbsp:¬\,trail:-
 set list listchars=tab:»\ ,nbsp:¬,trail:◊
-command! -nargs=* CharactersOn set list listchars=tab:»\ ,eol:¶,nbsp:¬,trail:-
-command! -nargs=* CharactersOff set list listchars=tab:»\ ,nbsp:¬,trail:-
+command! -nargs=* CharactersOn set list listchars=stl:\ ,stlnc:\tab:»\ ,eol:¶,nbsp:¬,trail:-
+command! -nargs=* CharactersOff set list listchars=stl:\ ,stlnc:\tab:»\ ,nbsp:¬,trail:-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " remove trailing whitespace
