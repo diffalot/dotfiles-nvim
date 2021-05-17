@@ -445,6 +445,14 @@ let g:vimwiki_folding = 'expr'
 " Heavy Duty Programming shit
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Comments
+Plug 'tpope/vim-commentary'
+
+" matching pairs
+Plug 'andymass/vim-matchup'
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Git
 " Fugitive - https://github.com/tpope/vim-fugitive
 Plug 'tpope/vim-fugitive'
@@ -795,7 +803,7 @@ endfunction
 
 "let g:lights_auto = 1
 function! __light()
-  echomsg 'using light colorscheme'
+  "echomsg 'using light colorscheme'
   set background=light
 
   " let ayucolor="light"
@@ -814,7 +822,7 @@ function! __light()
 
 endfunction
 function! __dark()
-  echomsg 'using dark colorscheme'
+  "echomsg 'using dark colorscheme'
   set background=dark
 
   " let ayucolor="dark"
@@ -841,7 +849,7 @@ function! __dark()
 endfunction
 
 if (exists('g:lights_auto') && g:lights_auto == 1)
-  echom 'using timed colorscheme'
+  "echom 'using timed colorscheme'
   call __auto()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1127,6 +1135,14 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  matchup = {
+    enable = true,              -- mandatory, false will disable the whole extension
+    disable = { "c", "ruby" },  -- optional, list of language that will be disabled
+  },
+}
+EOF
 
 lua <<EOF
 local function setup_servers()
