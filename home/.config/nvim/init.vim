@@ -417,7 +417,7 @@ let g:vsnip_filetypes.typescriptreact = ['typescript']
 " keybindings: https://github.com/preservim/vim-lexical#spell-check
 Plug 'preservim/vim-lexical'
 let g:lexical#spell = 1
-let g:lexical#spelllang = ['en_us','en_ca','en_gb']
+let g:lexical#spelllang = ['en_us', 'en_ca', 'en_gb']
 augroup lexical
   autocmd!
   autocmd FileType markdown,mkd call lexical#init()
@@ -526,7 +526,7 @@ Plug 'gcmt/taboo.vim'
 set guioptions-=e
 set sessionoptions+=tabpages,globals
 
-let g:taboo_tab_format = "\uE0BC  %P%I \uE0B1 %f%l%U%m\uE0BE"
+let g:taboo_tab_format = "\uE0BC  %m%P%I \uE0D4"
 let g:taboo_renamed_tab_format = "\uE0BC  %l%I%m \uE0D4"
 
 " TabooRename <tabname> Renames the current tab with the name provided.
@@ -602,6 +602,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " neovim-lsp
+" https://github.com/kabouzeid/nvim-lspinstall
 Plug 'neovim/nvim-lspconfig'
 Plug 'kabouzeid/nvim-lspinstall'
 
@@ -658,18 +659,21 @@ Plug 'euclidianAce/BetterLua.vim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-"    User Interface Improvements
+" Color Themes
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Themes must be installed during plug initialization, but they can't be
 " activated till after plug has loaded every single one, I think, maybe?
 
-" echo winwidth('%')
-" reports 61 on the phone
-if winwidth('%') > 69
-  let g:lights_auto = 0
-end
+" no dark mode
+Plug 'NLKNguyen/papercolor-theme'
+" colorscheme PaperColor
 
+"no dark mode
+Plug 'reedes/vim-pencil'
+" "for authors"
+
+" no dark mode
 Plug 'preservim/vim-colors-pencil'
 let g:pencil_higher_contrast_ui = 1   " 0=low (def), 1=high
 let g:pencil_neutral_headings = 0   " 0=blue (def), 1=normal
@@ -677,16 +681,13 @@ let g:pencil_neutral_code_bg = 0   " 0=gray (def), 1=normal
 let g:pencil_gutter_color = 1      " 0=mono (def), 1=color
 let g:pencil_spell_undercurl = 1       " 0=underline, 1=undercurl (def)
 let g:pencil_terminal_italics = 1
-"colorscheme pencil
+" colorscheme pencil
 
 Plug 'rakr/vim-one'
+let g:one_allow_italics = 1
 " colorscheme one
 " set background=dark
 " set background=light
-let g:one_allow_italics = 1
-
-Plug 'NLKNguyen/papercolor-theme'
-" colorscheme PaperColor
 
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 " let g:material_terminal_italics = 1
@@ -694,40 +695,39 @@ Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 " colorscheme material
 
 Plug 'ayu-theme/ayu-vim'
-" let ayucolor="mirage"
 " let ayucolor="dark"
+" let ayucolor="mirage"
 " let ayucolor="light"
 " colorscheme ayu
 
-" not sure about these yet
-
-Plug 'Rigellute/rigel'
-
-Plug 'nanotech/jellybeans.vim'
-let g:jellybeans_use_term_italics = 1
-let g:jellybeans_overrides = {
-\    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
-\}
-if has('termguicolors') && &termguicolors
-    let g:jellybeans_overrides['background']['guibg'] = 'none'
-endif
-
 Plug 'folke/tokyonight.nvim'
+let g:tokyonight_transparent = 0
 "let g:tokyonight_style = "night"
 "let g:tokyonight_style = "day"
-let g:tokyonight_transparent = 0
-"colorscheme tokyonight
+" colorscheme tokyonight
+
+" dark only
+Plug 'Rigellute/rigel'
+" colorscheme rigel
+
+" dark only
+Plug 'joshdick/onedark.vim'
+let g:onedark_hide_endofbuffer=1
+let g:onedark_termcolors=256
+"let g:onedark_termcolors=16
+let g:onedark_terminal_italics=1
+" colorscheme onedark
+
+Plug 'KeitaNakamura/neodark.vim'
+let g:neodark#use_256color = 1
+" let g:neodark#terminal_transparent = 1
+let g:neodark#background = '#202020'
+" colorscheme neodark
+" colorscheme neodark
 
 Plug 'sts10/vim-pink-moon'
-
-Plug 'arcticicestudio/nord-vim'
-
-Plug 'dracula/vim', { 'as': 'dracula' }
-" colorscheme dracula
-
-Plug 'marcopaganini/mojave-vim-theme'
-
-Plug 'reedes/vim-pencil'
+" colorscheme orange-moon
+" colorscheme yellow-moon
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -787,13 +787,78 @@ function! ZNV_Setup()
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+"  Copy from aboand set the Colors
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"let g:lights_auto = 1
+function! __light()
+  echomsg 'using light colorscheme'
+  set background=light
+
+  " let ayucolor="light"
+  let ayucolor="mirage"
+  " colorscheme ayu
+
+  colorscheme PaperColor
+  " colorscheme pencil
+
+  " let g:material_terminal_italics = 1
+  " let g:material_theme_style = 'lighter'
+  " colorscheme material
+
+  " colorscheme one
+  " set background=light
+
+endfunction
+function! __dark()
+  echomsg 'using dark colorscheme'
+  set background=dark
+
+  " let ayucolor="dark"
+  " colorscheme ayu
+
+  " let g:tokyonight_style = "night"
+  " colorscheme tokyonight
+
+  " colorscheme rigel
+
+  colorscheme onedark
+
+  " colorscheme neodark
+
+  " colorscheme one
+  " set background=dark
+
+  " colorscheme dracula
+
+  " colorscheme orange-moon
+  " colorscheme pink-moon
+  " colorscheme yellow-moon
+
+endfunction
+
+if (exists('g:lights_auto') && g:lights_auto == 1)
+  echom 'using timed colorscheme'
+  call __auto()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+else
+  echomsg 'timed theme switching inactive'
+  "call __light()   "           <-----------  Comment one of those out and
+  call __dark()     "                         let the other set the theme
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LightSwitch, LightsOff, and LightsOn functions to switch between dark and
 " light modes at dusk and dawn (not accurately), or on demand.
 
 command! -nargs=* LightSwitch call __lightswitch()
-command! -nargs=* LightsOn call __light()
-command! -nargs=* LightsOff call __dark()
-command! -nargs=* LightsAuto call __auto()
+command! -nargs=* LightOn call __light()
+command! -nargs=* LightOff call __dark()
+command! -nargs=* LightAuto call __auto()
 
 function! __lightswitch()
   if (&background == 'dark')
@@ -802,36 +867,6 @@ function! __lightswitch()
     :call __dark()
   endif
 endfunction
-
-function! __light()
-  echomsg 'using light colorscheme'
-  "set background=light
-  "let ayucolor="light"
-  "colorscheme ayu
-  " let g:material_terminal_italics = 1
-  " let g:material_theme_style = 'lighter'
-  " colorscheme material
-  colorscheme one
-  set background=light
-endfunction
-
-function! __dark()
-  echomsg 'using dark colorscheme'
-  colorscheme one
-  set background=dark
-  " let g:tokyonight_style = "night"
-  " colorscheme tokyonight
-endfunction
-
-"let g:lights_auto = 1
-if (exists('g:lights_auto') && g:lights_auto == 1)
-  echom 'using timed colorscheme'
-  call __auto()
-else
-  echomsg 'timed theme switching inactive'
-  "call __light()
-  call __dark()
-endif
 
 " TODO make this setup by variables
 " Here's the bit that looks at the time when the init.vim is sourced and chooses
@@ -843,6 +878,14 @@ function! __auto()
     call __dark()
   endif
 endfunction
+
+" echo winwidth('%')
+" reports 61 on the phone
+if winwidth('%') > 69
+  let g:lights_auto = 0
+else
+  let g:lights_auto = 0
+end
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Quick controls over displaying special characters
