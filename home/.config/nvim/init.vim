@@ -657,19 +657,20 @@ let g:pencil_terminal_italics = 1
 "colorscheme pencil
 
 Plug 'rakr/vim-one'
+" colorscheme one
+" set background=dark
+" set background=light
 let g:one_allow_italics = 1
-" let g:material_theme_style = 'lighter'
 
 Plug 'NLKNguyen/papercolor-theme'
 " colorscheme PaperColor
 
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-let g:material_terminal_italics = 1
+" let g:material_terminal_italics = 1
 " let g:material_theme_style = 'lighter'
 " colorscheme material
 
 Plug 'ayu-theme/ayu-vim'
-" let ayucolor="light"
 " let ayucolor="mirage"
 " let ayucolor="dark"
 " let ayucolor="light"
@@ -780,52 +781,45 @@ function! __lightswitch()
 endfunction
 
 function! __light()
-  "echomsg 'using light pencil colorscheme'
+  echomsg 'using light colorscheme'
+  "set background=light
+  "let ayucolor="light"
+  "colorscheme ayu
+  " let g:material_terminal_italics = 1
+  " let g:material_theme_style = 'lighter'
+  " colorscheme material
+  colorscheme one
   set background=light
-  let ayucolor="light"
-  colorscheme ayu
-  "let g:material_theme_style = 'lighter'
-  "colorscheme material
-  "colorscheme one
 endfunction
 
 function! __dark()
-  "echomsg 'using dark colorscheme'
+  echomsg 'using dark colorscheme'
+  colorscheme one
   set background=dark
-  let g:tokyonight_style = "night"
-  colorscheme tokyonight
+  " let g:tokyonight_style = "night"
+  " colorscheme tokyonight
 endfunction
+
+"let g:lights_auto = 1
+if (exists('g:lights_auto') && g:lights_auto == 1)
+  echom 'using timed colorscheme'
+  call __auto()
+else
+  echomsg 'timed theme switching inactive'
+  "call __light()
+  call __dark()
+endif
 
 " TODO make this setup by variables
 " Here's the bit that looks at the time when the init.vim is sourced and chooses
 " the backgrough that's least likely to cause the least eye strain
 function! __auto()
-  set t_Co=256
   if strftime("%H") < 19 && strftime("%H") > 05
     call __light()
   else
     call __dark()
   endif
 endfunction
-
-"let g:lights_auto = 1
-if (exists('g:lights_auto') && g:lights_auto == 1)
-  "echom 'using timed colorscheme'
-  call __auto()
-else
-  set t_Co=256
-  echomsg 'automatic theme switching disabled'
-  set background=dark
-  "let g:material_terminal_italics = 1
-  "let g:material_theme_style = 'lighter'
-  "colorscheme material
-  "let ayucolor="light"
-  let ayucolor="dark"
-  colorscheme ayu
-  "let g:material_theme_style = 'lighter'
-  "colorscheme material
-  "colorscheme one
-endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Quick controls over displaying special characters
