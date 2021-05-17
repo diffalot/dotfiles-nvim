@@ -419,8 +419,22 @@ Plug 'preservim/vim-wordy'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://vimwiki.github.io/
 Plug 'vimwiki/vimwiki'
-let g:vimwiki_list = [{'path': '~/wiki/',
-      \ 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_list = [
+                      \ {
+                      \   'path': '~/.cronofile/journal/',
+                      \   'syntax': 'markdown',
+                      \   'ext': '.mdx',
+                      \ },
+                      \ {
+                      \   'path': '~/.cronofile/public/diff.mx/',
+                      \   'syntax': 'markdown',
+                      \   'ext': '.mdx',
+                      \ },
+                      \ {
+                      \   'path': '~/wiki/',
+                      \   'syntax': 'markdown',
+                      \   'ext': '.mdx',
+                      \ }]
 
 let g:vimwiki_key_mappings = { 'lists': 0 }
 
@@ -656,7 +670,22 @@ let g:rooter_resolve_links = 1
 let g:rooter_change_directory_for_non_project_files = ''
 
 " manual mode
-let g:rooter_manual_only = 0
+let g:rooter_manual_only = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Session management
+" :SaveSession " saves or creates a session in the currently set `auto_session_root_dir`.
+" :RestoreSession " restores a previously saved session based on the `cwd`.
+" :DeleteSession " deletes a session in the currently set `auto_session_root_dir`.
+
+Plug 'rmagatti/auto-session'
+Plug 'rmagatti/session-lens'
+"let g:auto_session_root_dir = $HOME . '.config/nvim/sessions'
+let g:auto_session_enable_last_session = 0
+let g:auto_session_enabled = 0
+let g:auto_save_enabled = 0
+let g:auto_restore_enabled = 1
+let g:auto_session_suppress_dirs = ['~/Desktop']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Status Line and Icons
