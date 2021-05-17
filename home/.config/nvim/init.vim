@@ -29,30 +29,14 @@ elseif has('unix')
   set shell=zsh
 endif
 
-" It's worth a nasty bug to have italics
-" https://rsapkf.xyz/blog/enabling-italics-vim-tmux
-" note that I did not follow all of those directions, just this bit here
-set t_ZH=[3m
-set t_ZR=[23m
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Gruvbox has the most up to date recommendations I've seen.
 
-" Based on Vim patch 7.4.1770 (`guicolors` option)
-" https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
-"
-" Neovim > 0.1.5
-" Vim > patch 7.4.1799
-"
-" https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
-" https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
-if (has('termguicolors'))
-  set termguicolors
-endif
-" For Neovim 0.1.3 and 0.1.4 - https://github.com/neovim/neovim/pull/2198
-if (has('nvim'))
-  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-endif
+set termguicolors
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" I've seen worse...
+"
+" Built in Configuration
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Manage built in options
@@ -152,6 +136,7 @@ let maplocalleader = 'q'
 
 " Utilities
 nnoremap <F2> :UndotreeToggle<CR>
+nnoremap <F8> :TagbarToggle<CR>
 nnoremap <F9> :Vista!!<CR>
 " (set by plugin) <leader> u OpenUrl
 nmap z<Space> :VimwikiToggleListItem<CR>
@@ -452,6 +437,17 @@ Plug 'tpope/vim-commentary'
 " matching pairs
 Plug 'andymass/vim-matchup'
 
+" Rainbow Parenthesis
+Plug 'kien/rainbow_parentheses.vim'
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+
+" Commands:
+" :RainbowParenthesesToggle       " Toggle it on/off
+" :RainbowParenthesesLoadRound    " (), the default when toggling
+" :RainbowParenthesesLoadSquare   " []
+" :RainbowParenthesesLoadBraces   " {}
+" :RainbowParenthesesLoadChevrons " <>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Git
@@ -501,6 +497,25 @@ set updatetime=100
 "
 "    User Interface Improvements
 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Syntax Highlighting and Indentation
+" Respect .editorconfig files
+Plug 'editorconfig/editorconfig-vim'
+
+"" The fastest and most versitile, hopefully everything I need is in here
+"Plug 'sheerun/vim-polyglot'
+"
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'kevinoid/vim-jsonc'
+"
+Plug 'dag/vim-fish'
+autocmd FileType fish compiler fish
+autocmd FileType fish setlocal textwidth=79
+autocmd FileType fish setlocal foldmethod=expr
+
+Plug 'euclidianAce/BetterLua.vim'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Files
 
@@ -597,15 +612,21 @@ Plug 'tmux-plugins/vim-tmux'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Status Line and Icons
-
-Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
-Plug 'kyazdani42/nvim-web-devicons'
-"Plug 'adelarsq/vim-emoji-icon-theme'
-
 " I would love a single status line on tmux, please
 "Plug 'narajaon/onestatus'
+"Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+"Plug 'adelarsq/vim-emoji-icon-theme'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'kyazdani42/nvim-web-devicons'
+
+Plug 'vim-airline/vim-airline'
+let g:airline_powerline_fonts = 1
+let g:airline_highlighting_cache = 1
+
+" fillchars+=stl:\ ,stlnc:\  "fix for special characters in the bar
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""t q
+q:"""""""""""
 "
 " Language Server
 "
@@ -641,30 +662,13 @@ set foldexpr=nvim_treesitter#foldexpr()
 
 Plug 'liuchengxu/vista.vim'
 
+Plug 'preservim/tagbar'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Gutentags - https://github.com/ludovicchabant/vim-gutentags
 
 Plug 'ludovicchabant/vim-gutentags'
 set statusline+=%{gutentags#statusline()}
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" Syntax Highlighting and Indentation
-" Respect .editorconfig files
-Plug 'editorconfig/editorconfig-vim'
-
-"" The fastest and most versitile, hopefully everything I need is in here
-"Plug 'sheerun/vim-polyglot'
-"
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
-Plug 'kevinoid/vim-jsonc'
-"
-Plug 'dag/vim-fish'
-autocmd FileType fish compiler fish
-autocmd FileType fish setlocal textwidth=79
-autocmd FileType fish setlocal foldmethod=expr
-
-Plug 'euclidianAce/BetterLua.vim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -799,19 +803,20 @@ endfunction
 "
 "  Copy from aboand set the Colors
 "
+let g:lights_auto = 1    "    <------------- Set the auto mode on or off
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"let g:lights_auto = 1
 function! __light()
-  "echomsg 'using light colorscheme'
+  echomsg 'using light colorscheme'
   set background=light
 
-  " let ayucolor="light"
+  let ayucolor="light"
   " let ayucolor="mirage"
-  " colorscheme ayu
+  colorscheme ayu
 
   " colorscheme PaperColor
-  colorscheme pencil
+  " colorscheme pencil
 
   " let g:material_terminal_italics = 1
   " let g:material_theme_style = 'lighter'
@@ -822,7 +827,7 @@ function! __light()
 
 endfunction
 function! __dark()
-  "echomsg 'using dark colorscheme'
+  echomsg 'using dark colorscheme'
   set background=dark
 
   " let ayucolor="dark"
@@ -849,7 +854,7 @@ function! __dark()
 endfunction
 
 if (exists('g:lights_auto') && g:lights_auto == 1)
-  "echom 'using timed colorscheme'
+  echomsg 'using timed colorscheme'
   call __auto()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -980,7 +985,7 @@ endfunction
 "EOF
 
 lua << EOF
-  require('galaxyline-status-lines/spaceline')
+  --require('galaxyline-status-lines/spaceline')
   --require('galaxyline-status-lines/status-line')
   --require('galaxyline-status-lines/galaxyline')
   --require('galaxyline-status-lines/statusline')
