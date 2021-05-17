@@ -476,7 +476,13 @@ let g:flog_custom_format = "log --graph --abbrev-commit --decorate --format=form
 ""  return l:command
 ""endfunction
 
-"let g:flog_build_log_command_fn = 'FlogBuildLog'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" See previous discussions of the code you are modifying from them what wrote
+" it.
+Plug 'rhysd/git-messenger.vim'
+":GitMessenger or <Leader>gm
+let g:git_messenger_include_diff = 'current'
+" there are tons of options :https://github.com/rhysd/git-messenger.vim
 
 " DiffView - https://github.com/sindrets/diffview.nvim
 Plug 'sindrets/diffview.nvim'
@@ -659,9 +665,10 @@ let g:rooter_manual_only = 0
 "Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 "Plug 'adelarsq/vim-emoji-icon-theme'
 
-Plug 'lambdalisue/battery.vim'
-
 Plug 'kyazdani42/nvim-web-devicons'
+
+Plug 'edkolev/tmuxline.vim'
+Plug 'lambdalisue/battery.vim'
 
 Plug 'vim-airline/vim-airline'
 let g:airline_powerline_fonts = 1
@@ -759,62 +766,10 @@ Plug 'sts10/vim-pink-moon'
 
 call plug#end()
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" My Own Vim Scripts
-
-" Learn to use this to test Vim Scripts
-" Plugin 'junegunn/vader.vim'
-" I know there are others, but I didn't take good notes
-"
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" :ManageNvimConfig & :ReloadNvimConfig
-"
-" This contains two commands for managing the vim config, I suppose one of
-" the reload command could be done away with because the file
-" automatically reloads... But nah, I'm sure I can break the management
-" command eventually.
-"
-" required variable:
-" let g:znv_config_dir = '$HOME/.config/nvim'
-"
-" * `ReloadNvimConfig` re-sources the init.vim, and it sources it from the
-"   dotfiles-nvim directory in ~/.homesick (at least in my setup)
-"
-" * `ManageNvimConfig` opens up a new tab at tab index 0 (farthest to the
-"   left), and sets the working directory of that tab to the
-"   `g;znv_config_dir` you set in your init.vim without affecting any
-"   other tabs you may have open.
-
-" Required variables
-let g:znv_config_dir = '$HOME/.homesick/repos/dotfiles-nvim/home/.config/nvim'
-
-" Open a new tab, switch to it, change the tab working directory to homeshick
-" dotfiles-nvim, and open the init.vim
-command! -nargs=* ManageNvimConfig call ZNV_Setup()
-
-" Run Reload to source from the config in dotfiles-nvim
-command! -nargs=* ReloadNvimConfig execute(g:znv_config_source_command)
-
-" computed variables
-let g:znv_config_source_command = 'source' . expand(g:znv_config_dir) . '/init.vim'
-
-function! ZNV_Setup()
-  execute 'tabnew' . g:znv_config_dir . '/init.vim'
-  execute 'tcd' . g:znv_config_dir
-  if exists(':TabooRename')
-    TabooRename nvim
-  end
-  augroup ZNV_Config_Reloader
-    autocmd! BufWritePost <buffer> execute(g:znv_config_source_command)
-  augroup END
-  tabm0
-endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-"  Copy from aboand set the Colors
+"  Copy from above and set the Colors
 "
 let g:lights_auto = 1    "    <------ Set the auto mode on or off right here
 "
@@ -904,6 +859,59 @@ else
 end
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" My Own Vim Scripts
+
+" Learn to use this to test Vim Scripts
+" Plugin 'junegunn/vader.vim'
+" I know there are others, but I didn't take good notes
+"
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" :ManageNvimConfig & :ReloadNvimConfig
+"
+" This contains two commands for managing the vim config, I suppose one of
+" the reload command could be done away with because the file
+" automatically reloads... But nah, I'm sure I can break the management
+" command eventually.
+"
+" required variable:
+" let g:znv_config_dir = '$HOME/.config/nvim'
+"
+" * `ReloadNvimConfig` re-sources the init.vim, and it sources it from the
+"   dotfiles-nvim directory in ~/.homesick (at least in my setup)
+"
+" * `ManageNvimConfig` opens up a new tab at tab index 0 (farthest to the
+"   left), and sets the working directory of that tab to the
+"   `g;znv_config_dir` you set in your init.vim without affecting any
+"   other tabs you may have open.
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Required variables
+let g:znv_config_dir = '$HOME/.homesick/repos/dotfiles-nvim/home/.config/nvim'
+
+" Open a new tab, switch to it, change the tab working directory to homeshick
+" dotfiles-nvim, and open the init.vim
+command! -nargs=* ManageNvimConfig call ZNV_Setup()
+
+" Run Reload to source from the config in dotfiles-nvim
+command! -nargs=* ReloadNvimConfig execute(g:znv_config_source_command)
+
+" computed variables
+let g:znv_config_source_command = 'source' . expand(g:znv_config_dir) . '/init.vim'
+
+function! ZNV_Setup()
+  execute 'tabnew' . g:znv_config_dir . '/init.vim'
+  execute 'tcd' . g:znv_config_dir
+  if exists(':TabooRename')
+    TabooRename nvim
+  end
+  augroup ZNV_Config_Reloader
+    autocmd! BufWritePost <buffer> execute(g:znv_config_source_command)
+  augroup END
+  tabm0
+endfunction
+
 " Quick controls over displaying special characters
 "tab:»\,eol:¶\,nbsp:¬\,trail:-
 set list listchars=tab:»\ ,nbsp:¬,trail:◊
@@ -912,6 +920,7 @@ command! -nargs=* CharactersOff set list listchars=stl:\ ,stlnc:\tab:»\ ,nbsp:�
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " remove trailing whitespace
+
 command! -nargs=* WipeTrailingWhitespaces execute("%s/\s\+$//e")
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
