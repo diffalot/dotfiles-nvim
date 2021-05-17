@@ -301,6 +301,29 @@ Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 Plug 'folke/todo-comments.nvim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Floating Terminals
+" https://github.com/voldikss/vim-floaterm
+
+Plug 'voldikss/vim-floaterm'
+
+let g:floaterm_title = 'CNS$1'
+let g:floaterm_shell = 'fish'
+let g:floaterm_wintype = 'float'
+let g:floaterm_width = 0.8
+let g:floaterm_height = 0.4
+let g:floaterm_position = 'topright'
+let g:floaterm_opener = 'edit'
+let g:floaterm_autoclose = 2
+let g:floaterm_autohide = 1
+
+" float positions: top', 'bottom', 'left', 'right', 'topleft', 'topright',
+"   'bottomleft', 'bottomright', 'center', 'auto'(at the cursor place).
+"   Default: 'center'
+" split positions: 'leftabove', 'aboveleft', 'rightbelow', 'belowright',
+"   'topleft', 'botright'.
+"   Default: 'botright'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " REPL
 Plug 'metakirby5/codi.vim'
 
