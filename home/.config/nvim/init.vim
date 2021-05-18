@@ -109,7 +109,7 @@ set foldlevel=4
 set noequalalways
 
 " tab bar and status bar display by default
-set showtabline=2
+set showtabline=0  " control-space says I won't need it
 set laststatus=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -141,43 +141,43 @@ nnoremap <F9> :Vista!!<CR>
 " (set by plugin) <leader> u OpenUrl
 nmap z<Space> :VimwikiToggleListItem<CR>
 
-" Main Menu Controls
-nnoremap <Space>t :Telescope<CR>
-nnoremap <Space>y :Files<CR>
-
-" Submenu Controls
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-noremap <leader>fh <cmd>Telescope help_tags<cr>
-
-" Tab Management
-nnoremap <silent><C-Right> :tabnext<CR>
-nnoremap <silent>tty :tabnext<CR>
-nnoremap <silent><C-Left> :tabprevious<CR>
-nnoremap <silent>ttr :tabprevious<CR>
-nnoremap <silent><C-m> :tabmove<CR>
-nnoremap <silent><C-t> :tabnew<CR>
-
-" Floating Terminals (should probably find a better namespace? Or maybe just
-" unify this one...)
+"" Main Menu Controls
+"nnoremap <Space>t :Telescope<CR>
+"nnoremap <Space>y :Files<CR>
 "
-"      you can release the cursor from the jaws of the terminal with
+"" Submenu Controls
+"nnoremap <leader>ff <cmd>Telescope find_files<cr>
+"nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+"nnoremap <leader>fb <cmd>Telescope buffers<cr>
+"noremap <leader>fh <cmd>Telescope help_tags<cr>
 "
-"    ( Control and Backslash ) followed by ( Control and Shift and N )
+"" Tab Management
+"nnoremap <silent><C-Right> :tabnext<CR>
+"nnoremap <silent>tty :tabnext<CR>
+"nnoremap <silent><C-Left> :tabprevious<CR>
+"nnoremap <silent>ttr :tabprevious<CR>
+"nnoremap <silent><C-m> :tabmove<CR>
+"nnoremap <silent><C-t> :tabnew<CR>
 "
-"                    [ ctrl - \ ] [ ctrl - N ]
-" 
-nnoremap <silent><leader>n :FloatermNew nnn<CR>
-nnoremap <silent><leader>cs :FloatermNew --wintype=split --height=8 --width=1.0 --position=belowright --autohide=2 --autoclose=1 tmux new-session -A -s nvim<CR>
-nnoremap <silent><leader>cd :FloatermNew --autohide=2 --autoclose=1 tmux new-session -A -s nvim<CR>
-nnoremap <silent><leader>cf :FloatermNew --wintype=float --position=bottomright --width=0.6 --height=18 --autohide=2 --autoclose=1 tmux new-session -A -s nvim<CR>
-
-nnoremap <leader>mm :FloatermToggle<CR>
-nnoremap <leader><Space> :FloatermNext<CR>
-nnoremap <leader>zxc :FloatermKill<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Floating Terminals (should probably find a better namespace? Or maybe just
+"" unify this one...)
+""
+""      you can release the cursor from the jaws of the terminal with
+""
+""    ( Control and Backslash ) followed by ( Control and Shift and N )
+""
+""                    [ ctrl - \ ] [ ctrl - N ]
+"" 
+"nnoremap <silent><leader>n :FloatermNew nnn<CR>
+"nnoremap <silent><leader>cs :FloatermNew --wintype=split --height=8 --width=1.0 --position=belowright --autohide=2 --autoclose=1 tmux new-session -A -s nvim<CR>
+"nnoremap <silent><leader>cd :FloatermNew --autohide=2 --autoclose=1 tmux new-session -A -s nvim<CR>
+"nnoremap <silent><leader>cf :FloatermNew --wintype=float --position=bottomright --width=0.6 --height=18 --autohide=2 --autoclose=1 tmux new-session -A -s nvim<CR>
+"
+"nnoremap <leader>mm :FloatermToggle<CR>
+"nnoremap <leader><Space> :FloatermNext<CR>
+"nnoremap <leader>zxc :FloatermKill<CR>
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " completion.nvim keymappings
 
 imap <c-j> <Plug>(completion_next_source) "use <c-j> to switch to previous completion
@@ -277,40 +277,40 @@ call plug#begin('~/.config/nvim/plugged')
 " Assists with converting init.vim to init.lua
 Plug 'svermeulen/vimpeccable'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vim Finder
-" It's very very fast
-
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Vim Finder
+"" It's very very fast
+"
+"Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/folke/todo-comments.nvim
 Plug 'folke/todo-comments.nvim'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Floating Terminals
-" https://github.com/voldikss/vim-floaterm
-
-Plug 'voldikss/vim-floaterm'
-
-let g:floaterm_title = 'CNS$1'
-let g:floaterm_shell = 'fish'
-let g:floaterm_wintype = 'float'
-let g:floaterm_width = 0.5
-let g:floaterm_height = 0.7
-let g:floaterm_position = 'topright'
-let g:floaterm_opener = 'edit'
-let g:floaterm_autoclose = 2
-let g:floaterm_autohide = 1
-
-" float positions: top', 'bottom', 'left', 'right', 'topleft', 'topright',
-"   'bottomleft', 'bottomright', 'center', 'auto'(at the cursor place).
-"   Default: 'center'
-" split positions: 'leftabove', 'aboveleft', 'rightbelow', 'belowright',
-"   'topleft', 'botright'.
-"   Default: 'botright'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Floating Terminals
+"" https://github.com/voldikss/vim-floaterm
+"
+"Plug 'voldikss/vim-floaterm'
+"
+"let g:floaterm_title = 'CNS$1'
+"let g:floaterm_shell = 'fish'
+"let g:floaterm_wintype = 'float'
+"let g:floaterm_width = 0.5
+"let g:floaterm_height = 0.7
+"let g:floaterm_position = 'topright'
+"let g:floaterm_opener = 'edit'
+"let g:floaterm_autoclose = 2
+"let g:floaterm_autohide = 1
+"
+"" float positions: top', 'bottom', 'left', 'right', 'topleft', 'topright',
+""   'bottomleft', 'bottomright', 'center', 'auto'(at the cursor place).
+""   Default: 'center'
+"" split positions: 'leftabove', 'aboveleft', 'rightbelow', 'belowright',
+""   'topleft', 'botright'.
+""   Default: 'botright'
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Lua REPL with access to neovim-lsp!!
 Plug 'rafcamlet/nvim-luapada'
 
@@ -534,20 +534,20 @@ Plug 'mbbill/undotree'
 " ~/.config/nvim/plugins/conf.undotree.vim
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" :grep
-set grepprg=rg\ --vimgrep
-
-Plug 'BurntSushi/ripgrep'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" FZF (the best search menu I've found :)
-" brew install fsf ag ripgrep perl git-delta 
-
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-" don't search .git or node_modules by default
-let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git --exclude node_modules'
-
+"" :grep
+"set grepprg=rg\ --vimgrep
+"
+"Plug 'BurntSushi/ripgrep'
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" FZF (the best search menu I've found :)
+"" brew install fsf ag ripgrep perl git-delta 
+"
+"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"Plug 'junegunn/fzf.vim'
+"" don't search .git or node_modules by default
+"let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git --exclude node_modules'
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'henrik/vim-open-url'
 " Trigger with <leader>u or :OpenURL
@@ -566,15 +566,15 @@ Plug 'nvim-lua/lsp-status.nvim'
 Plug 'folke/lsp-colors.nvim'
 Plug 'folke/trouble.nvim'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://github.com/nvim-telescope/telescope.nvim
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-github.nvim'
-Plug 'TC72/telescope-tele-tabby.nvim'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" https://github.com/nvim-telescope/telescope.nvim
+"Plug 'nvim-lua/popup.nvim'
+"Plug 'nvim-lua/plenary.nvim'
+"Plug 'nvim-telescope/telescope.nvim'
+"Plug 'nvim-telescope/telescope-github.nvim'
+"Plug 'TC72/telescope-tele-tabby.nvim'
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 set foldmethod=expr
@@ -601,67 +601,67 @@ set statusline+=%{gutentags#statusline()}
 " Ui Improvements
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Name Tabs with Taboo https://github.com/gcmt/taboo.vim
-Plug 'gcmt/taboo.vim'
-
-" make tabs in guis look the same as terminals
-set guioptions-=e
-set sessionoptions+=tabpages,globals
-
-let g:taboo_tab_format = "\uE0BC  %m%P%I \uE0D4"
-let g:taboo_renamed_tab_format = "\uE0BC  %l%I%m \uE0D4"
-
-" TabooRename <tabname> Renames the current tab with the name provided.
-" todo(alice) greate fundtion mapped to new tab keybinding that uses TabooOpen
-" will require prompt to set or fallback to Taboo default
-" TabooOpen <tabname> Opens a new tab and and gives it the name provided.
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Session management
-" :SaveSession " saves or creates a session in the currently set `auto_session_root_dir`.
-" :RestoreSession " restores a previously saved session based on the `cwd`.
-" :DeleteSession " deletes a session in the currently set `auto_session_root_dir`.
-
-Plug 'rmagatti/auto-session'
-Plug 'rmagatti/session-lens'
-"let g:auto_session_root_dir = $HOME . '.config/nvim/sessions'
-let g:auto_session_enable_last_session = 0
-let g:auto_session_enabled = 1
-"let g:auto_save_enabled = 0
-"let g:auto_restore_enabled = 1
-let g:auto_session_suppress_dirs = ['~/Desktop']
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"automatically `tcd` to project directories when opening a file
-Plug 'airblade/vim-rooter'
-" The public function FindRootDirectory() returns the absolute path to the root directory as a string, if a root directory is found, or an empty string otherwise.
-
-" change directory for the whole tab
-let g:rooter_cd_cmd = 'tcd'
-
-" what triggers a scan
-let g:rooter_targets = '/,*'
-"let g:rooter_targets = '*'
-"let g:rooter_targets = '/,*.yml,*.yaml'
-
-" how to identify a root directory
-let g:rooter_patterns = [
-      \ '.git',
-      \ '>~/work',
-      \ '>.config',
-      \ '>~/.homesick/repos/',
-      \ '=/home/alice',
-      \ ]
-
-" follow file and directory links
-let g:rooter_resolve_links = 1
-
-" if blank, will not change directory (can be home or current
-let g:rooter_change_directory_for_non_project_files = ''
-
-" manual mode
-let g:rooter_manual_only = 0
-
+"" Name Tabs with Taboo https://github.com/gcmt/taboo.vim
+"Plug 'gcmt/taboo.vim'
+"
+"" make tabs in guis look the same as terminals
+"set guioptions-=e
+"set sessionoptions+=tabpages,globals
+"
+"let g:taboo_tab_format = "\uE0BC  %m%P%I \uE0D4"
+"let g:taboo_renamed_tab_format = "\uE0BC  %l%I%m \uE0D4"
+"
+"" TabooRename <tabname> Renames the current tab with the name provided.
+"" todo(alice) greate fundtion mapped to new tab keybinding that uses TabooOpen
+"" will require prompt to set or fallback to Taboo default
+"" TabooOpen <tabname> Opens a new tab and and gives it the name provided.
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Session management
+"" :SaveSession " saves or creates a session in the currently set `auto_session_root_dir`.
+"" :RestoreSession " restores a previously saved session based on the `cwd`.
+"" :DeleteSession " deletes a session in the currently set `auto_session_root_dir`.
+"
+"Plug 'rmagatti/auto-session'
+"Plug 'rmagatti/session-lens'
+""let g:auto_session_root_dir = $HOME . '.config/nvim/sessions'
+"let g:auto_session_enable_last_session = 0
+"let g:auto_session_enabled = 1
+""let g:auto_save_enabled = 0
+""let g:auto_restore_enabled = 1
+"let g:auto_session_suppress_dirs = ['~/Desktop']
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""automatically `tcd` to project directories when opening a file
+"Plug 'airblade/vim-rooter'
+"" The public function FindRootDirectory() returns the absolute path to the root directory as a string, if a root directory is found, or an empty string otherwise.
+"
+"" change directory for the whole tab
+"let g:rooter_cd_cmd = 'tcd'
+"
+"" what triggers a scan
+"let g:rooter_targets = '/,*'
+""let g:rooter_targets = '*'
+""let g:rooter_targets = '/,*.yml,*.yaml'
+"
+"" how to identify a root directory
+"let g:rooter_patterns = [
+"      \ '.git',
+"      \ '>~/work',
+"      \ '>.config',
+"      \ '>~/.homesick/repos/',
+"      \ '=/home/alice',
+"      \ ]
+"
+"" follow file and directory links
+"let g:rooter_resolve_links = 1
+"
+"" if blank, will not change directory (can be home or current
+"let g:rooter_change_directory_for_non_project_files = ''
+"
+"" manual mode
+"let g:rooter_manual_only = 0
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Status Line and Icons
 " I would love a single status line on tmux, please
@@ -1102,17 +1102,17 @@ lua << EOF
 EOF
 
 
-lua << EOF
-require("telescope").load_extension("session-lens")
-require('telescope').load_extension('gh')
-require('telescope').setup{
-  extensions = {
-    tele_tabby = {
-      use_highlighter = true,
-    }
-  }
-}
-EOF
+"lua << EOF
+"require("telescope").load_extension("session-lens")
+"require('telescope').load_extension('gh')
+"require('telescope').setup{
+"  extensions = {
+"    tele_tabby = {
+"      use_highlighter = true,
+"    }
+"  }
+"}
+"EOF
 
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
