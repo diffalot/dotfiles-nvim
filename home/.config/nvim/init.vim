@@ -311,6 +311,10 @@ let g:floaterm_autohide = 1
 "   Default: 'botright'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Lua REPL with access to neovim-lsp!!
+Plug 'rafcamlet/nvim-luapada'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " REPL
 Plug 'metakirby5/codi.vim'
 
@@ -704,16 +708,6 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'reedes/vim-pencil'
 " "for authors"
 
-" no dark mode
-Plug 'preservim/vim-colors-pencil'
-let g:pencil_higher_contrast_ui = 1   " 0=low (def), 1=high
-let g:pencil_neutral_headings = 1   " 0=blue (def), 1=normal
-let g:pencil_neutral_code_bg = 1   " 0=gray (def), 1=normal
-let g:pencil_gutter_color = 1      " 0=mono (def), 1=color
-let g:pencil_spell_undercurl = 1       " 0=underline, 1=undercurl (def)
-let g:pencil_terminal_italics = 1
-" colorscheme pencil
-
 Plug 'rakr/vim-one'
 let g:one_allow_italics = 1
 " colorscheme one
@@ -730,6 +724,15 @@ Plug 'ayu-theme/ayu-vim'
 " let ayucolor="mirage"
 " let ayucolor="light"
 " colorscheme ayu
+
+Plug 'preservim/vim-colors-pencil'
+let g:pencil_higher_contrast_ui = 1   " 0=low (def), 1=high
+let g:pencil_neutral_headings = 1   " 0=blue (def), 1=normal
+let g:pencil_neutral_code_bg = 1   " 0=gray (def), 1=normal
+let g:pencil_gutter_color = 1      " 0=mono (def), 1=color
+let g:pencil_spell_undercurl = 1       " 0=underline, 1=undercurl (def)
+let g:pencil_terminal_italics = 1
+" colorscheme pencil
 
 Plug 'folke/tokyonight.nvim'
 let g:tokyonight_transparent = 0
@@ -792,6 +795,7 @@ endfunction
 function! __dark()
   "echomsg 'using dark colorscheme'
   set background=dark
+  colorscheme pencil
   " let ayucolor="dark"
   " colorscheme ayu
   " let g:tokyonight_style = "night"
@@ -811,10 +815,23 @@ endfunction
   " let ayucolor="mirage"
   " colorscheme ayu
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" TODO make this setup by variables
+" Here's the bit that looks at the time when the init.vim is sourced and chooses
+" the backgrough that's least likely to cause the least eye strain
+"
+function! __auto()
+  if strftime("%H") < 19 && strftime("%H") > 05
+    call __light()
+  else
+    call __dark()
+  endif
+endfunction
+
 if (exists('g:lights_auto') && g:lights_auto == 1)
   echomsg 'using timed colorscheme'
   call __auto()
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 else
   echomsg 'timed theme switching inactive'
   "call __light()   "           <-----------  Comment one of those out and
@@ -836,17 +853,6 @@ function! __lightswitch()
     :call __light()
   else
     :call __dark()
-  endif
-endfunction
-
-" TODO make this setup by variables
-" Here's the bit that looks at the time when the init.vim is sourced and chooses
-" the backgrough that's least likely to cause the least eye strain
-function! __auto()
-  if strftime("%H") < 19 && strftime("%H") > 05
-    call __light()
-  else
-    call __dark()
   endif
 endfunction
 
