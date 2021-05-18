@@ -139,8 +139,8 @@ endif
 " Personal Keybindings
 
 set timeoutlen=900
-let mapleader = 'q'
-let maplocalleader = ','
+let mapleader = ','
+let maplocalleader = 'q'
 
 " Utilities
 nnoremap <F2> :UndotreeToggle<CR>
@@ -231,7 +231,7 @@ nnoremap <F7> :Git fetch --all <bar> :Flogsplit -all -date=short -sort=author<CR
 "   the work phase
 "     git status and logs
 "nnoremap <F7>s :echo system("git status")<CR>  "make this compact or a popup
-nnoremap <F7>l :Git log<CR>  "make s compact or a popupthis compact or a popup
+nnoremap <F7>l :Git log<CR>
 nnoremap <F7>o :echo system("git log -1 --oneline --pretty=format:'%s'")<CR>
 "     git diff
 nnoremap <F7>q :Git diff<CR>
@@ -265,6 +265,7 @@ nnoremap <F7>m :Gclog<CR>
 " No Key Maps Below Here!!!
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 call plug#begin('~/.config/nvim/plugged')
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -368,15 +369,15 @@ Plug 'voldikss/vim-floaterm'
 
 let g:floaterm_shell = 'fish'
 let g:floaterm_wintype = 'split'
-let g:floaterm_width = 140
-let g:floaterm_height = 0.2
+let g:floaterm_width = 0.6
+let g:floaterm_height = 0.6
 " float positions: top', 'bottom', 'left', 'right', 'topleft', 'topright', 'bottomleft', 'bottomright', 'center', 'auto'(at the cursor place). Default: 'center'
 " split positions: 'leftabove', 'aboveleft', 'rightbelow', 'belowright', 'topleft', 'botright'. Default: 'botright'
 " let g:floaterm_position = 'topright'
-let g:floaterm_position = 'belowright'
+let g:floaterm_position = 'topright'
 let g:floaterm_opener = 'edit'
-let g:floaterm_autoclose = 1
-let g:floaterm_autohide = 2
+let g:floaterm_autoclose = 2
+let g:floaterm_autohide = 0
 
 "let g:floaterm_keymap_new = '<Leader>zx'
 "let g:floaterm_keymap_prev = '<Leader>xzz'
