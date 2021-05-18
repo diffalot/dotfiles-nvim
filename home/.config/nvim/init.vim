@@ -423,8 +423,22 @@ Plug 'preservim/vim-wordy'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://vimwiki.github.io/
 Plug 'vimwiki/vimwiki'
-let g:vimwiki_list = [{'path': '~/wiki/',
-      \ 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_list = [
+                      \ {
+                      \   'path': '~/.cronofile/journal/',
+                      \   'syntax': 'markdown',
+                      \   'ext': '.mdx',
+                      \ },
+                      \ {
+                      \   'path': '~/.cronofile/public/diff.mx/',
+                      \   'syntax': 'markdown',
+                      \   'ext': '.mdx',
+                      \ },
+                      \ {
+                      \   'path': '~/wiki/',
+                      \   'syntax': 'markdown',
+                      \   'ext': '.mdx',
+                      \ }]
 
 let g:vimwiki_key_mappings = { 'lists': 0 }
 
@@ -1102,17 +1116,17 @@ lua << EOF
 EOF
 
 
-lua << EOF
-require("telescope").load_extension("session-lens")
-require('telescope').load_extension('gh')
-require('telescope').setup{
-  extensions = {
-    tele_tabby = {
-      use_highlighter = true,
-    }
-  }
-}
-EOF
+"lua << EOF
+"require("telescope").load_extension("session-lens")
+"require('telescope').load_extension('gh')
+"require('telescope').setup{
+"  extensions = {
+"    tele_tabby = {
+"      use_highlighter = true,
+"    }
+"  }
+"}
+"EOF
 
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
