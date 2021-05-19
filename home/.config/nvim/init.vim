@@ -376,6 +376,18 @@ augroup lexical
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim Table Mode
+" https://github.com/dhruvasagar/vim-table-mode
+Plug 'dhruvasagar/vim-table-mode'
+" There are so many options, OMG, it does formula too 
+" :TableModeToggle
+" <Leader>ttm starts table mode
+" <Leader>ttt Tableize! 
+
+let g:table_mode_map_prefix='tt'
+let g:table_mode_corner_corner='+'
+let g:table_mode_header_fillchar='='
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/preservim/vim-wordy
 Plug 'preservim/vim-wordy'
 
