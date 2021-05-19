@@ -159,24 +159,6 @@ nnoremap <silent>ttr :tabprevious<CR>
 nnoremap <silent><C-m> :tabmove<CR>
 nnoremap <silent><C-t> :tabnew<CR>
 
-" Floating Terminals (should probably find a better namespace? Or maybe just
-" unify this one...)
-"
-"      you can release the cursor from the jaws of the terminal with
-"
-"    ( Control and Backslash ) followed by ( Control and Shift and N )
-"
-"                    [ ctrl - \ ] [ ctrl - N ]
-" 
-nnoremap <silent><leader>n :FloatermNew nnn<CR>
-nnoremap <silent><leader>cs :FloatermNew --wintype=split --height=8 --width=1.0 --position=belowright --autohide=2 --autoclose=1 tmux new-session -A -s nvim<CR>
-nnoremap <silent><leader>cd :FloatermNew --autohide=2 --autoclose=1 tmux new-session -A -s nvim<CR>
-nnoremap <silent><leader>cf :FloatermNew --wintype=float --position=bottomright --width=0.6 --height=18 --autohide=2 --autoclose=1 tmux new-session -A -s nvim<CR>
-
-nnoremap <leader>mm :FloatermToggle<CR>
-nnoremap <leader><Space> :FloatermNext<CR>
-nnoremap <leader>zxc :FloatermKill<CR>
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " completion.nvim keymappings
 
@@ -287,30 +269,7 @@ Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 " https://github.com/folke/todo-comments.nvim
 Plug 'folke/todo-comments.nvim'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Floating Terminals
-" https://github.com/voldikss/vim-floaterm
-
-Plug 'voldikss/vim-floaterm'
-
-let g:floaterm_title = 'CNS$1'
-let g:floaterm_shell = 'fish'
-let g:floaterm_wintype = 'float'
-let g:floaterm_width = 0.5
-let g:floaterm_height = 0.7
-let g:floaterm_position = 'topright'
-let g:floaterm_opener = 'edit'
-let g:floaterm_autoclose = 2
-let g:floaterm_autohide = 1
-
-" float positions: top', 'bottom', 'left', 'right', 'topleft', 'topright',
-"   'bottomleft', 'bottomright', 'center', 'auto'(at the cursor place).
-"   Default: 'center'
-" split positions: 'leftabove', 'aboveleft', 'rightbelow', 'belowright',
-"   'topleft', 'botright'.
-"   Default: 'botright'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Lua REPL with access to neovim-lsp!!
 Plug 'rafcamlet/nvim-luapada'
 
