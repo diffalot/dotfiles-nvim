@@ -282,7 +282,7 @@ Plug 'folke/todo-comments.nvim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Lua REPL with access to neovim-lsp!!
-Plug 'rafcamlet/nvim-luapada'
+Plug 'rafcamlet/nvim-luapad'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " REPL
@@ -301,17 +301,24 @@ let g:codi#aliases = {
       \ }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/preservim/vim-pencil
+Plug 'reedes/vim-pencil'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Completion nvim
 Plug 'nvim-lua/completion-nvim'
-" Use completion-nvim in every buffer
-" FIXME completion lua module can't be found
-autocmd BufEnter * lua require'completion'.on_attach()
 
-"let g:completion_chain_complete_list = [
-"    \{'complete_items': ['lsp', 'snippet']},
-"    \{'mode': '<c-p>'},
-"    \{'mode': '<c-n>'}
-"\]
+autocmd BufEnter * lua require'completion'.on_attach()
+" Use completion-nvim in every buffer
+" FIXME completion lua module should setup through on attach when attaching to
+" buffers they're working with, not every buffer.
+
+let g:completion_chain_complete_list = [
+    \{'complete_items': ['lsp']},
+    \{'complete_items': ['snippet']},
+    \{'mode': '<c-p>'},
+    \{'mode': '<c-n>'}
+\]
 "let g:completion_chain_complete_list = {
 "    \ 'lua': [
 "    \    {'mode': '<c-p>'},
@@ -326,36 +333,19 @@ autocmd BufEnter * lua require'completion'.on_attach()
 
 " possible value: "length", "alphabet", "none"
 let g:completion_sorting = "length"
-
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
-
 let g:completion_matching_ignore_case = 1
-
 "let g:completion_matching_smart_case = 1
-
 let g:completion_trigger_keyword_length = 3 " default = 1
-
 let g:completion_trigger_on_delete = 1
-
-let g:completion_timer_cycle = 200 "default value is 80
-
-
+let g:completion_timer_cycle = 80 "default value is 80
 " Set completeopt to have a better completion experience
 set completeopt=menuone,noinsert,noselect
-
 " Avoid showing message extra message when using completion
 set shortmess+=c
-
 let g:completion_auto_change_source = 1
-
 " non ins-complete method should be specified in 'mode'
-let g:completion_chain_complete_list = [
-    \{'complete_items': ['lsp']},
-    \{'complete_items': ['snippet']},
-    \{'mode': '<c-p>'},
-    \{'mode': '<c-n>'}
-\]
-
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Snippets
 Plug 'rafamadriz/friendly-snippets'
@@ -369,16 +359,18 @@ let g:vsnip_filetypes.typescriptreact = ['typescript']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Every Day Use
+" Writing Code for People to Read
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Communications
+" https://github.com/preservim/vim-wordy
+Plug 'preservim/vim-wordy'
 
-" spelling
-" keybindings: https://github.com/preservim/vim-lexical#spell-check
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Spelling
+" https://github.com/preservim/vim-lexical#spell-check
 Plug 'preservim/vim-lexical'
 let g:lexical#spell = 1
-let g:lexical#spelllang = ['en_us', 'en_ca', 'en_gb']
+let g:lexical#spelllang = ['en_us']
 augroup lexical
   autocmd!
   autocmd FileType markdown,mkd call lexical#init()
@@ -398,45 +390,65 @@ Plug 'dhruvasagar/vim-table-mode'
 let g:table_mode_map_prefix='tt'
 let g:table_mode_corner_corner='+'
 let g:table_mode_header_fillchar='='
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://github.com/preservim/vim-wordy
-Plug 'preservim/vim-wordy'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://vimwiki.github.io/
 Plug 'vimwiki/vimwiki'
-let g:vimwiki_list = [{'path': '~/wiki/',
+let g:vimwiki_list = [{'path': $HOME . '/wiki',
       \ 'syntax': 'markdown', 'ext': '.md'}]
-
 let g:vimwiki_key_mappings = { 'lists': 0 }
-
 let g:vimwiki_folding = 'expr'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Heavy Duty Programming shit
+"    User Interface Improvements for Code
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Comments
 Plug 'tpope/vim-commentary'
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " matching pairs
 Plug 'andymass/vim-matchup'
 
-" Rainbow Parenthesis
-Plug 'kien/rainbow_parentheses.vim'
-let g:rbpt_max = 16
-let g:rbpt_loadcmd_toggle = 0
-
-" Commands:
-" :RainbowParenthesesToggle       " Toggle it on/off
-" :RainbowParenthesesLoadRound    " (), the default when toggling
-" :RainbowParenthesesLoadSquare   " []
-" :RainbowParenthesesLoadBraces   " {}
-" :RainbowParenthesesLoadChevrons " <>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" DiffView - https://github.com/sindrets/diffview.nvim
+Plug 'sindrets/diffview.nvim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Git
+" See previous discussions of the code you are modifying from them what wrote
+" it.
+Plug 'rhysd/git-messenger.vim'
+":GitMessenger or <Leader>gm
+let g:git_messenger_include_diff = 'current'
+" there are tons of options :https://github.com/rhysd/git-messenger.vim
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
+
+Plug 'liuchengxu/vista.vim'
+Plug 'preservim/tagbar'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Gutentags - https://github.com/ludovicchabant/vim-gutentags
+
+Plug 'ludovicchabant/vim-gutentags'
+set statusline+=%{gutentags#statusline()}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Mergetool
+" https://github.com/samoshkin/vim-mergetool
+Plug 'samoshkin/vim-mergetool'
+
+" Signify - https://github.com/mhinz/vim-signify
+if has('nvim') || has('patch-8.0.902')
+  Plug 'mhinz/vim-signify'
+else
+  Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
+endif
+set updatetime=100
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fugitive - https://github.com/tpope/vim-fugitive
 Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
@@ -462,55 +474,41 @@ let g:flog_custom_format = "log --graph --abbrev-commit --decorate --format=form
 ""  return l:command
 ""endfunction
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" See previous discussions of the code you are modifying from them what wrote
-" it.
-Plug 'rhysd/git-messenger.vim'
-":GitMessenger or <Leader>gm
-let g:git_messenger_include_diff = 'current'
-" there are tons of options :https://github.com/rhysd/git-messenger.vim
-
-" DiffView - https://github.com/sindrets/diffview.nvim
-Plug 'sindrets/diffview.nvim'
-
-" Mergetool
-" https://github.com/samoshkin/vim-mergetool
-Plug 'samoshkin/vim-mergetool'
-
-" Signify - https://github.com/mhinz/vim-signify
-if has('nvim') || has('patch-8.0.902')
-  Plug 'mhinz/vim-signify'
-else
-  Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
-endif
-set updatetime=100
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-"    User Interface Improvements
+" Syntax Highlighting and Indentation
+" (Treesitter should be taking care of most of this)
 "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" Syntax Highlighting and Indentation
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Respect .editorconfig files
 Plug 'editorconfig/editorconfig-vim'
 
-"" The fastest and most versitile, hopefully everything I need is in here
-"Plug 'sheerun/vim-polyglot'
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" The fastest and most versitile, hopefully everything I need is in here
+Plug 'sheerun/vim-polyglot'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'kevinoid/vim-jsonc'
-"
+
+""" Fish Shell """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'dag/vim-fish'
 autocmd FileType fish compiler fish
 autocmd FileType fish setlocal textwidth=79
 autocmd FileType fish setlocal foldmethod=expr
 
+""" JavaScript """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'euclidianAce/BetterLua.vim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Files
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'henrik/vim-open-url'
+" Trigger with <leader>u or :OpenURL
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'mbbill/undotree'
 " there's a lot of options for undotree so it is configures in
 " ~/.config/nvim/plugins/conf.undotree.vim
@@ -523,16 +521,12 @@ Plug 'BurntSushi/ripgrep'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FZF (the best search menu I've found :)
-" brew install fsf ag ripgrep perl git-delta 
+" brew install fsf ag ripgrep perl git-delta
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " don't search .git or node_modules by default
 let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git --exclude node_modules'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'henrik/vim-open-url'
-" Trigger with <leader>u or :OpenURL
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -544,6 +538,7 @@ Plug 'henrik/vim-open-url'
 Plug 'neovim/nvim-lspconfig'
 Plug 'kabouzeid/nvim-lspinstall'
 
+" Lsp Helpers
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'folke/lsp-colors.nvim'
 Plug 'folke/trouble.nvim'
@@ -566,22 +561,22 @@ set foldexpr=nvim_treesitter#foldexpr()
 "module->expression_statement->call->identifier
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
-
-Plug 'liuchengxu/vista.vim'
-
-Plug 'preservim/tagbar'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Gutentags - https://github.com/ludovicchabant/vim-gutentags
-
-Plug 'ludovicchabant/vim-gutentags'
-set statusline+=%{gutentags#statusline()}
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Ui Improvements
+" General Ui Improvements
 "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Rainbow Parenthesis
+Plug 'kien/rainbow_parentheses.vim'
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+
+" Commands
+" :RainbowParenthesesToggle       " Toggle it on/off
+" :RainbowParenthesesLoadRound    " (), the default when toggling
+" :RainbowParenthesesLoadSquare   " []
+" :RainbowParenthesesLoadBraces   " {}
+" :RainbowParenthesesLoadChevrons " <>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Name Tabs with Taboo https://github.com/gcmt/taboo.vim
 Plug 'gcmt/taboo.vim'
@@ -649,18 +644,23 @@ let g:rooter_manual_only = 0
 " I would love a single status line on tmux, please
 "Plug 'narajaon/onestatus'
 "Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
-"Plug 'adelarsq/vim-emoji-icon-theme'
 
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'adelarsq/vim-emoji-icon-theme'
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+let g:airline_powerline_fonts = 1
+let g:airline_highlighting_cache = 1
 
 Plug 'edkolev/tmuxline.vim'
 Plug 'lambdalisue/battery.vim'
 
-Plug 'vim-airline/vim-airline'
-let g:airline_powerline_fonts = 1
-let g:airline_highlighting_cache = 1
+"styling that covers the tabbar with buffers from current tab until you switch
+"colors... I guess... 
+"let g:airline#extensions#tabline#enabled = 1
 
-let g:airline#extensions#tabline#enabled = 1
 " Powerline Theme
 "let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
 
@@ -686,10 +686,6 @@ Plug 'tmux-plugins/vim-tmux'
 Plug 'NLKNguyen/papercolor-theme'
 " colorscheme PaperColor
 
-"no dark mode
-Plug 'reedes/vim-pencil'
-" "for authors"
-
 Plug 'rakr/vim-one'
 let g:one_allow_italics = 1
 " colorscheme one
@@ -698,7 +694,7 @@ let g:one_allow_italics = 1
 
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 let g:material_terminal_italics = 1
-" let g:material_theme_style = 'lighter'
+let g:material_theme_style = 'lighter'
 " colorscheme material
 
 Plug 'ayu-theme/ayu-vim'
@@ -708,10 +704,10 @@ Plug 'ayu-theme/ayu-vim'
 " colorscheme ayu
 
 Plug 'preservim/vim-colors-pencil'
-let g:pencil_higher_contrast_ui = 1   " 0=low (def), 1=high
+let g:pencil_higher_contrast_ui = 0   " 0=low (def), 1=high
 let g:pencil_neutral_headings = 1   " 0=blue (def), 1=normal
-let g:pencil_neutral_code_bg = 1   " 0=gray (def), 1=normal
-let g:pencil_gutter_color = 1      " 0=mono (def), 1=color
+let g:pencil_neutral_code_bg = 0   " 0=gray (def), 1=normal
+let g:pencil_gutter_color = 0      " 0=mono (def), 1=color
 let g:pencil_spell_undercurl = 1       " 0=underline, 1=undercurl (def)
 let g:pencil_terminal_italics = 1
 " colorscheme pencil
@@ -737,7 +733,7 @@ let g:onedark_terminal_italics=1
 " dark onlu
 Plug 'KeitaNakamura/neodark.vim'
 let g:neodark#use_256color = 1
-" let g:neodark#terminal_transparent = 1
+let g:neodark#terminal_transparent = 1
 let g:neodark#background = '#202020'
 " colorscheme neodark
 " colorscheme neodark
@@ -763,23 +759,32 @@ let g:lights_auto = 1    "    <------ Set the auto mode on or off right here
 function! __light()
   echomsg 'using light colorscheme'
   set background=light
-  " colorscheme PaperColor
+  "colorscheme PaperColor
   colorscheme pencil
   let g:airline_theme = 'pencil'
   " let g:material_theme_style = 'lighter'
   " colorscheme material
+  "let g:airline_theme = 'material'
   " colorscheme one
   " set background=light
 endfunction
-                          "                <---------------------------
-                          "                     "     Pick fonts 
-                          "                     "     In Here :)
+"    ^       Pick fonts
+"    |       In Either of these
+"    |-------------------------
+"    |       Functions :)
+"    v
 function! __dark()
   "echomsg 'using dark colorscheme'
   set background=dark
-  colorscheme pencil
-  " let ayucolor="dark"
-  " colorscheme ayu
+
+  " italic
+  "let g:airline_theme = 'understated'
+  "colorscheme pencil
+
+  " italic
+  let ayucolor="dark"
+  colorscheme ayu 
+
   " let g:tokyonight_style = "night"
   " colorscheme tokyonight
   " colorscheme rigel
@@ -790,6 +795,8 @@ function! __dark()
   " colorscheme dracula
   " colorscheme orange-moon
   " colorscheme yellow-moon
+  
+  let g:airline_theme = 'understated'
 endfunction
 
   " Something wrong with this one, it shows dar in a light background?
@@ -816,19 +823,24 @@ if (exists('g:lights_auto') && g:lights_auto == 1)
   call __auto()
 else
   echomsg 'timed theme switching inactive'
+  "echo 'running manually selected'
   "call __light()   "           <-----------  Comment one of those out and
-  call __dark()     "                         let the other set the theme
-                    "                         if you're not using auto mode
+  "call __dark()     "                         let the other set the theme
+  set background=light
+  "colorscheme PaperColor
+  colorscheme pencil
+  "color rigel
+  "let g:airline_theme = 'pencil'
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" LightSwitch, LightsOff, and LightsOn functions to switch between dark and
+" LightsSwitch, LightsOff, and LightsOn functions to switch between dark and
 " light modes at dusk and dawn (not accurately), or on demand.
 
-command! -nargs=* LightSwitch call __lightswitch()
-command! -nargs=* LightOn call __light()
-command! -nargs=* LightOff call __dark()
-command! -nargs=* LightAuto call __auto()
+command! -nargs=* LightsSwitch call __lightswitch()
+command! -nargs=* LightsOn call __light()
+command! -nargs=* LightsOff call __dark()
+command! -nargs=* LightsAuto call __auto()
 
 function! __lightswitch()
   if (&background == 'dark')
@@ -901,16 +913,49 @@ function! ZNV_Setup()
 endfunction
 
 " Quick controls over displaying special characters
-"tab:»\,eol:¶\,nbsp:¬\,trail:-
+" tab:»\, eol:¶\,nbsp:¬\,trail:-
+" and for airline conpatability add on:
+" stl:\ , stlnc:\
+"
 set list listchars=tab:»\ ,nbsp:¬,trail:◊
-command! -nargs=* CharactersOn set list listchars=stl:\ ,stlnc:\tab:»\ ,eol:¶,nbsp:¬,trail:-
-command! -nargs=* CharactersOff set list listchars=stl:\ ,stlnc:\tab:»\ ,nbsp:¬,trail:-
+command! -nargs=* CharactersOn set list listchars=stl:\ ,stlnc:\, tab:»\ ,eol:¶,nbsp:¬,trail:-
+command! -nargs=* CharactersOff set list listchars=stl:\ ,stlnc:\, tab:»\ ,nbsp:¬,trail:-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " remove trailing whitespace
+"
+command! -nargs=* WipeTrailingWhitespaces let _save_pos=getpos(".") <Bar>
+      \ %s/\s\+$//e <Bar>
+      \ call setpos('.', _save_pos)<Bar>
+      \ unlet _save_pos<CR>
 
-command! -nargs=* WipeTrailingWhitespaces execute("%s/\s\+$//e")
-
+" I think it's illustrative of problems around training people how to do things
+" and learning how to do new thins on your own is that beforeI saw that I
+" should be thinking of the different enironments that different commands and
+" variables and the user exist in and whicn ones can can cross these barriers
+" and how.... anyway here's my original version that wouldn't work where I
+" misunderstood where context lived and where the commands work:
+"
+"     command! -nargs=* WipeTrailingWhitespaces execute("%s/\s\+$//e")
+"
+" I want to know why this this is cleaner. Maybe mine will break something
+" someday and I'll find out ;)
+"
+" also, is there extra value to using these unnecesary colons as the beginning
+" of these commands? (I think these are all commands because a usr can run them
+" in command mode, and a user has to call a function from command mode.
+"
+" Remap for destroying trailing whitespace cleanly
+"
+"     nnoremap <Leader>wwss :let _save_pos=getpos(".") <Bar>
+"         \ :let _s=@/ <Bar>
+"         \ :%s/\s\+$//e <Bar>
+"         \ :let @/=_s <Bar>
+"         \ :nohl <Bar>
+"         \ :unlet _s<Bar>
+"         \ :call setpos('.', _save_pos)<Bar>
+"         \ :unlet _save_pos<CR><CR>
+"`
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " In Progress
@@ -951,7 +996,7 @@ command! -nargs=* WipeTrailingWhitespaces execute("%s/\s\+$//e")
 "
 " https://learnvimscriptthehardway.stevelosh.com/chapters/12.html
 
-":autocmd FileType javascript 
+":autocmd FileType javascript
 ":autocmd BufNewFile,BufRead *.html setlocal nowrap
 "
 " * wiki pages should trigger the lsp markdown lint and format settings
@@ -1037,6 +1082,7 @@ lua << EOF
   }
 EOF
 
+
 lua << EOF
   require("todo-comments").setup {
     -- your configuration comes here
@@ -1057,7 +1103,7 @@ lua << EOF
     PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
     NOTE = { icon = " ", color = "hint", alt = { "INFO", "wow", "lol" } },
   },
-  -- highlighting of the line containing the todo comment
+  -- highlighting of the line containiing the todo comment
   -- * before: highlights before the keyword (typically comment characters)
   -- * keyword: highlights of the keyword
   -- * after: highlights after the keyword (todo text)
@@ -1082,7 +1128,6 @@ lua << EOF
   -- pattern = "-- (KEYWORDS):", -- only match in lua comments
   }
 EOF
-
 
 lua << EOF
 require("telescope").load_extension("session-lens")
