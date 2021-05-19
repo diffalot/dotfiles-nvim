@@ -130,9 +130,20 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Personal Keybindings
 
-set timeoutlen=800
-let mapleader = ','
-let maplocalleader = 'q'
+
+" Claimed Prefixes
+"
+"   +------+------------+
+"   | Key  | Used For   |
+"   |-====-+-==========-|
+"   |  \   | <leader>   |
+"   |------+------------|
+"   | tt   | Table Mode |
+"   |------+------------|
+
+let mapleader = '\'
+let maplocalleader = ','
+set timeoutlen=900
 
 " Utilities
 nnoremap <F2> :UndotreeToggle<CR>
