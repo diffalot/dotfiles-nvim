@@ -273,7 +273,30 @@ call plug#begin('~/.config/nvim/plugged')
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "<C-Space> https://github.com/vim-ctrlspace/vim-ctrlspace
+" outdate docs, but very helpful: https://atlas-vim.readthedocs.io/vim/plugged/vim-ctrlspace/README/#status-line
 Plug 'vim-ctrlspace/vim-ctrlspace'
+
+let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
+let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
+let g:CtrlSpaceSaveWorkspaceOnExit = 1
+
+let g:CtrlSpaceProjectRootMarkers = [
+      \ ".diffalot",
+      \ ".git",
+      \ ".hg",
+      \ ".svn",
+      \ ".bzr",
+      \ "_darcs",
+      \ "CVS"
+      \ ]
+
+if executable('rg')
+  let g:CtrlSpaceGlobCommand = 'rg --color=never --files'
+elseif executable('fd')
+  let g:CtrlSpaceGlobCommand = 'fd --type=file --color=never'
+elseif executable('ag')
+  let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " I want to learn Lua and I wish I knew Vim Script better
