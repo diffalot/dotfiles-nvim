@@ -190,73 +190,59 @@ endif
 " and a splash of twink blood from Peter Thiel's personal stash.  And you know
 " me and you know that's what I'm really going for here.
 
-" Claimed Prefixes
-"
-"   +------+------------+
-"   | Key  | Used For   |
-"   |-====-+-==========-|
-"   |  \   | <leader>   |
-"   |------+------------|
-"   | tt   | Table Mode |
-"   |------+------------|
-
 let mapleader = '\'
 let maplocalleader = ','
 set timeoutlen=900
 
 " Mobile Responsive Mode
+" note that mobile has a much longer timeout for key entry
 " TODO find another way to test for 'probably mobile'
 if winwidth('%') < 70
   let mapleader = '<Space><Space>'
   set timeoutlen=2500
 end
 
+" Claimed Prefixes
+
+"  🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩
+" +----------------+-------------+-------------------+
+" | Prefix         | Desktop Key | Mobile Resp. Key  |
+" | Description    |             |                   |
+" +----------------+-------------+-------------------+
+" | <leader>       | ✨ \        | ✨ <Space><Space> |
+" +----------------+-------------+-------------------+
+" | Tab Controls   | <C- ↔️  >    | tt                |
+" +----------------+-------------+-------------------+
+" | CtrlSpace      | <C-Space>   | <C-Space>         |
+" +----------------+-------------+-------------------+
+" | Vimwiki        | <C> w       | <C> w             |
+" +----------------+-------------+-------------------+
+" | Table Mode     | <leader> t  | <leader> t        |
+" +----------------+-------------+-------------------+
+" | File Controls  | <leader> f  | <leader> f        |
+" +----------------+-------------+-------------------+
+" | + Git Workflow | <F7>        | <F7>              |
+" +----------------+-------------+-------------------+
+" | - C/G Tags     | <F8>        | <F8>              |
+" +----------------+-------------+-------------------+
+" | English Lang.  |             |                   |
+" | .   Tools      | <F2>        | <F2>              |
+" +----------------+-------------+-------------------+
+" | nvim Help      | <F1>        | <F1>              |
+" +----------------+-------------+-------------------+
+" legend:
+"  ✨ = key only mapped on indicated platform
+"   + = prefix in progress
+"   - = prefix in planning
+"   . = prefix a tentative idea
+
 " Utilities
 nnoremap <F2> :UndotreeToggle<CR>
 nnoremap <F8> :TagbarToggle<CR>
 nnoremap <F9> :Vista!!<CR>
-" (set by plugin) <leader> u OpenUrl
+" <leader> u OpenUrl (set by plugin)
+" todo(map) find a better mapping
 nmap z<Space> :VimwikiToggleListItem<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" completion.nvim keymappings
-"
-"imap <c-j> <Plug>(completion_next_source) "use <c-j> to switch to previous completion
-"imap <c-k> <Plug>(completion_prev_source) "use <c-k> to switch to next completion
-"
-"" Use <Tab> and <S-Tab> to navigate through popup menu
-"" FIXME
-""inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-""inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-"
-""map <c-p> to manually trigger completion
-"imap <silent> <c-p> <Plug>(completion_trigger)
-"
-""imap <tab> <Plug>(completion_smart_tab)
-""imap <s-tab> <Plug>(completion_smart_s_tab)
-"
-"" Expand
-"imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-"smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-"
-"" Expand or jump
-"imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-"smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-"
-"" FIXME snippets module not loading
-"" Jump forward or backward
-""imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-""smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-""imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-""smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-"
-"" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
-"" See https://github.com/hrsh7th/vim-vsnip/pull/50
-"nmap        s   <Plug>(vsnip-select-text)
-"xmap        s   <Plug>(vsnip-select-text)
-"nmap        S   <Plug>(vsnip-cut-text)
-"xmap        S   <Plug>(vsnip-cut-text)
-"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " git workflow
@@ -523,12 +509,6 @@ Plug 'liuchengxu/vim-which-key'
 "two at a time adn I asked them to bring their keybindings too
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://github.com/nvim-telescope/telescope.nvim
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-github.nvim'
-Plug 'TC72/telescope-tele-tabby.nvim'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Main Menu Controls
 nnoremap <Space>t :Telescope<CR>
@@ -559,17 +539,22 @@ nnoremap <silent><C-m> :tabmove<CR>
 nnoremap <silent><C-t> :tabnew<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vim Finder
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+" https://github.com/nvim-telescope/telescope.nvim
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-github.nvim'
+Plug 'TC72/telescope-tele-tabby.nvim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FZF (the best search menu I've found :)
 " brew install fsf ag ripgrep perl git-delta
-
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " don't search .git or node_modules by default
 let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git --exclude node_modules'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim Finder
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "<C-Space> https://github.com/vim-ctrlspace/vim-ctrlspace
@@ -677,7 +662,7 @@ Plug 'dhruvasagar/vim-table-mode'
 " <Leader>ttm starts table mode
 " <Leader>ttt Tableize! 
 
-let g:table_mode_map_prefix='tt'
+let g:table_mode_map_prefix='t'
 let g:table_mode_corner_corner='+'
 let g:table_mode_header_fillchar='='
 
