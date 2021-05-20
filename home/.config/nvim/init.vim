@@ -42,8 +42,9 @@ set termguicolors
 " Manage built in options
 
 set nocompatible
-
+set hidden
 set encoding=utf-8
+
 
 filetype plugin on
 syntax enable
@@ -112,6 +113,9 @@ set noequalalways
 set showtabline=2
 set laststatus=2
 
+" #CSpace setting...
+set showtabline=0
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Wildmenu
 
@@ -144,6 +148,9 @@ endif
 let mapleader = '\'
 let maplocalleader = ','
 set timeoutlen=900
+
+" #CSpace setting...
+let g:CtrlSpaceDefaultMappingKey = "<C-space> "
 
 " Utilities
 nnoremap <F2> :UndotreeToggle<CR>
@@ -264,6 +271,10 @@ call plug#begin('~/.config/nvim/plugged')
 "
 " Still Being Configured
 "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"<C-Space> https://github.com/vim-ctrlspace/vim-ctrlspace
+Plug 'vim-ctrlspace/vim-ctrlspace'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " I want to learn Lua and I wish I knew Vim Script better
 
