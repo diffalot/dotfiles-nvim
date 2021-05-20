@@ -609,9 +609,9 @@ Plug 'rmagatti/auto-session'
 Plug 'rmagatti/session-lens'
 "let g:auto_session_root_dir = $HOME . '.config/nvim/sessions'
 let g:auto_session_enable_last_session = 0
-let g:auto_session_enabled = 1
-"let g:auto_save_enabled = 0
-"let g:auto_restore_enabled = 1
+let g:auto_session_enabled = 0
+let g:auto_save_enabled = 0
+let g:auto_restore_enabled = 0
 let g:auto_session_suppress_dirs = ['~/Desktop']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -624,8 +624,8 @@ let g:rooter_cd_cmd = 'tcd'
 
 " what triggers a scan
 let g:rooter_targets = '/,*'
-"let g:rooter_targets = '*'
-"let g:rooter_targets = '/,*.yml,*.yaml'
+" let g:rooter_targets = '*'
+" let g:rooter_targets = '/,*.yml,*.yaml'
 
 " how to identify a root directory
 let g:rooter_patterns = [
@@ -643,7 +643,7 @@ let g:rooter_resolve_links = 1
 let g:rooter_change_directory_for_non_project_files = ''
 
 " manual mode
-let g:rooter_manual_only = 0
+let g:rooter_manual_only = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Status Line and Icons
@@ -920,9 +920,9 @@ let g:znv_config_source_command = 'source' . expand(g:znv_config_dir) . '/init.v
 function! ZNV_Setup()
   execute 'tabnew' . g:znv_config_dir . '/init.vim'
   execute 'tcd' . g:znv_config_dir
-  if exists(':TabooRename')
-    TabooRename nvim
-  end
+  "if exists(':TabooRename')
+  "  TabooRename nvim
+  "end
   augroup ZNV_Config_Reloader
     autocmd! BufWritePost <buffer> execute(g:znv_config_source_command)
   augroup END
