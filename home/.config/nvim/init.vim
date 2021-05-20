@@ -204,6 +204,13 @@ let mapleader = '\'
 let maplocalleader = ','
 set timeoutlen=900
 
+" Mobile Responsive Mode
+" TODO find another way to test for 'probably mobile'
+if winwidth('%') < 70
+  let mapleader = '<Space><Space>'
+  set timeoutlen=2500
+end
+
 " Utilities
 nnoremap <F2> :UndotreeToggle<CR>
 nnoremap <F8> :TagbarToggle<CR>
