@@ -665,23 +665,23 @@ let g:rooter_manual_only = 1
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'adelarsq/vim-emoji-icon-theme'
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
-let g:airline_powerline_fonts = 1
-let g:airline_highlighting_cache = 1
-
-Plug 'edkolev/tmuxline.vim'
-Plug 'lambdalisue/battery.vim'
-
-"styling that covers the tabbar with buffers from current tab until you switch
-"colors... I guess... 
-"let g:airline#extensions#tabline#enabled = 1
-
-" Powerline Theme
-"let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
-
-let g:airline_skip_empty_sections = 1
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+"
+"let g:airline_powerline_fonts = 1
+"let g:airline_highlighting_cache = 1
+"
+"Plug 'edkolev/tmuxline.vim'
+"Plug 'lambdalisue/battery.vim'
+"
+""styling that covers the tabbar with buffers from current tab until you switch
+""colors... I guess... 
+""let g:airline#extensions#tabline#enabled = 1
+"
+"" Powerline Theme
+""let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
+"
+"let g:airline_skip_empty_sections = 1
 
 " fillchars+=stl:\ ,stlnc:\  "fix for special characters in the bar
 
