@@ -149,8 +149,6 @@ let mapleader = '\'
 let maplocalleader = ','
 set timeoutlen=900
 
-" #CSpace setting...
-let g:CtrlSpaceDefaultMappingKey = "<C-space> "
 
 " Utilities
 nnoremap <F2> :UndotreeToggle<CR>
@@ -159,63 +157,46 @@ nnoremap <F9> :Vista!!<CR>
 " (set by plugin) <leader> u OpenUrl
 nmap z<Space> :VimwikiToggleListItem<CR>
 
-" Main Menu Controls
-nnoremap <Space>t :Telescope<CR>
-nnoremap <Space>y :Files<CR>
 
-" Submenu Controls
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-noremap <leader>fh <cmd>Telescope help_tags<cr>
-
-" Tab Management
-nnoremap <silent><C-Right> :tabnext<CR>
-nnoremap <silent>tty :tabnext<CR>
-nnoremap <silent><C-Left> :tabprevious<CR>
-nnoremap <silent>ttr :tabprevious<CR>
-nnoremap <silent><C-m> :tabmove<CR>
-nnoremap <silent><C-t> :tabnew<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" completion.nvim keymappings
-
-imap <c-j> <Plug>(completion_next_source) "use <c-j> to switch to previous completion
-imap <c-k> <Plug>(completion_prev_source) "use <c-k> to switch to next completion
-
-" Use <Tab> and <S-Tab> to navigate through popup menu
-" FIXME
-"inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-"map <c-p> to manually trigger completion
-imap <silent> <c-p> <Plug>(completion_trigger)
-
-"imap <tab> <Plug>(completion_smart_tab)
-"imap <s-tab> <Plug>(completion_smart_s_tab)
-
-" Expand
-imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-
-" Expand or jump
-imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-
-" FIXME snippets module not loading
-" Jump forward or backward
-"imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-"smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-"imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-"smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-
-" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
-" See https://github.com/hrsh7th/vim-vsnip/pull/50
-nmap        s   <Plug>(vsnip-select-text)
-xmap        s   <Plug>(vsnip-select-text)
-nmap        S   <Plug>(vsnip-cut-text)
-xmap        S   <Plug>(vsnip-cut-text)
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" completion.nvim keymappings
+"
+"imap <c-j> <Plug>(completion_next_source) "use <c-j> to switch to previous completion
+"imap <c-k> <Plug>(completion_prev_source) "use <c-k> to switch to next completion
+"
+"" Use <Tab> and <S-Tab> to navigate through popup menu
+"" FIXME
+""inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+""inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"
+""map <c-p> to manually trigger completion
+"imap <silent> <c-p> <Plug>(completion_trigger)
+"
+""imap <tab> <Plug>(completion_smart_tab)
+""imap <s-tab> <Plug>(completion_smart_s_tab)
+"
+"" Expand
+"imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+"smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+"
+"" Expand or jump
+"imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+"smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+"
+"" FIXME snippets module not loading
+"" Jump forward or backward
+""imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+""smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+""imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+""smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+"
+"" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+"" See https://github.com/hrsh7th/vim-vsnip/pull/50
+"nmap        s   <Plug>(vsnip-select-text)
+"xmap        s   <Plug>(vsnip-select-text)
+"nmap        S   <Plug>(vsnip-cut-text)
+"xmap        S   <Plug>(vsnip-cut-text)
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " git workflow
@@ -272,51 +253,7 @@ call plug#begin('~/.config/nvim/plugged')
 " Still Being Configured
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"<C-Space> https://github.com/vim-ctrlspace/vim-ctrlspace
-" outdate docs, but very helpful: https://atlas-vim.readthedocs.io/vim/plugged/vim-ctrlspace/README/#status-line
-Plug 'vim-ctrlspace/vim-ctrlspace'
 
-let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
-let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
-let g:CtrlSpaceSaveWorkspaceOnExit = 1
-
-let g:CtrlSpaceProjectRootMarkers = [
-      \ ".diffalot",
-      \ ".git",
-      \ ".hg",
-      \ ".svn",
-      \ ".bzr",
-      \ "_darcs",
-      \ "CVS"
-      \ ]
-
-if executable('rg')
-  let g:CtrlSpaceGlobCommand = 'rg --color=never --files'
-elseif executable('fd')
-  let g:CtrlSpaceGlobCommand = 'fd --type=file --color=never'
-elseif executable('ag')
-  let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
-endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" I want to learn Lua and I wish I knew Vim Script better
-
-" Assists with converting init.vim to init.lua
-Plug 'svermeulen/vimpeccable'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vim Finder
-" It's very very fast
-
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://github.com/folke/todo-comments.nvim
-Plug 'folke/todo-comments.nvim'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Lua REPL with access to neovim-lsp!!
-Plug 'rafcamlet/nvim-luapad'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " REPL
@@ -338,59 +275,59 @@ let g:codi#aliases = {
 " https://github.com/preservim/vim-pencil
 Plug 'reedes/vim-pencil'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Completion nvim
-Plug 'nvim-lua/completion-nvim'
-
-autocmd BufEnter * lua require'completion'.on_attach()
-" Use completion-nvim in every buffer
-" FIXME completion lua module should setup through on attach when attaching to
-" buffers they're working with, not every buffer.
-
-let g:completion_chain_complete_list = [
-    \{'complete_items': ['lsp']},
-    \{'complete_items': ['snippet']},
-    \{'mode': '<c-p>'},
-    \{'mode': '<c-n>'}
-\]
-"let g:completion_chain_complete_list = {
-"    \ 'lua': [
-"    \    {'mode': '<c-p>'},
-"    \    {'mode': '<c-n>'}
-"    \],
-"    \ 'default': [
-"    \    {'complete_items': ['lsp', 'snippet']},
-"    \    {'mode': '<c-p>'},
-"    \    {'mode': '<c-n>'}
-"    \]
-"\}
-
-" possible value: "length", "alphabet", "none"
-let g:completion_sorting = "length"
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
-let g:completion_matching_ignore_case = 1
-"let g:completion_matching_smart_case = 1
-let g:completion_trigger_keyword_length = 3 " default = 1
-let g:completion_trigger_on_delete = 1
-let g:completion_timer_cycle = 80 "default value is 80
-" Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
-" Avoid showing message extra message when using completion
-set shortmess+=c
-let g:completion_auto_change_source = 1
-" non ins-complete method should be specified in 'mode'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Completion nvim
+"Plug 'nvim-lua/completion-nvim'
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Snippets
-Plug 'rafamadriz/friendly-snippets'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
-
-" If you want to use snippet for multiple filetypes, you can `g:vsnip_filetypes` for it.
-let g:vsnip_filetypes = {}
-let g:vsnip_filetypes.javascriptreact = ['javascript']
-let g:vsnip_filetypes.typescriptreact = ['typescript']
-
+"autocmd BufEnter * lua require'completion'.on_attach()
+"" Use completion-nvim in every buffer
+"" FIXME completion lua module should setup through on attach when attaching to
+"" buffers they're working with, not every buffer.
+"
+"let g:completion_chain_complete_list = [
+"    \{'complete_items': ['lsp']},
+"    \{'complete_items': ['snippet']},
+"    \{'mode': '<c-p>'},
+"    \{'mode': '<c-n>'}
+"\]
+""let g:completion_chain_complete_list = {
+""    \ 'lua': [
+""    \    {'mode': '<c-p>'},
+""    \    {'mode': '<c-n>'}
+""    \],
+""    \ 'default': [
+""    \    {'complete_items': ['lsp', 'snippet']},
+""    \    {'mode': '<c-p>'},
+""    \    {'mode': '<c-n>'}
+""    \]
+""\}
+"
+"" possible value: "length", "alphabet", "none"
+"let g:completion_sorting = "length"
+"let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
+"let g:completion_matching_ignore_case = 1
+""let g:completion_matching_smart_case = 1
+"let g:completion_trigger_keyword_length = 3 " default = 1
+"let g:completion_trigger_on_delete = 1
+"let g:completion_timer_cycle = 80 "default value is 80
+"" Set completeopt to have a better completion experience
+"set completeopt=menuone,noinsert,noselect
+"" Avoid showing message extra message when using completion
+"set shortmess+=c
+"let g:completion_auto_change_source = 1
+"" non ins-complete method should be specified in 'mode'
+""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""Snippets
+"Plug 'rafamadriz/friendly-snippets'
+"Plug 'hrsh7th/vim-vsnip'
+"Plug 'hrsh7th/vim-vsnip-integ'
+"
+"" If you want to use snippet for multiple filetypes, you can `g:vsnip_filetypes` for it.
+"let g:vsnip_filetypes = {}
+"let g:vsnip_filetypes.javascriptreact = ['javascript']
+"let g:vsnip_filetypes.typescriptreact = ['typescript']
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Writing Code for People to Read
@@ -443,19 +380,23 @@ let g:vimwiki_folding = 'expr'
 "
 "    User Interface Improvements for Code
 "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Comments
-Plug 'tpope/vim-commentary'
-
+" Looks interesting
+" https://github.com/MattesGroeger/vim-bookmarks
+"
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Comments
+"Plug 'tpope/vim-commentary'
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " matching pairs
 Plug 'andymass/vim-matchup'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" DiffView - https://github.com/sindrets/diffview.nvim
-Plug 'sindrets/diffview.nvim'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" DiffView - https://github.com/sindrets/diffview.nvim
+"Plug 'sindrets/diffview.nvim'
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " See previous discussions of the code you are modifying from them what wrote
 " it.
 Plug 'rhysd/git-messenger.vim'
@@ -475,45 +416,45 @@ Plug 'preservim/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
 set statusline+=%{gutentags#statusline()}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Mergetool
-" https://github.com/samoshkin/vim-mergetool
-Plug 'samoshkin/vim-mergetool'
-
-" Signify - https://github.com/mhinz/vim-signify
-if has('nvim') || has('patch-8.0.902')
-  Plug 'mhinz/vim-signify'
-else
-  Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
-endif
-set updatetime=100
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Fugitive - https://github.com/tpope/vim-fugitive
-Plug 'tpope/vim-fugitive'
-Plug 'rbong/vim-flog'
-
-let g:flog_default_arguments = {
-                      \ 'all': 1,
-                      \ 'max_count': 2000,
-                      \ 'date': 'short',
-                      \ 'sort': 'author'}
-let g:flog_custom_format = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
-""" This is the same as the built-in log command (flog#build_log_command)
-""function! FlogBuildLog() abort
-""  " Same as "git --git-dir=" . flog#get_fugitive_git_dir()
-""  " The git dir will be the current buffer's ".git" directory
-""  let l:command = flog#get_fugitive_git_command()
-""  let l:command .= ' log'
-""  let l:command .= ' --'
-""  " Args and paths that would normally be passed to "git log" based on Flog options
-""  let l:command .= flog#build_log_args()
-""  let l:command .= ' -- '
-""  let l:command .= flog#build_log_paths()
-""
-""  return l:command
-""endfunction
-
+"" Mergetool
+"" https://github.com/samoshkin/vim-mergetool
+"Plug 'samoshkin/vim-mergetool'
+"
+"" Signify - https://github.com/mhinz/vim-signify
+"if has('nvim') || has('patch-8.0.902')
+"  Plug 'mhinz/vim-signify'
+"else
+"  Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
+"endif
+"set updatetime=100
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Fugitive - https://github.com/tpope/vim-fugitive
+"Plug 'tpope/vim-fugitive'
+"Plug 'rbong/vim-flog'
+"
+"let g:flog_default_arguments = {
+"                      \ 'all': 1,
+"                      \ 'max_count': 2000,
+"                      \ 'date': 'short',
+"                      \ 'sort': 'author'}
+"let g:flog_custom_format = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+"""" This is the same as the built-in log command (flog#build_log_command)
+"""function! FlogBuildLog() abort
+"""  " Same as "git --git-dir=" . flog#get_fugitive_git_dir()
+"""  " The git dir will be the current buffer's ".git" directory
+"""  let l:command = flog#get_fugitive_git_command()
+"""  let l:command .= ' log'
+"""  let l:command .= ' --'
+"""  " Args and paths that would normally be passed to "git log" based on Flog options
+"""  let l:command .= flog#build_log_args()
+"""  let l:command .= ' -- '
+"""  let l:command .= flog#build_log_paths()
+"""
+"""  return l:command
+"""endfunction
+"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Syntax Highlighting and Indentation
@@ -538,8 +479,6 @@ autocmd FileType fish compiler fish
 autocmd FileType fish setlocal textwidth=79
 autocmd FileType fish setlocal foldmethod=expr
 
-""" JavaScript """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'euclidianAce/BetterLua.vim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Files
@@ -553,12 +492,67 @@ Plug 'mbbill/undotree'
 " there's a lot of options for undotree so it is configures in
 " ~/.config/nvim/plugins/conf.undotree.vim
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" :grep
-set grepprg=rg\ --vimgrep
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Plug 'BurntSushi/ripgrep'
+"I've invited all the dashboards down here so It'll be easier to try out one or
+"two at a time adn I asked them to bring their keybindings too
+Plug 'liuchengxu/vim-which-key'
+"https://github.com/liuchengxu/vim-which-key
 
+" Main Menu Controls
+nnoremap <Space>t :Telescope<CR>
+"nnoremap <Space>y :Files<CR>
+
+" Submenu Controls
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+noremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" #CSpace setting...
+let g:CtrlSpaceDefaultMappingKey = "<C-space> "
+
+" Tab Management
+nnoremap <silent><C-Right> :tabnext<CR>
+nnoremap <silent>tty :tabnext<CR>
+nnoremap <silent><C-Left> :tabprevious<CR>
+nnoremap <silent>ttr :tabprevious<CR>
+nnoremap <silent><C-m> :tabmove<CR>
+nnoremap <silent><C-t> :tabnew<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""<C-Space> https://github.com/vim-ctrlspace/vim-ctrlspace
+"" outdate docs, but very helpful: https://atlas-vim.readthedocs.io/vim/plugged/vim-ctrlspace/README/#status-line
+"Plug 'vim-ctrlspace/vim-ctrlspace'
+"
+"let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
+"let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
+"let g:CtrlSpaceSaveWorkspaceOnExit = 1
+"
+"let g:CtrlSpaceProjectRootMarkers = [
+"      \ ".diffalot",
+"      \ ".git",
+"      \ ".hg",
+"      \ ".svn",
+"      \ ".bzr",
+"      \ "_darcs",
+"      \ "CVS"
+"      \ ]
+"
+"if executable('rg')
+"  let g:CtrlSpaceGlobCommand = 'rg --color=never --hidden --glob "!.git" --glob "!node_modules" --files'
+"elseif executable('fd')
+"  let g:CtrlSpaceGlobCommand = 'fd --type=file --color=never'
+"elseif executable('ag')
+"  let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
+"endif
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Vim Finder
+"" It's very very fast
+"
+"Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FZF (the best search menu I've found :)
 " brew install fsf ag ripgrep perl git-delta
@@ -568,29 +562,10 @@ Plug 'junegunn/fzf.vim'
 " don't search .git or node_modules by default
 let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git --exclude node_modules'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Language Server
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" neovim-lsp
-" https://github.com/kabouzeid/nvim-lspinstall
-Plug 'neovim/nvim-lspconfig'
-Plug 'kabouzeid/nvim-lspinstall'
-
-" Lsp Helpers
-Plug 'nvim-lua/lsp-status.nvim'
-Plug 'folke/lsp-colors.nvim'
-Plug 'folke/trouble.nvim'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://github.com/nvim-telescope/telescope.nvim
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-github.nvim'
-Plug 'TC72/telescope-tele-tabby.nvim'
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
@@ -601,9 +576,56 @@ set foldexpr=nvim_treesitter#foldexpr()
 "module->expression_statement->call->identifier
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" neovim-lsp
+" https://github.com/kabouzeid/nvim-lspinstall
+Plug 'neovim/nvim-lspconfig'
+Plug 'kabouzeid/nvim-lspinstall'
+
+" Lsp Helpers and Viewers
+Plug 'glepnir/lspsaga.nvim'
+Plug 'nvim-lua/lsp_extensions.nvim'
+Plug 'nvim-lua/lsp-status.nvim'
+Plug 'folke/lsp-colors.nvim'
+Plug 'folke/trouble.nvim'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Other Things That Are Configured in Lua
+Plug 'euclidianAce/BetterLua.vim'
+
+" Assists with converting init.vim to init.lua
+Plug 'svermeulen/vimpeccable'
+
+" Common Dependencies
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+
+" https://github.com/nvim-telescope/telescope.nvim
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-github.nvim'
+Plug 'TC72/telescope-tele-tabby.nvim'
+
+" https://github.com/TimUntersberger/neogit
+Plug 'TimUntersberger/neogit'
+
+" https://github.com/folke/todo-comments.nvim
+Plug 'folke/todo-comments.nvim'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Lua REPL with access to neovim-lsp!!
+Plug 'rafcamlet/nvim-luapad'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Plug 'hoob3rt/lualine.nvim'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " General Ui Improvements
 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'mhinz/vim-startify'
+:h startify
+:h startify-faq
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Rainbow Parenthesis
 Plug 'kien/rainbow_parentheses.vim'
@@ -688,23 +710,24 @@ let g:rooter_manual_only = 1
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'adelarsq/vim-emoji-icon-theme'
 
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
-"
-"let g:airline_powerline_fonts = 1
-"let g:airline_highlighting_cache = 1
-"
-"Plug 'edkolev/tmuxline.vim'
-"Plug 'lambdalisue/battery.vim'
-"
-""styling that covers the tabbar with buffers from current tab until you switch
-""colors... I guess... 
-""let g:airline#extensions#tabline#enabled = 1
-"
-"" Powerline Theme
-""let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
-"
-"let g:airline_skip_empty_sections = 1
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+let g:airline_statusline_ontop=1
+let g:airline_powerline_fonts = 1
+let g:airline_highlighting_cache = 1
+
+Plug 'edkolev/tmuxline.vim'
+Plug 'lambdalisue/battery.vim'
+
+"styling that covers the tabbar with buffers from current tab until you switch
+"colors... I guess... 
+"let g:airline#extensions#tabline#enabled = 1
+
+" Powerline Theme
+"let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
+
+let g:airline_skip_empty_sections = 1
 
 " fillchars+=stl:\ ,stlnc:\  "fix for special characters in the bar
 
@@ -797,15 +820,15 @@ let g:lights_auto = 1    "    <------ Set the auto mode on or off right here
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! __light()
-  echomsg 'using light colorscheme'
+  " echomsg 'using light colorscheme'
   set background=light
-  "colorscheme PaperColor
+  " colorscheme PaperColor
   colorscheme pencil
-  "let g:airline_theme = 'pencil'
+  " let g:airline_theme = 'pencil'
   let g:airline_theme = 'silver'
   " let g:material_theme_style = 'lighter'
   " colorscheme material
-  "let g:airline_theme = 'material'
+  " let g:airline_theme = 'material'
   " colorscheme one
   " set background=light
 endfunction
@@ -818,22 +841,22 @@ function! __dark()
   "echomsg 'using dark colorscheme'
   set background=dark
   let g:airline_theme = 'base16color'
-  "let g:airline_theme = 'understated'
-  "let g:airline_theme = 'serene'
-  "let g:airline_theme = 'bubblegum'
+  " let g:airline_theme = 'understated'
+  " let g:airline_theme = 'serene'
+  " let g:airline_theme = 'bubblegum'
 
   " italic
-  "let g:airline_theme = 'understated'
-  "colorscheme pencil
+  " let g:airline_theme = 'understated'
+  " colorscheme pencil
 
   " italic
-  "let ayucolor="dark"
-  "colorscheme ayu 
+  let ayucolor="dark"
+  colorscheme ayu 
 
   " italic
-  "let g:tokyonight_style = "night"
-  "let g:tokyonight_transparent = 0
-  "colorscheme tokyonight
+  " let g:tokyonight_style = "night"
+  " let g:tokyonight_transparent = 0
+  " colorscheme tokyonight
 
   " colorscheme rigel
   " colorscheme onedark
@@ -850,8 +873,8 @@ function! __transparent()
   echomsg 'using transparent colorscheme'
   set background=dark
 
-  "let g:tokyonight_style = "night"
-  "let g:tokyonight_style = "day"
+  " let g:tokyonight_style = "night"
+  " let g:tokyonight_style = "day"
   let g:tokyonight_style = "storm"
 
   let g:tokyonight_terminal_colors = 0
