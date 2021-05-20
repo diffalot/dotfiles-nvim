@@ -761,7 +761,8 @@ function! __light()
   set background=light
   "colorscheme PaperColor
   colorscheme pencil
-  let g:airline_theme = 'pencil'
+  "let g:airline_theme = 'pencil'
+  let g:airline_theme = 'silver'
   " let g:material_theme_style = 'lighter'
   " colorscheme material
   "let g:airline_theme = 'material'
@@ -776,6 +777,10 @@ endfunction
 function! __dark()
   "echomsg 'using dark colorscheme'
   set background=dark
+  let g:airline_theme = 'base16color'
+  "let g:airline_theme = 'understated'
+  "let g:airline_theme = 'serene'
+  "let g:airline_theme = 'bubblegum'
 
   " italic
   "let g:airline_theme = 'understated'
@@ -796,7 +801,6 @@ function! __dark()
   " colorscheme orange-moon
   " colorscheme yellow-moon
   
-  let g:airline_theme = 'understated'
 endfunction
 
   " Something wrong with this one, it shows dar in a light background?
@@ -826,11 +830,18 @@ else
   "echo 'running manually selected'
   "call __light()   "           <-----------  Comment one of those out and
   "call __dark()     "                         let the other set the theme
-  set background=light
-  "colorscheme PaperColor
-  colorscheme pencil
-  "color rigel
+  "set background=light
   "let g:airline_theme = 'pencil'
+  set background=dark
+  let g:airline_theme = 'base16color'
+  "colorscheme PaperColor
+  "colorscheme pencil
+
+  " Try out some theme transparency eventually
+  "let g:tokyonight_transparent = 0
+  "let g:tokyonight_style = "night"
+  "let g:tokyonight_style = "day"
+  "colorscheme tokyonight
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
