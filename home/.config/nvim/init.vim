@@ -756,6 +756,7 @@ Plug 'folke/tokyonight.nvim'
 let g:tokyonight_transparent = 0
 "let g:tokyonight_style = "night"
 "let g:tokyonight_style = "day"
+"let g:tokyonight_style = "storm"
 " colorscheme tokyonight
 
 " dark only
@@ -775,7 +776,6 @@ Plug 'KeitaNakamura/neodark.vim'
 let g:neodark#use_256color = 1
 let g:neodark#terminal_transparent = 1
 let g:neodark#background = '#202020'
-" colorscheme neodark
 " colorscheme neodark
 
 " dark only
@@ -827,11 +827,14 @@ function! __dark()
   "colorscheme pencil
 
   " italic
-  let ayucolor="dark"
-  colorscheme ayu 
+  "let ayucolor="dark"
+  "colorscheme ayu 
 
-  " let g:tokyonight_style = "night"
-  " colorscheme tokyonight
+  " italic
+  "let g:tokyonight_style = "night"
+  "let g:tokyonight_transparent = 0
+  "colorscheme tokyonight
+
   " colorscheme rigel
   " colorscheme onedark
   " colorscheme neodark
@@ -843,7 +846,38 @@ function! __dark()
   
 endfunction
 
-  " Something wrong with this one, it shows dar in a light background?
+function! __transparent()
+  echomsg 'using transparent colorscheme'
+  set background=dark
+
+  "let g:tokyonight_style = "night"
+  "let g:tokyonight_style = "day"
+  let g:tokyonight_style = "storm"
+
+  let g:tokyonight_terminal_colors = 0
+
+  let g:tokyonight_italic_comments = 1
+  let g:tokyonight_italic_keywords = 1
+  let g:tokyonight_italic_variables = 0
+  let g:tokyonight_italic_functions = 0
+
+  let g:tokyonight_transparent = 1
+
+  let g:tokyonight_hide_inactive_statusline = 0
+
+  let g:tokyonight_sidebars = [ "qf", "vista_kind", "terminal", "packer" ]
+  let g:tokyonight_dark_sidebar = 1
+  let g:tokyonight_dark_float = 1
+
+  let g:tokyonight_colors = { "hint": "orange", "error": "#ff0000" }
+
+  "let g:tokyonight_day_brightness = 0.5
+
+  " Load the colorscheme
+  colorscheme tokyonight
+endfunction
+
+  " Something wrong with this one, it shows dark in a light background?
   " let ayucolor="light"
   " let ayucolor="mirage"
   " colorscheme ayu
@@ -877,11 +911,10 @@ else
   "colorscheme PaperColor
   "colorscheme pencil
 
-  " Try out some theme transparency eventually
-  "let g:tokyonight_transparent = 0
-  "let g:tokyonight_style = "night"
+  let g:tokyonight_transparent = 0
+  let g:tokyonight_style = "night"
   "let g:tokyonight_style = "day"
-  "colorscheme tokyonight
+  colorscheme tokyonight
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -892,6 +925,7 @@ command! -nargs=* LightsSwitch call __lightswitch()
 command! -nargs=* LightsOn call __light()
 command! -nargs=* LightsOff call __dark()
 command! -nargs=* LightsAuto call __auto()
+command! -nargs=* TranparentLighting call __transparent()
 
 function! __lightswitch()
   if (&background == 'dark')
