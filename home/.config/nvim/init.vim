@@ -394,8 +394,14 @@ let g:table_mode_header_fillchar='='
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://vimwiki.github.io/
 Plug 'vimwiki/vimwiki'
-let g:vimwiki_list = [{'path': $HOME . '/wiki',
-      \ 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_list = [
+      \ { 'path': $HOME . '/cronofile/journal',
+      \ 'syntax': 'markdown', 'ext': '.mdx'},
+      \ { 'path': $HOME . '/cronofile/public/diff.mx',
+      \ 'syntax': 'markdown', 'ext': '.mdx'},
+      \ { 'path': $HOME . '/cronofile/public/unknown',
+      \ 'syntax': 'markdown', 'ext': '.mdx'},
+      \]
 let g:vimwiki_key_mappings = { 'lists': 0 }
 let g:vimwiki_folding = 'expr'
 
