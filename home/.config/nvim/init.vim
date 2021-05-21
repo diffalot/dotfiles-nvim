@@ -941,12 +941,19 @@ function! __transparent()
 
   " Load the colorscheme
   colorscheme tokyonight
+  highlight Comment cterm=italic
 endfunction
+
+" Oh! it's really easy to make the ui transparent and still themed :D
+command! -nargs=* TranparentTheme call __transparent()
+command! -nargs=* BecomeTransparent :hi! Normal ctermbg=NONE guibg=NONE <bar>
+                                  \ :hi! NonText ctermbg=NONE guibg=NONE
 
   " Something wrong with this one, it shows dark in a light background?
   " let ayucolor="light"
   " let ayucolor="mirage"
   " colorscheme ayu
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -992,7 +999,6 @@ command! -nargs=* LightsSwitch call __lightswitch()
 command! -nargs=* LightsOn call __light()
 command! -nargs=* LightsOff call __dark()
 command! -nargs=* LightsAuto call __auto()
-command! -nargs=* TranparentLighting call __transparent()
 
 function! __lightswitch()
   if (&background == 'dark')
