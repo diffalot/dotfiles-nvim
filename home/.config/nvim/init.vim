@@ -495,20 +495,20 @@ Plug 'mbbill/undotree'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Start Screen Components
 " https://github.com/mhinz/vim-startify/wiki/Example-configurations
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Get a unique session name from a git branch when you quit, via startify
-
-function! GetUniqueSessionName()
-  let path = fnamemodify(getcwd(), ':~:t')
-  let path = empty(path) ? 'no-project' : path
-  let branch = gitbranch#name()
-  let branch = empty(branch) ? '' : '-' . branch
-  return substitute(path . branch, '/', '-', 'g')
-endfunctionq
-
-autocmd VimLeavePre * silent execute 'SSave! ' . GetUniqueSessionName()
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Get a unique session name from a git branch when you quit, via startify
+"
+"function! GetUniqueSessionName()
+"  let path = fnamemodify(getcwd(), ':~:t')
+"  let path = empty(path) ? 'no-project' : path
+"  let branch = gitbranch#name()
+"  let branch = empty(branch) ? '' : '-' . branch
+"  return substitute(path . branch, '/', '-', 'g')
+"endfunctionq
+"
+"autocmd VimLeavePre * silent execute 'SSave! ' . GetUniqueSessionName()
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " returns all modified files of the current git repo
 " `2>/dev/null` makes the command fail quietly, so that when we are not
 " in a git repo, the list will be empty
@@ -559,33 +559,34 @@ nnoremap <silent><C-Left> :tabprevious<CR>
 nnoremap <silent>ttr :tabprevious<CR>
 nnoremap <silent><C-m> :tabmove<CR>
 nnoremap <silent><C-t> :tabnew<CR>
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""<C-Space> https://github.com/vim-ctrlspace/vim-ctrlspace
-"" outdate docs, but very helpful: https://atlas-vim.readthedocs.io/vim/plugged/vim-ctrlspace/README/#status-line
-"Plug 'vim-ctrlspace/vim-ctrlspace'
-"
-"let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
-"let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
-"let g:CtrlSpaceSaveWorkspaceOnExit = 1
-"
-"let g:CtrlSpaceProjectRootMarkers = [
-"      \ ".diffalot",
-"      \ ".git",
-"      \ ".hg",
-"      \ ".svn",
-"      \ ".bzr",
-"      \ "_darcs",
-"      \ "CVS"
-"      \ ]
-"
-"if executable('rg')
-"  let g:CtrlSpaceGlobCommand = 'rg --color=never --hidden --glob "!.git" --glob "!node_modules" --files'
-"elseif executable('fd')
-"  let g:CtrlSpaceGlobCommand = 'fd --type=file --color=never'
-"elseif executable('ag')
-"  let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
-"endif
-"
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"<C-Space> https://github.com/vim-ctrlspace/vim-ctrlspace
+" outdate docs, but very helpful: https://atlas-vim.readthedocs.io/vim/plugged/vim-ctrlspace/README/#status-line
+Plug 'vim-ctrlspace/vim-ctrlspace'
+
+let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
+let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
+let g:CtrlSpaceSaveWorkspaceOnExit = 1
+
+let g:CtrlSpaceProjectRootMarkers = [
+      \ ".diffalot",
+      \ ".git",
+      \ ".hg",
+      \ ".svn",
+      \ ".bzr",
+      \ "_darcs",
+      \ "CVS"
+      \ ]
+
+if executable('rg')
+  let g:CtrlSpaceGlobCommand = 'rg --color=never --hidden --glob "!.git" --glob "!node_modules" --files'
+elseif executable('fd')
+  let g:CtrlSpaceGlobCommand = 'fd --type=file --color=never'
+elseif executable('ag')
+  let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
+endif
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Vim Finder
 "" It's very very fast
@@ -663,8 +664,8 @@ Plug 'rafcamlet/nvim-luapad'
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'mhinz/vim-startify'
-:h startify
-:h startify-faq
+":h startify
+":h startify-faq
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Rainbow Parenthesis
@@ -753,7 +754,7 @@ Plug 'adelarsq/vim-emoji-icon-theme'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-let g:airline_statusline_ontop=1
+let g:airline_statusline_ontop=0
 let g:airline_powerline_fonts = 1
 let g:airline_highlighting_cache = 1
 
