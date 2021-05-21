@@ -3,26 +3,33 @@
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "         The person I copied this config from wants you to remember:
-"                     'Make sure you use single quotes!'
+"                     "Make sure to use single quotes!" *
 "
 " Compiled from an ancient `.vimrc` that had collected a lot of other people's
 " configurations and the examples on the front page of the git repos I've
 " stumbled upon over the years during my search for the perfect plugins..
 "
+" * I just ran across that thing about the double quotes vs. single quotes and
+"   it turns out it's pretty important. VimL, VimScript, Vim Script, or
+"   Proto-Luan Javinean, whatever you may call it, does not evaluate values
+"   stored in single quotes.  So maybe stop yourself every now and the and
+"   evaluate what you're evaluating; Be cool, stay in school, and I'll see you
+"   next Tuesday. And don't forget to wonder about when I changed the quotes up
+"   to and exactly what kind of joke I was trying to make, please, thank you,
+"   and you're WELCOME.
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " To debug the configuration, turn everything off and load it all back in one
-" at a time with up on top of minivimrc useful debugging setup.
-"
-" source ~/.config/nvim/vimrcs/minivimrc-romainl/vimrc
+" at a time on top of minivimrc is a useful debugging method.
 "
 " https://github.com/romainl/minivimrc
+"source ~/.config/nvim/vimrcs/minivimrc-romainl/vimrc
 "
 " Running vim with out any plugins everynow and then is a nice reminder of how
 " fast it can be `nvim -U NONE -u NONE`
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" The hopefully brief section of fixes
 "
-" Distribution specific initialization
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Distribution specific incantations
 if has('win32')
 elseif has('mac')
 elseif has('unix')
@@ -30,21 +37,62 @@ elseif has('unix')
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Gruvbox has the most up to date recommendations I've seen.
+" WELCOME to the wold's _only_ Museum of Truecolor Hacks! Move quickly, and
+" rest not you eyes too loooonnnnnnggg, for there is still time for you to
+" escape.
+execute "set t_8f=\e[38;2;%lu;%lu;%lum"
+execute "set t_8b=\e[48;2;%lu;%lu;%lum"
 
-set termguicolors
+set t_Co=256
+
+" Our most dearly and recently departed curator, Dr. Otxvurts Con Boedeo used
+" to give the most thrilling tales of the time he first encountered on of
+" these! You _seeeeee_????????? It is a liiieeee about Truecolor.  Dr. Con
+" Boedeo understood.  He understood all too well!
+
+execute "set t_8f=\e[38;2;%lu;%lu;%lum"
+execute "set t_8b=\e[48;2;%lu;%lu;%lum"
+
+set t_Co=256
+
+set t_ZH=[3m
+set t_ZR=[23m
+
+" set t_ZH=^[[3m
+" set t_ZR=^[[23m
+
+" Can you see the difference??? Nooooo.... Of course you cannot see the
+" difference with your puny mortal eyes. There is no escape, not even for one
+" so gifted as our own dearest Dr. Otxvurts.
+
+" let &t_ZH="\e[3m"
+" let &t_ZR="\e[23m"
+
+" From elsewhere on our glorious internet! Are these two really equvalent!? I
+" shall not fall for your trickery again, rando on stack overflow, but I am so
+" intrigued...
+
+" My editor Shelly, the joke ruiner, wants me to tell you that to properly
+" enter those escape codes for the characters `^[` in `t_ZH=[3m`: First you
+" input `t_ZH=` like you've been typing since birth, then mash first <Ctrl-v>
+" then <Esc> immediatly afterward to enter in the escape code, and after that
+" you can finish it off with the `[3m` in that same old boring way that
+" Shelly's always typing 
+
+set termguicolors " if you're lying, you'll go blind!!!! (not really, but the
+" colors won't work right and it'll hurt your eyes, and what do I know, you 
+" might burn out a chip. I'm just some stranger on the internet, who onetime
+" entertained themselves while they learned Neovim by making up weird little
+" stories.
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Built in Configuration
+" Configuration Built in Functionality
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Manage built in options
-
 set nocompatible
 set hidden
 set encoding=utf-8
-
 
 filetype plugin on
 syntax enable
@@ -56,7 +104,7 @@ set ignorecase
 set smartcase
 set nohlsearch
 
-set number
+set number " Yes, It's Goood!
 
 " two spaces instead of tabs
 set tabstop=2
@@ -65,10 +113,10 @@ set expandtab
 set shiftwidth=2
 set smarttab
 
-" but not always, here's to you, Python
+" but not always, so here's to you, Python
 autocmd FileType python set breakindentopt=shift:4
 
-" hard breaks at 80 cols
+" hard breaks at 80 cols was my emo band in my 20's
 set textwidth=79
 set wrapmargin=3
 set colorcolumn=80
@@ -86,8 +134,11 @@ set list
 " :%! par 13gr
 " You can also set :formatprg to par or fmt and override gq. For more info, call :help formatprg inside Vim.
 
-" let cursor move across line breaks
+" let cursor move across line breaks, please
 set whichwrap=b,s,<,>,[,]
+
+set scrolloff=10
+set sidescrolloff=15
 
 " echo winwidth('%')
 " reports 61 on the phone
@@ -98,29 +149,29 @@ else
   set cmdheight=2
 end
 
-" Open new windows to the right and below
+" Open new windows to the right and below, it'll be less disorienting
 set splitbelow
 set splitright
 
 " no folding
-"set nofoldenable
-set foldlevel=4
 
-" do not resize splits when closing one
+" What the hell, I just changed my mind
+set foldlevel=3
+
+" Do not resize splits when closing one, it is very rude
 set noequalalways
 
-" tab bar and status bar display by default
+" Tab bar and status bar display by default, and there's very little you can
+" really do about it, so go grab another sugar water and get back to hive
+" maintenance.
 set showtabline=2
 set laststatus=2
-
-" #CSpace setting...
-set showtabline=0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Wildmenu
 
 if has("wildmenu")
-  set wildmenu
+  set wildmenu "duh!
   ""set wildmode=longest,list:full
   "set wildmode=longest,list
   set wildmode=longest,lastused,list:full
@@ -133,7 +184,11 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Personal Keybindings
-
+" I think I better spread these out, cause it's a lot of emotional garbage to
+" go through in just one sitting, and i't not reading quite like the label on
+" one of Dr. Boedeo's saffron infused mind elixirs with a microdose of Ayahusca
+" and a splash of twink blood from Peter Thiel's personal stash.  And you know
+" me and you know that's what I'm really going for here.
 
 " Claimed Prefixes
 "
@@ -149,9 +204,6 @@ let mapleader = '\'
 let maplocalleader = ','
 set timeoutlen=900
 
-" #CSpace setting...
-let g:CtrlSpaceDefaultMappingKey = "<C-space> "
-
 " Utilities
 nnoremap <F2> :UndotreeToggle<CR>
 nnoremap <F8> :TagbarToggle<CR>
@@ -159,65 +211,7 @@ nnoremap <F9> :Vista!!<CR>
 " (set by plugin) <leader> u OpenUrl
 nmap z<Space> :VimwikiToggleListItem<CR>
 
-" Main Menu Controls
-nnoremap <Space>t :Telescope<CR>
-nnoremap <Space>y :Files<CR>
-
-" Submenu Controls
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-noremap <leader>fh <cmd>Telescope help_tags<cr>
-
-" Tab Management
-nnoremap <silent><C-Right> :tabnext<CR>
-nnoremap <silent>tty :tabnext<CR>
-nnoremap <silent><C-Left> :tabprevious<CR>
-nnoremap <silent>ttr :tabprevious<CR>
-nnoremap <silent><C-m> :tabmove<CR>
-nnoremap <silent><C-t> :tabnew<CR>
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" completion.nvim keymappings
-
-imap <c-j> <Plug>(completion_next_source) "use <c-j> to switch to previous completion
-imap <c-k> <Plug>(completion_prev_source) "use <c-k> to switch to next completion
-
-" Use <Tab> and <S-Tab> to navigate through popup menu
-" FIXME
-"inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-"map <c-p> to manually trigger completion
-imap <silent> <c-p> <Plug>(completion_trigger)
-
-"imap <tab> <Plug>(completion_smart_tab)
-"imap <s-tab> <Plug>(completion_smart_s_tab)
-
-" Expand
-imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-
-" Expand or jump
-imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-
-" FIXME snippets module not loading
-" Jump forward or backward
-"imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-"smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-"imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-"smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-
-" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
-" See https://github.com/hrsh7th/vim-vsnip/pull/50
-nmap        s   <Plug>(vsnip-select-text)
-xmap        s   <Plug>(vsnip-select-text)
-nmap        S   <Plug>(vsnip-cut-text)
-xmap        S   <Plug>(vsnip-cut-text)
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " git workflow
 "   the catchup phase
 "     fetch and graph
