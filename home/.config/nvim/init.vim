@@ -728,8 +728,8 @@ Plug 'NLKNguyen/papercolor-theme'
 
 Plug 'rakr/vim-one'
 let g:one_allow_italics = 1
-" colorscheme one
-" set background=dark
+"colorscheme one
+"set background=dark
 " set background=light
 
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
@@ -797,7 +797,7 @@ let g:lights_auto = 1    "    <------ Set the auto mode on or off right here
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! __light()
-  echomsg 'using light colorscheme'
+  " echomsg 'using light colorscheme'
   set background=light
   "colorscheme PaperColor
   colorscheme pencil
@@ -808,6 +808,7 @@ function! __light()
   "let g:airline_theme = 'material'
   " colorscheme one
   " set background=light
+  highlight Comment cterm=italic
 endfunction
 "    ^       Pick fonts
 "    |       In Either of these
@@ -815,23 +816,25 @@ endfunction
 "    |       Functions :)
 "    v
 function! __dark()
-  "echomsg 'using dark colorscheme'
+  echomsg 'using dark colorscheme'
   set background=dark
-  let g:airline_theme = 'base16color'
+  "let g:airline_theme = 'base16color'
   "let g:airline_theme = 'understated'
   "let g:airline_theme = 'serene'
   "let g:airline_theme = 'bubblegum'
 
   " italic
-  "let g:airline_theme = 'understated'
-  "colorscheme pencil
+  " let g:airline_theme = 'understated'
+  " colorscheme pencil
+  let g:airline_theme = 'understated'
+  colorscheme pencil
 
   " italic
   "let ayucolor="dark"
   "colorscheme ayu 
 
   " italic
-  "let g:tokyonight_style = "night"
+  "let g:tokyonight_style = 'night'
   "let g:tokyonight_transparent = 0
   "colorscheme tokyonight
 
@@ -844,14 +847,15 @@ function! __dark()
   " colorscheme orange-moon
   " colorscheme yellow-moon
   
+  highlight Comment cterm=italic
 endfunction
 
 function! __transparent()
   echomsg 'using transparent colorscheme'
   set background=dark
 
-  "let g:tokyonight_style = "night"
-  "let g:tokyonight_style = "day"
+  " let g:tokyonight_style = "night"
+  " let g:tokyonight_style = "day"
   let g:tokyonight_style = "storm"
 
   let g:tokyonight_terminal_colors = 0
@@ -876,12 +880,6 @@ function! __transparent()
   " Load the colorscheme
   colorscheme tokyonight
 endfunction
-
-  " Something wrong with this one, it shows dark in a light background?
-  " let ayucolor="light"
-  " let ayucolor="mirage"
-  " colorscheme ayu
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TODO make this setup by variables
@@ -915,6 +913,7 @@ else
   let g:tokyonight_style = "night"
   "let g:tokyonight_style = "day"
   colorscheme tokyonight
+  highlight Comment cterm=italic
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -935,7 +934,7 @@ function! __lightswitch()
   endif
 endfunction
 
-" echo winwidth('%')
+" echo winwidth('%')`
 " reports 61 on the phone
 if winwidth('%') > 69
   let g:lights_auto = 0
@@ -1061,7 +1060,6 @@ command! -nargs=* WipeTrailingWhitespaces let _save_pos=getpos(".") <Bar>
 
 "autocmd TabNewEntered * call OnTabEnter(expand("<amatch>"))
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Git commit each trivial cleanup task between reorgs so they git won't ever
 " give a fuck about rebasing import things since it's been well fed
@@ -1073,7 +1071,6 @@ command! -nargs=* WipeTrailingWhitespaces let _save_pos=getpos(".") <Bar>
 " keep an eye out for if
 " there's a way to assign multiple filetypes to a buffer, cause that would help
 " with formatting vimwiki/markdown pages
-"
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                       :help autocmd-events
