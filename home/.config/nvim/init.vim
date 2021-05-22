@@ -30,19 +30,24 @@ elseif has('unix')
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Gruvbox has the most up to date recommendations I've seen.
+" Screw it, I'm turning on all the hacks because I 'm so tired of terminfo
+" problems. Age before beauty:
 
-set termguicolors
+execute "set t_8f=\e[38;2;%lu;%lu;%lum"
+execute "set t_8b=\e[48;2;%lu;%lu;%lum"
+
+set t_Co=256
 
 set t_ZH=[3m
 set t_ZR=[23m
+
+set termguicolors
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Built in Configuration
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Manage built in options
 
 set nocompatible
 set hidden
@@ -92,6 +97,9 @@ set list
 " let cursor move across line breaks
 set whichwrap=b,s,<,>,[,]
 
+set scrolloff=10
+set sidescrolloff=15
+
 " echo winwidth('%')
 " reports 61 on the phone
 if winwidth('%') < 70
@@ -107,7 +115,7 @@ set splitright
 
 " no folding
 "set nofoldenable
-set foldlevel=4
+set foldlevel=3
 
 " do not resize splits when closing one
 set noequalalways
@@ -117,7 +125,7 @@ set showtabline=2
 set laststatus=2
 
 " #CSpace setting...
-set showtabline=0
+set showtabline=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Wildmenu
@@ -161,45 +169,6 @@ nnoremap <F9> :Vista!!<CR>
 nmap z<Space> :VimwikiToggleListItem<CR>
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" completion.nvim keymappings
-"
-"imap <c-j> <Plug>(completion_next_source) "use <c-j> to switch to previous completion
-"imap <c-k> <Plug>(completion_prev_source) "use <c-k> to switch to next completion
-"
-"" Use <Tab> and <S-Tab> to navigate through popup menu
-"" FIXME
-""inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-""inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-"
-""map <c-p> to manually trigger completion
-"imap <silent> <c-p> <Plug>(completion_trigger)
-"
-""imap <tab> <Plug>(completion_smart_tab)
-""imap <s-tab> <Plug>(completion_smart_s_tab)
-"
-"" Expand
-"imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-"smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-"
-"" Expand or jump
-"imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-"smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-"
-"" FIXME snippets module not loading
-"" Jump forward or backward
-""imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-""smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-""imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-""smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-"
-"" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
-"" See https://github.com/hrsh7th/vim-vsnip/pull/50
-"nmap        s   <Plug>(vsnip-select-text)
-"xmap        s   <Plug>(vsnip-select-text)
-"nmap        S   <Plug>(vsnip-cut-text)
-"xmap        S   <Plug>(vsnip-cut-text)
-"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " git workflow
@@ -242,21 +211,21 @@ nnoremap <F7>m :Gclog<CR>
 "       atomic commit [{topic}]({subtopic|action}) summary of change as action
 "         - it's like squashing a pr into master, except you're doing it manuallyand removing anuthing that was not strictly a part of your feature
 "    push and pr you'll just want to use rebase and merges as necessary
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" No Key Maps Below Here!!!
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin('~/.config/nvim/plugged')
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Still Being Configured
+" Things to Learn
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Lua REPL with access to neovim-lsp!!
+Plug 'rafcamlet/nvim-luapad'
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Assists with converting init.vim to init.lua
+Plug 'svermeulen/vimpeccable'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " REPL
@@ -274,96 +243,33 @@ let g:codi#aliases = {
       \ 'typescript.tsx': 'typescript',
       \ }
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Writing Well
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/preservim/vim-pencil
 Plug 'reedes/vim-pencil'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" Completion nvim
-"Plug 'nvim-lua/completion-nvim'
-"
-"autocmd BufEnter * lua require'completion'.on_attach()
-"" Use completion-nvim in every buffer
-"" FIXME completion lua module should setup through on attach when attaching to
-"" buffers they're working with, not every buffer.
-"
-"let g:completion_chain_complete_list = [
-"    \{'complete_items': ['lsp']},
-"    \{'complete_items': ['snippet']},
-"    \{'mode': '<c-p>'},
-"    \{'mode': '<c-n>'}
-"\]
-""let g:completion_chain_complete_list = {
-""    \ 'lua': [
-""    \    {'mode': '<c-p>'},
-""    \    {'mode': '<c-n>'}
-""    \],
-""    \ 'default': [
-""    \    {'complete_items': ['lsp', 'snippet']},
-""    \    {'mode': '<c-p>'},
-""    \    {'mode': '<c-n>'}
-""    \]
-""\}
-"
-"" possible value: "length", "alphabet", "none"
-"let g:completion_sorting = "length"
-"let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
-"let g:completion_matching_ignore_case = 1
-""let g:completion_matching_smart_case = 1
-"let g:completion_trigger_keyword_length = 3 " default = 1
-"let g:completion_trigger_on_delete = 1
-"let g:completion_timer_cycle = 80 "default value is 80
-"" Set completeopt to have a better completion experience
-"set completeopt=menuone,noinsert,noselect
-"" Avoid showing message extra message when using completion
-"set shortmess+=c
-"let g:completion_auto_change_source = 1
-"" non ins-complete method should be specified in 'mode'
-""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""Snippets
-"Plug 'rafamadriz/friendly-snippets'
-"Plug 'hrsh7th/vim-vsnip'
-"Plug 'hrsh7th/vim-vsnip-integ'
-"
-"" If you want to use snippet for multiple filetypes, you can `g:vsnip_filetypes` for it.
-"let g:vsnip_filetypes = {}
-"let g:vsnip_filetypes.javascriptreact = ['javascript']
-"let g:vsnip_filetypes.typescriptreact = ['typescript']
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Writing Code for People to Read
-"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/preservim/vim-wordy
 Plug 'preservim/vim-wordy'
-
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Spelling
 " https://github.com/preservim/vim-lexical#spell-check
 Plug 'preservim/vim-lexical'
 let g:lexical#spell = 1
-let g:lexical#spelllang = ['en_us']
+let g:lexical#spelllang = ['en_us', 'en_ca', 'en_gb']
+let g:lexical#thesaurus = ['~/.config/nvim/language/MobyThesaurus.txt']
+let g:lexical#dictionary = ['/usr/share/dict/words']
 augroup lexical
   autocmd!
   autocmd FileType markdown,mkd call lexical#init()
   autocmd FileType textile call lexical#init()
+  autocmd FileType vimwiki call lexical#init()
   autocmd FileType text call lexical#init({ 'spell': 0 })
 augroup END
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vim Table Mode
-" https://github.com/dhruvasagar/vim-table-mode
-Plug 'dhruvasagar/vim-table-mode'
-" There are so many options, OMG, it does formula too 
-" :TableModeToggle
-" <Leader>ttm starts table mode
-" <Leader>ttt Tableize! 
-
-let g:table_mode_map_prefix='tt'
-let g:table_mode_corner_corner='+'
-let g:table_mode_header_fillchar='='
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://vimwiki.github.io/
@@ -379,85 +285,6 @@ let g:vimwiki_list = [
 let g:vimwiki_key_mappings = { 'lists': 0 }
 let g:vimwiki_folding = 'expr'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-"    User Interface Improvements for Code
-"
-" Looks interesting
-" https://github.com/MattesGroeger/vim-bookmarks
-"
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" Comments
-"Plug 'tpope/vim-commentary'
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" matching pairs
-Plug 'andymass/vim-matchup'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" DiffView - https://github.com/sindrets/diffview.nvim
-"Plug 'sindrets/diffview.nvim'
-"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" See previous discussions of the code you are modifying from them what wrote
-" it.
-Plug 'rhysd/git-messenger.vim'
-":GitMessenger or <Leader>gm
-let g:git_messenger_include_diff = 'current'
-" there are tons of options :https://github.com/rhysd/git-messenger.vim
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
-
-Plug 'liuchengxu/vista.vim'
-Plug 'preservim/tagbar'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Gutentags - https://github.com/ludovicchabant/vim-gutentags
-
-Plug 'ludovicchabant/vim-gutentags'
-set statusline+=%{gutentags#statusline()}
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" Mergetool
-"" https://github.com/samoshkin/vim-mergetool
-"Plug 'samoshkin/vim-mergetool'
-"
-"" Signify - https://github.com/mhinz/vim-signify
-"if has('nvim') || has('patch-8.0.902')
-"  Plug 'mhinz/vim-signify'
-"else
-"  Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
-"endif
-"set updatetime=100
-"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" Fugitive - https://github.com/tpope/vim-fugitive
-"Plug 'tpope/vim-fugitive'
-"Plug 'rbong/vim-flog'
-"
-"let g:flog_default_arguments = {
-"                      \ 'all': 1,
-"                      \ 'max_count': 2000,
-"                      \ 'date': 'short',
-"                      \ 'sort': 'author'}
-"let g:flog_custom_format = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
-"""" This is the same as the built-in log command (flog#build_log_command)
-"""function! FlogBuildLog() abort
-"""  " Same as "git --git-dir=" . flog#get_fugitive_git_dir()
-"""  " The git dir will be the current buffer's ".git" directory
-"""  let l:command = flog#get_fugitive_git_command()
-"""  let l:command .= ' log'
-"""  let l:command .= ' --'
-"""  " Args and paths that would normally be passed to "git log" based on Flog options
-"""  let l:command .= flog#build_log_args()
-"""  let l:command .= ' -- '
-"""  let l:command .= flog#build_log_paths()
-"""
-"""  return l:command
-"""endfunction
-"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Syntax Highlighting and Indentation
@@ -482,65 +309,138 @@ autocmd FileType fish compiler fish
 autocmd FileType fish setlocal textwidth=79
 autocmd FileType fish setlocal foldmethod=expr
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'euclidianAce/BetterLua.vim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Files
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'henrik/vim-open-url'
-" Trigger with <leader>u or :OpenURL
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'mbbill/undotree'
-" there's a lot of options for undotree so it is configures in
-" ~/.config/nvim/plugins/conf.undotree.vim
+"echo nvim_treesitter#statusline(90)  " 90 can be any length
+"module->expression_statement->call->identifier
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Start Screen Components
-" https://github.com/mhinz/vim-startify/wiki/Example-configurations
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" Get a unique session name from a git branch when you quit, via startify
 "
-"function! GetUniqueSessionName()
-"  let path = fnamemodify(getcwd(), ':~:t')
-"  let path = empty(path) ? 'no-project' : path
-"  let branch = gitbranch#name()
-"  let branch = empty(branch) ? '' : '-' . branch
-"  return substitute(path . branch, '/', '-', 'g')
-"endfunctionq
+" Language Server
 "
-"autocmd VimLeavePre * silent execute 'SSave! ' . GetUniqueSessionName()
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" completion.nvim keymappings
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" returns all modified files of the current git repo
-" `2>/dev/null` makes the command fail quietly, so that when we are not
-" in a git repo, the list will be empty
-function! s:gitModified()
-    let files = systemlist('git ls-files -m 2>/dev/null')
-    return map(files, "{'line': v:val, 'path': v:val}")
-endfunction
-
-" same as above, but show untracked files, honouring .gitignore
-function! s:gitUntracked()
-    let files = systemlist('git ls-files -o --exclude-standard 2>/dev/null')
-    return map(files, "{'line': v:val, 'path': v:val}")
-endfunction
-
-let g:startify_lists = [
-        \ { 'type': 'files',     'header': ['   MRU']            },
-        \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
-        \ { 'type': 'sessions',  'header': ['   Sessions']       },
-        \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-        \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
-        \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
-        \ { 'type': 'commands',  'header': ['   Commands']       },
-        \ ]
+"imap <c-j> <Plug>(completion_next_source) "use <c-j> to switch to previous completion
+"imap <c-k> <Plug>(completion_prev_source) "use <c-k> to switch to next completion
+"
+"" Use <Tab> and <S-Tab> to navigate through popup menu
+"" FIXME
+""inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+""inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"
+""map <c-p> to manually trigger completion
+"imap <silent> <c-p> <Plug>(completion_trigger)
+"
+""imap <tab> <Plug>(completion_smart_tab)
+""imap <s-tab> <Plug>(completion_smart_s_tab)
+"
+"" Expand
+"imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+"smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+"
+"" Expand or jump
+"imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+"smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+"
+"" FIXME snippets module not loading
+"" Jump forward or backward
+""imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+""smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+""imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+""smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+"
+"" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+"" See https://github.com/hrsh7th/vim-vsnip/pull/50
+"nmap        s   <Plug>(vsnip-select-text)
+"xmap        s   <Plug>(vsnip-select-text)
+"nmap        S   <Plug>(vsnip-cut-text)
+"xmap        S   <Plug>(vsnip-cut-text)
+"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Completion nvim
+Plug 'nvim-lua/completion-nvim'
 
-"I've invited all the dashboards down here so It'll be easier to try out one or
-"two at a time adn I asked them to bring their keybindings too
+autocmd BufEnter * lua require'completion'.on_attach()
+" Use completion-nvim in every buffer
+" FIXME completion lua module should setup through on attach when attaching to
+" buffers they're working with, not every buffer.
+
+let g:completion_chain_complete_list = [
+    \{'complete_items': ['lsp']},
+    \{'complete_items': ['snippet']},
+    \{'mode': '<c-p>'},
+    \{'mode': '<c-n>'}
+\]
+"let g:completion_chain_complete_list = {
+"    \ 'lua': [
+"    \    {'mode': '<c-p>'},
+"    \    {'mode': '<c-n>'}
+"    \],
+"    \ 'default': [
+"    \    {'complete_items': ['lsp', 'snippet']},
+"    \    {'mode': '<c-p>'},
+"    \    {'mode': '<c-n>'}
+"    \]
+"\}
+
+" possible value: "length", "alphabet", "none"
+let g:completion_sorting = "length"
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
+let g:completion_matching_ignore_case = 1
+"let g:completion_matching_smart_case = 1
+let g:completion_trigger_keyword_length = 3 " default = 1
+let g:completion_trigger_on_delete = 1
+let g:completion_timer_cycle = 80 "default value is 80
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+" Avoid showing message extra message when using completion
+set shortmess+=c
+let g:completion_auto_change_source = 1
+" non ins-complete method should be specified in 'mode'
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" neovim-lsp
+" https://github.com/kabouzeid/nvim-lspinstall
+Plug 'neovim/nvim-lspconfig'
+Plug 'kabouzeid/nvim-lspinstall'
+
+" Lsp Helpers and Viewers
+Plug 'glepnir/lspsaga.nvim'
+Plug 'nvim-lua/lsp_extensions.nvim'
+Plug 'nvim-lua/lsp-status.nvim'
+Plug 'folke/lsp-colors.nvim'
+Plug 'folke/trouble.nvim'
+
+" Common Dependencies
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" UI
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'liuchengxu/vim-which-key'
 "https://github.com/liuchengxu/vim-which-key
+"
+"I've invited all the dashboards down here so It'll be easier to try out one or
+"two at a time adn I asked them to bring their keybindings too
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/nvim-telescope/telescope.nvim
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-github.nvim'
+Plug 'TC72/telescope-tele-tabby.nvim'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Main Menu Controls
 nnoremap <Space>t :Telescope<CR>
@@ -555,6 +455,13 @@ noremap <leader>fh <cmd>Telescope help_tags<cr>
 " #CSpace setting...
 let g:CtrlSpaceDefaultMappingKey = "<C-space> "
 
+" FZF
+nmap <C-p> :FZFGitIgnore <CR>
+imap <C-p> <Esc>:FZFGitIgnore <CR>
+nmap <Leader>fzl <Esc>:Lines<CR>
+nmap <Leader>fzb <Esc>:Buffers<CR>
+nmap <Leader>fzc <Esc>:Commits<CR>
+
 " Tab Management
 nnoremap <silent><C-Right> :tabnext<CR>
 nnoremap <silent>tty :tabnext<CR>
@@ -562,6 +469,19 @@ nnoremap <silent><C-Left> :tabprevious<CR>
 nnoremap <silent>ttr :tabprevious<CR>
 nnoremap <silent><C-m> :tabmove<CR>
 nnoremap <silent><C-t> :tabnew<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim Finder
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" FZF (the best search menu I've found :)
+" brew install fsf ag ripgrep perl git-delta
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+" don't search .git or node_modules by default
+let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git --exclude node_modules'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "<C-Space> https://github.com/vim-ctrlspace/vim-ctrlspace
@@ -590,85 +510,80 @@ elseif executable('ag')
   let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
 endif
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'adelarsq/vim-emoji-icon-theme'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
+
+Plug 'liuchengxu/vista.vim'
+Plug 'preservim/tagbar'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Gutentags - https://github.com/ludovicchabant/vim-gutentags
+
+Plug 'ludovicchabant/vim-gutentags'
+set statusline+=%{gutentags#statusline()}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" matching pairs
+Plug 'andymass/vim-matchup'
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" Vim Finder
-"" It's very very fast
-"
-"Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
-"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" FZF (the best search menu I've found :)
-" brew install fsf ag ripgrep perl git-delta
-
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-" don't search .git or node_modules by default
-let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git --exclude node_modules'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Language Server
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
-
-"echo nvim_treesitter#statusline(90)  " 90 can be any length
-"module->expression_statement->call->identifier
+" See previous discussions of the code you are modifying from them what wrote
+" it.
+Plug 'rhysd/git-messenger.vim'
+":GitMessenger or <Leader>gm
+let g:git_messenger_include_diff = 'current'
+" there are tons of options :https://github.com/rhysd/git-messenger.vim
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" neovim-lsp
-" https://github.com/kabouzeid/nvim-lspinstall
-Plug 'neovim/nvim-lspconfig'
-Plug 'kabouzeid/nvim-lspinstall'
-
-" Lsp Helpers and Viewers
-Plug 'glepnir/lspsaga.nvim'
-Plug 'nvim-lua/lsp_extensions.nvim'
-Plug 'nvim-lua/lsp-status.nvim'
-Plug 'folke/lsp-colors.nvim'
-Plug 'folke/trouble.nvim'
+Plug 'henrik/vim-open-url'
+" Trigger with <leader>u or :OpenURL
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Other Things That Are Configured in Lua
-Plug 'euclidianAce/BetterLua.vim'
+Plug 'mbbill/undotree'
+" there's a lot of options for undotree so it is configures in
+" ~/.config/nvim/plugins/conf.undotree.vim
 
-" Assists with converting init.vim to init.lua
-Plug 'svermeulen/vimpeccable'
-
-" Common Dependencies
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-
-" https://github.com/nvim-telescope/telescope.nvim
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-github.nvim'
-Plug 'TC72/telescope-tele-tabby.nvim'
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/TimUntersberger/neogit
 Plug 'TimUntersberger/neogit'
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/folke/todo-comments.nvim
 Plug 'folke/todo-comments.nvim'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Lua REPL with access to neovim-lsp!!
-Plug 'rafcamlet/nvim-luapad'
+Plug 'scrooloose/nerdtree'
+nnoremap <Leader>n :NERDTreeToggle<CR>
+nnoremap <Leader>ntr :NERDTreeRefreshRoot<CR>
+au StdinReadPre * let s:std_in=1
+au VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Plug 'hoob3rt/lualine.nvim'
+Plug 'preservim/nerdcommenter'
+let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs = 1
+let g:NERDDefaultAlign = 'left'
+let g:NERDAltDelims_java = 1
+let g:NERDCustomDelimiters = { 'typescript': { 'left': '/**','right': '*/' } }
+let g:NERDCommentEmptyLines = 1
+let g:NERDTrimTrailingWhitespace = 1
+let g:NERDToggleCheckAllLines = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" General Ui Improvements
-"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'mhinz/vim-startify'
-":h startify
-":h startify-faq
+" Vim Table Mode
+" https://github.com/dhruvasagar/vim-table-mode
+Plug 'dhruvasagar/vim-table-mode'
+" There are so many options, OMG, it does formula too 
+" :TableModeToggle
+" <Leader>ttm starts table mode
+" <Leader>ttt Tableize! 
+
+let g:table_mode_map_prefix='tt'
+let g:table_mode_corner_corner='+'
+let g:table_mode_header_fillchar='='
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Rainbow Parenthesis
@@ -750,14 +665,15 @@ let g:rooter_manual_only = 1
 " I would love a single status line on tmux, please
 "Plug 'narajaon/onestatus'
 "Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
-
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'adelarsq/vim-emoji-icon-theme'
-
+"Plug 'hoob3rt/lualine.nvim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-let g:airline_statusline_ontop=0
+" let g:airline_theme = 'pencil'
+let g:airline_theme = 'understated'
+
+let g:airline_skip_empty_sections = 1
+let g:airline_statusline_ontop = 1
 let g:airline_powerline_fonts = 1
 let g:airline_highlighting_cache = 1
 
@@ -771,7 +687,6 @@ Plug 'lambdalisue/battery.vim'
 " Powerline Theme
 "let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
 
-let g:airline_skip_empty_sections = 1
 
 " fillchars+=stl:\ ,stlnc:\  "fix for special characters in the bar
 
@@ -805,6 +720,7 @@ let g:material_theme_style = 'lighter'
 " colorscheme material
 
 Plug 'ayu-theme/ayu-vim'
+Plug 'ayu-theme/ayu-vim-airline'
 " let ayucolor="dark"
 " let ayucolor="mirage"
 " let ayucolor="light"
@@ -849,6 +765,12 @@ let g:neodark#background = '#202020'
 Plug 'sts10/vim-pink-moon'
 " colorscheme orange-moon
 " colorscheme yellow-moon
+
+" I'd forgotten about these
+Plug 'dikiaap/minimalist'
+Plug 'jonathanfilip/vim-lucius'
+Plug 'Lokaltog/vim-distinguished'
+"Plug 'chriskempson/base16-vim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -1362,7 +1284,7 @@ local function setup_servers()
     require'lspconfig'[server].setup{}
   end
 end
-
+ 
 -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
 require'lspinstall'.post_install_hook = function ()
   setup_servers() -- reload installed servers
