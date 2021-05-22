@@ -732,6 +732,7 @@ let g:material_theme_style = 'lighter'
 " colorscheme material
 
 Plug 'ayu-theme/ayu-vim'
+Plug 'ayu-theme/ayu-vim-airline'
 " let ayucolor="dark"
 " let ayucolor="mirage"
 " let ayucolor="light"
@@ -777,6 +778,12 @@ Plug 'sts10/vim-pink-moon'
 " colorscheme orange-moon
 " colorscheme yellow-moon
 
+" I'd forgotten about these
+Plug 'dikiaap/minimalist'
+Plug 'jonathanfilip/vim-lucius'
+Plug 'Lokaltog/vim-distinguished'
+"Plug 'chriskempson/base16-vim'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#end()
@@ -793,15 +800,15 @@ let g:lights_auto = 1    "    <------ Set the auto mode on or off right here
 function! __light()
   " echomsg 'using light colorscheme'
   set background=light
-  "colorscheme PaperColor
+  " colorscheme PaperColor
   colorscheme pencil
-  "let g:airline_theme = 'pencil'
-  let g:airline_theme = 'silver'
+  " let g:airline_theme = 'pencil'
   " let g:material_theme_style = 'lighter'
   " colorscheme material
-  "let g:airline_theme = 'material'
+  " let g:airline_theme = 'material'
   " colorscheme one
   " set background=light
+  let g:airline_theme = 'silver'
   highlight Comment cterm=italic
 endfunction
 "    ^       Pick fonts
@@ -812,25 +819,24 @@ endfunction
 function! __dark()
   echomsg 'using dark colorscheme'
   set background=dark
-  "let g:airline_theme = 'base16color'
-  "let g:airline_theme = 'understated'
-  "let g:airline_theme = 'serene'
-  "let g:airline_theme = 'bubblegum'
+  " let g:airline_theme = 'base16color'
+  " let g:airline_theme = 'understated'
+  " let g:airline_theme = 'serene'
+  " let g:airline_theme = 'bubblegum'
 
   " italic
   " let g:airline_theme = 'understated'
   " colorscheme pencil
-  let g:airline_theme = 'understated'
-  colorscheme pencil
+  " colorscheme pencil
 
   " italic
-  "let ayucolor="dark"
-  "colorscheme ayu 
+  let ayucolor="dark"
+  colorscheme ayu 
 
   " italic
-  "let g:tokyonight_style = 'night'
-  "let g:tokyonight_transparent = 0
-  "colorscheme tokyonight
+  " let g:tokyonight_style = "night"
+  " let g:tokyonight_transparent = 0
+  " colorscheme tokyonight
 
   " colorscheme rigel
   " colorscheme onedark
@@ -841,6 +847,7 @@ function! __dark()
   " colorscheme orange-moon
   " colorscheme yellow-moon
   
+  let g:airline_theme = 'understated'
   highlight Comment cterm=italic
 endfunction
 
@@ -1282,7 +1289,7 @@ local function setup_servers()
     require'lspconfig'[server].setup{}
   end
 end
-
+ 
 -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
 require'lspinstall'.post_install_hook = function ()
   setup_servers() -- reload installed servers
