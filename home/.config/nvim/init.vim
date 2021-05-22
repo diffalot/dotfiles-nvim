@@ -211,6 +211,46 @@ nnoremap <F9> :Vista!!<CR>
 " (set by plugin) <leader> u OpenUrl
 nmap z<Space> :VimwikiToggleListItem<CR>
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" completion.nvim keymappings
+"
+"imap <c-j> <Plug>(completion_next_source) "use <c-j> to switch to previous completion
+"imap <c-k> <Plug>(completion_prev_source) "use <c-k> to switch to next completion
+"
+"" Use <Tab> and <S-Tab> to navigate through popup menu
+"" FIXME
+""inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+""inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"
+""map <c-p> to manually trigger completion
+"imap <silent> <c-p> <Plug>(completion_trigger)
+"
+""imap <tab> <Plug>(completion_smart_tab)
+""imap <s-tab> <Plug>(completion_smart_s_tab)
+"
+"" Expand
+"imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+"smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+"
+"" Expand or jump
+"imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+"smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+"
+"" FIXME snippets module not loading
+"" Jump forward or backward
+""imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+""smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+""imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+""smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+"
+"" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+"" See https://github.com/hrsh7th/vim-vsnip/pull/50
+"nmap        s   <Plug>(vsnip-select-text)
+"xmap        s   <Plug>(vsnip-select-text)
+"nmap        S   <Plug>(vsnip-cut-text)
+"xmap        S   <Plug>(vsnip-cut-text)
+"
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " git workflow
 "   the catchup phase
@@ -252,65 +292,21 @@ nnoremap <F7>m :Gclog<CR>
 "       atomic commit [{topic}]({subtopic|action}) summary of change as action
 "         - it's like squashing a pr into master, except you're doing it manuallyand removing anuthing that was not strictly a part of your feature
 "    push and pr you'll just want to use rebase and merges as necessary
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" No Key Maps Below Here!!!
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin('~/.config/nvim/plugged')
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Still Being Configured
+" Things to Learn
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"<C-Space> https://github.com/vim-ctrlspace/vim-ctrlspace
-" outdate docs, but very helpful: https://atlas-vim.readthedocs.io/vim/plugged/vim-ctrlspace/README/#status-line
-Plug 'vim-ctrlspace/vim-ctrlspace'
-
-let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
-let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
-let g:CtrlSpaceSaveWorkspaceOnExit = 1
-
-let g:CtrlSpaceProjectRootMarkers = [
-      \ ".diffalot",
-      \ ".git",
-      \ ".hg",
-      \ ".svn",
-      \ ".bzr",
-      \ "_darcs",
-      \ "CVS"
-      \ ]
-
-if executable('rg')
-  let g:CtrlSpaceGlobCommand = 'rg --color=never --files'
-elseif executable('fd')
-  let g:CtrlSpaceGlobCommand = 'fd --type=file --color=never'
-elseif executable('ag')
-  let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
-endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" I want to learn Lua and I wish I knew Vim Script better
-
-" Assists with converting init.vim to init.lua
-Plug 'svermeulen/vimpeccable'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vim Finder
-" It's very very fast
-
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://github.com/folke/todo-comments.nvim
-Plug 'folke/todo-comments.nvim'
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Lua REPL with access to neovim-lsp!!
 Plug 'rafcamlet/nvim-luapad'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Assists with converting init.vim to init.lua
+Plug 'svermeulen/vimpeccable'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " REPL
@@ -328,11 +324,128 @@ let g:codi#aliases = {
       \ 'typescript.tsx': 'typescript',
       \ }
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Writing Well
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/preservim/vim-pencil
 Plug 'reedes/vim-pencil'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/preservim/vim-wordy
+Plug 'preservim/vim-wordy'
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Spelling
+" https://github.com/preservim/vim-lexical#spell-check
+Plug 'preservim/vim-lexical'
+let g:lexical#spell = 1
+let g:lexical#spelllang = ['en_us', 'en_ca', 'en_gb']
+let g:lexical#thesaurus = ['~/.config/nvim/language/MobyThesaurus.txt']
+let g:lexical#dictionary = ['/usr/share/dict/words']
+augroup lexical
+  autocmd!
+  autocmd FileType markdown,mkd call lexical#init()
+  autocmd FileType textile call lexical#init()
+  autocmd FileType vimwiki call lexical#init()
+  autocmd FileType text call lexical#init({ 'spell': 0 })
+augroup END
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://vimwiki.github.io/
+Plug 'vimwiki/vimwiki'
+let g:vimwiki_list = [
+      \ { 'path': $HOME . '/cronofile/journal',
+      \ 'syntax': 'markdown', 'ext': '.mdx'},
+      \ { 'path': $HOME . '/cronofile/public/diff.mx',
+      \ 'syntax': 'markdown', 'ext': '.mdx'},
+      \ { 'path': $HOME . '/cronofile/public/unknown',
+      \ 'syntax': 'markdown', 'ext': '.mdx'},
+      \]
+let g:vimwiki_key_mappings = { 'lists': 0 }
+let g:vimwiki_folding = 'expr'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Syntax Highlighting and Indentation
+" (Treesitter should be taking care of most of this)
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Respect .editorconfig files
+Plug 'editorconfig/editorconfig-vim'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" The fastest and most versitile, hopefully everything I need is in here
+Plug 'sheerun/vim-polyglot'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'kevinoid/vim-jsonc'
+
+""" Fish Shell """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'dag/vim-fish'
+autocmd FileType fish compiler fish
+autocmd FileType fish setlocal textwidth=79
+autocmd FileType fish setlocal foldmethod=expr
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'euclidianAce/BetterLua.vim'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+
+"echo nvim_treesitter#statusline(90)  " 90 can be any length
+"module->expression_statement->call->identifier
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Language Server
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" completion.nvim keymappings
+"
+"imap <c-j> <Plug>(completion_next_source) "use <c-j> to switch to previous completion
+"imap <c-k> <Plug>(completion_prev_source) "use <c-k> to switch to next completion
+"
+"" Use <Tab> and <S-Tab> to navigate through popup menu
+"" FIXME
+""inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+""inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"
+""map <c-p> to manually trigger completion
+"imap <silent> <c-p> <Plug>(completion_trigger)
+"
+""imap <tab> <Plug>(completion_smart_tab)
+""imap <s-tab> <Plug>(completion_smart_s_tab)
+"
+"" Expand
+"imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+"smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+"
+"" Expand or jump
+"imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+"smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+"
+"" FIXME snippets module not loading
+"" Jump forward or backward
+""imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+""smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+""imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+""smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+"
+"" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+"" See https://github.com/hrsh7th/vim-vsnip/pull/50
+"nmap        s   <Plug>(vsnip-select-text)
+"xmap        s   <Plug>(vsnip-select-text)
+"nmap        S   <Plug>(vsnip-cut-text)
+"xmap        S   <Plug>(vsnip-cut-text)
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Completion nvim
 Plug 'nvim-lua/completion-nvim'
 
@@ -375,81 +488,121 @@ let g:completion_auto_change_source = 1
 " non ins-complete method should be specified in 'mode'
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Snippets
-Plug 'rafamadriz/friendly-snippets'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
+" neovim-lsp
+" https://github.com/kabouzeid/nvim-lspinstall
+Plug 'neovim/nvim-lspconfig'
+Plug 'kabouzeid/nvim-lspinstall'
 
-" If you want to use snippet for multiple filetypes, you can `g:vsnip_filetypes` for it.
-let g:vsnip_filetypes = {}
-let g:vsnip_filetypes.javascriptreact = ['javascript']
-let g:vsnip_filetypes.typescriptreact = ['typescript']
+" Lsp Helpers and Viewers
+Plug 'glepnir/lspsaga.nvim'
+Plug 'nvim-lua/lsp_extensions.nvim'
+Plug 'nvim-lua/lsp-status.nvim'
+Plug 'folke/lsp-colors.nvim'
+Plug 'folke/trouble.nvim'
+
+" Common Dependencies
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Writing Code for People to Read
+" UI
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://github.com/preservim/vim-wordy
-Plug 'preservim/vim-wordy'
+Plug 'liuchengxu/vim-which-key'
+"https://github.com/liuchengxu/vim-which-key
+"
+"I've invited all the dashboards down here so It'll be easier to try out one or
+"two at a time adn I asked them to bring their keybindings too
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/nvim-telescope/telescope.nvim
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-github.nvim'
+Plug 'TC72/telescope-tele-tabby.nvim'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Main Menu Controls
+nnoremap <Space>t :Telescope<CR>
+"nnoremap <Space>y :Files<CR>
+
+" Submenu Controls
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+noremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" #CSpace setting...
+let g:CtrlSpaceDefaultMappingKey = "<C-space> "
+
+" FZF
+nmap <C-p> :FZFGitIgnore <CR>
+imap <C-p> <Esc>:FZFGitIgnore <CR>
+nmap <Leader>fzl <Esc>:Lines<CR>
+nmap <Leader>fzb <Esc>:Buffers<CR>
+nmap <Leader>fzc <Esc>:Commits<CR>
+
+" Tab Management
+nnoremap <silent><C-Right> :tabnext<CR>
+nnoremap <silent>tty :tabnext<CR>
+nnoremap <silent><C-Left> :tabprevious<CR>
+nnoremap <silent>ttr :tabprevious<CR>
+nnoremap <silent><C-m> :tabmove<CR>
+nnoremap <silent><C-t> :tabnew<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim Finder
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Spelling
-" https://github.com/preservim/vim-lexical#spell-check
-Plug 'preservim/vim-lexical'
-let g:lexical#spell = 1
-let g:lexical#spelllang = ['en_us']
-augroup lexical
-  autocmd!
-  autocmd FileType markdown,mkd call lexical#init()
-  autocmd FileType textile call lexical#init()
-  autocmd FileType text call lexical#init({ 'spell': 0 })
-augroup END
+" FZF (the best search menu I've found :)
+" brew install fsf ag ripgrep perl git-delta
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+" don't search .git or node_modules by default
+let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git --exclude node_modules'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vim Table Mode
-" https://github.com/dhruvasagar/vim-table-mode
-Plug 'dhruvasagar/vim-table-mode'
-" There are so many options, OMG, it does formula too 
-" :TableModeToggle
-" <Leader>ttm starts table mode
-" <Leader>ttt Tableize! 
+"<C-Space> https://github.com/vim-ctrlspace/vim-ctrlspace
+" outdate docs, but very helpful: https://atlas-vim.readthedocs.io/vim/plugged/vim-ctrlspace/README/#status-line
+Plug 'vim-ctrlspace/vim-ctrlspace'
 
-let g:table_mode_map_prefix='tt'
-let g:table_mode_corner_corner='+'
-let g:table_mode_header_fillchar='='
+let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
+let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
+let g:CtrlSpaceSaveWorkspaceOnExit = 1
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://vimwiki.github.io/
-Plug 'vimwiki/vimwiki'
-let g:vimwiki_list = [
-      \ { 'path': $HOME . '/cronofile/journal',
-      \ 'syntax': 'markdown', 'ext': '.mdx'},
-      \ { 'path': $HOME . '/cronofile/public/diff.mx',
-      \ 'syntax': 'markdown', 'ext': '.mdx'},
-      \ { 'path': $HOME . '/cronofile/public/unknown',
-      \ 'syntax': 'markdown', 'ext': '.mdx'},
-      \]
-let g:vimwiki_key_mappings = { 'lists': 0 }
-let g:vimwiki_folding = 'expr'
+let g:CtrlSpaceProjectRootMarkers = [
+      \ ".diffalot",
+      \ ".git",
+      \ ".hg",
+      \ ".svn",
+      \ ".bzr",
+      \ "_darcs",
+      \ "CVS"
+      \ ]
+
+if executable('rg')
+  let g:CtrlSpaceGlobCommand = 'rg --color=never --hidden --glob "!.git" --glob "!node_modules" --files'
+elseif executable('fd')
+  let g:CtrlSpaceGlobCommand = 'fd --type=file --color=never'
+elseif executable('ag')
+  let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 "    User Interface Improvements for Code
 "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Comments
-Plug 'tpope/vim-commentary'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Looks interesting
+" https://github.com/MattesGroeger/vim-bookmarks
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " matching pairs
 Plug 'andymass/vim-matchup'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" DiffView - https://github.com/sindrets/diffview.nvim
-Plug 'sindrets/diffview.nvim'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " See previous discussions of the code you are modifying from them what wrote
 " it.
 Plug 'rhysd/git-messenger.vim'
@@ -470,73 +623,8 @@ Plug 'ludovicchabant/vim-gutentags'
 set statusline+=%{gutentags#statusline()}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Mergetool
-" https://github.com/samoshkin/vim-mergetool
-Plug 'samoshkin/vim-mergetool'
-
-" Signify - https://github.com/mhinz/vim-signify
-if has('nvim') || has('patch-8.0.902')
-  Plug 'mhinz/vim-signify'
-else
-  Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
-endif
-set updatetime=100
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Fugitive - https://github.com/tpope/vim-fugitive
-Plug 'tpope/vim-fugitive'
-Plug 'rbong/vim-flog'
-
-let g:flog_default_arguments = {
-                      \ 'all': 1,
-                      \ 'max_count': 2000,
-                      \ 'date': 'short',
-                      \ 'sort': 'author'}
-let g:flog_custom_format = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
-""" This is the same as the built-in log command (flog#build_log_command)
-""function! FlogBuildLog() abort
-""  " Same as "git --git-dir=" . flog#get_fugitive_git_dir()
-""  " The git dir will be the current buffer's ".git" directory
-""  let l:command = flog#get_fugitive_git_command()
-""  let l:command .= ' log'
-""  let l:command .= ' --'
-""  " Args and paths that would normally be passed to "git log" based on Flog options
-""  let l:command .= flog#build_log_args()
-""  let l:command .= ' -- '
-""  let l:command .= flog#build_log_paths()
-""
-""  return l:command
-""endfunction
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Syntax Highlighting and Indentation
-" (Treesitter should be taking care of most of this)
-"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Respect .editorconfig files
-Plug 'editorconfig/editorconfig-vim'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" The fastest and most versitile, hopefully everything I need is in here
-Plug 'sheerun/vim-polyglot'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
-Plug 'kevinoid/vim-jsonc'
-
-""" Fish Shell """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'dag/vim-fish'
-autocmd FileType fish compiler fish
-autocmd FileType fish setlocal textwidth=79
-autocmd FileType fish setlocal foldmethod=expr
-
-""" JavaScript """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'euclidianAce/BetterLua.vim'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Files
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'adelarsq/vim-emoji-icon-theme'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'henrik/vim-open-url'
@@ -548,56 +636,44 @@ Plug 'mbbill/undotree'
 " ~/.config/nvim/plugins/conf.undotree.vim
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" :grep
-set grepprg=rg\ --vimgrep
-
-Plug 'BurntSushi/ripgrep'
+" https://github.com/TimUntersberger/neogit
+Plug 'TimUntersberger/neogit'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" FZF (the best search menu I've found :)
-" brew install fsf ag ripgrep perl git-delta
-
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-" don't search .git or node_modules by default
-let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git --exclude node_modules'
+" https://github.com/folke/todo-comments.nvim
+Plug 'folke/todo-comments.nvim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Language Server
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" neovim-lsp
-" https://github.com/kabouzeid/nvim-lspinstall
-Plug 'neovim/nvim-lspconfig'
-Plug 'kabouzeid/nvim-lspinstall'
-
-" Lsp Helpers
-Plug 'nvim-lua/lsp-status.nvim'
-Plug 'folke/lsp-colors.nvim'
-Plug 'folke/trouble.nvim'
+Plug 'preservim/nerdtree'
+nnoremap <Leader>n :NERDTreeToggle<CR>
+nnoremap <Leader>ntr :NERDTreeRefreshRoot<CR>
+au StdinReadPre * let s:std_in=1
+au VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://github.com/nvim-telescope/telescope.nvim
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-github.nvim'
-Plug 'TC72/telescope-tele-tabby.nvim'
+Plug 'preservim/nerdcommenter'
+let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs = 1
+let g:NERDDefaultAlign = 'left'
+let g:NERDAltDelims_java = 1
+let g:NERDCustomDelimiters = { 'typescript': { 'left': '/**','right': '*/' } }
+let g:NERDCommentEmptyLines = 1
+let g:NERDTrimTrailingWhitespace = 1
+let g:NERDToggleCheckAllLines = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" Vim Table Mode
+" https://github.com/dhruvasagar/vim-table-mode
+Plug 'dhruvasagar/vim-table-mode'
+" There are so many options, OMG, it does formula too 
+" :TableModeToggle
+" <Leader>ttm starts table mode
+" <Leader>ttt Tableize! 
 
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
+let g:table_mode_map_prefix='tt'
+let g:table_mode_corner_corner='+'
+let g:table_mode_header_fillchar='='
 
-"echo nvim_treesitter#statusline(90)  " 90 can be any length
-"module->expression_statement->call->identifier
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" General Ui Improvements
-"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Rainbow Parenthesis
 Plug 'kien/rainbow_parentheses.vim'
@@ -678,27 +754,28 @@ let g:rooter_manual_only = 1
 " I would love a single status line on tmux, please
 "Plug 'narajaon/onestatus'
 "Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+"Plug 'hoob3rt/lualine.nvim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'adelarsq/vim-emoji-icon-theme'
+" let g:airline_theme = 'pencil'
+let g:airline_theme = 'understated'
 
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
-"
-"let g:airline_powerline_fonts = 1
-"let g:airline_highlighting_cache = 1
-"
-"Plug 'edkolev/tmuxline.vim'
-"Plug 'lambdalisue/battery.vim'
-"
-""styling that covers the tabbar with buffers from current tab until you switch
-""colors... I guess... 
-""let g:airline#extensions#tabline#enabled = 1
-"
-"" Powerline Theme
-""let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
-"
-"let g:airline_skip_empty_sections = 1
+let g:airline_skip_empty_sections = 1
+let g:airline_statusline_ontop = 1
+let g:airline_powerline_fonts = 1
+let g:airline_highlighting_cache = 1
+
+Plug 'edkolev/tmuxline.vim'
+Plug 'lambdalisue/battery.vim'
+
+"styling that covers the tabbar with buffers from current tab until you switch
+"colors... I guess... 
+"let g:airline#extensions#tabline#enabled = 1
+
+" Powerline Theme
+"let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
+
 
 " fillchars+=stl:\ ,stlnc:\  "fix for special characters in the bar
 
