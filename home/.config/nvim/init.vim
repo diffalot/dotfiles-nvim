@@ -77,10 +77,10 @@ set t_ZR=[23m
 " input `t_ZH=` like you've been typing since birth, then mash first <Ctrl-v>
 " then <Esc> immediatly afterward to enter in the escape code, and after that
 " you can finish it off with the `[3m` in that same old boring way that
-" Shelly's always typing 
+" Shelly's always typing
 
 set termguicolors " if you're lying, you'll go blind!!!! (not really, but the
-" colors won't work right and it'll hurt your eyes, and what do I know, you 
+" colors won't work right and it'll hurt your eyes, and what do I know, you
 " might burn out a chip. I'm just some stranger on the internet, who onetime
 " entertained themselves while they learned Neovim by making up weird little
 " stories.
@@ -657,10 +657,10 @@ let g:NERDToggleCheckAllLines = 1
 " Vim Table Mode
 " https://github.com/dhruvasagar/vim-table-mode
 Plug 'dhruvasagar/vim-table-mode'
-" There are so many options, OMG, it does formula too 
+" There are so many options, OMG, it does formula too
 " :TableModeToggle
 " <Leader>ttm starts table mode
-" <Leader>ttt Tableize! 
+" <Leader>ttt Tableize!
 
 let g:table_mode_map_prefix='t'
 let g:table_mode_corner_corner='+'
@@ -762,7 +762,7 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'lambdalisue/battery.vim'
 
 "styling that covers the tabbar with buffers from current tab until you switch
-"colors... I guess... 
+"colors... I guess...
 "let g:airline#extensions#tabline#enabled = 1
 
 " Powerline Theme
@@ -900,7 +900,7 @@ function! __dark()
 
   " italic
   let ayucolor="dark"
-  colorscheme ayu 
+  colorscheme ayu
 
   " italic
   " let g:tokyonight_style = "night"
@@ -915,7 +915,7 @@ function! __dark()
   " colorscheme dracula
   " colorscheme orange-moon
   " colorscheme yellow-moon
-  
+
   let g:airline_theme = 'understated'
   highlight Comment cterm=italic
 endfunction
@@ -1358,7 +1358,7 @@ local function setup_servers()
     require'lspconfig'[server].setup{}
   end
 end
- 
+
 -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
 require'lspinstall'.post_install_hook = function ()
   setup_servers() -- reload installed servers
