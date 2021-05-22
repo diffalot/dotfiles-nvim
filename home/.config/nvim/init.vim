@@ -549,6 +549,7 @@ Plug 'TC72/telescope-tele-tabby.nvim'
 " brew install fsf ag ripgrep perl git-delta
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
 " don't search .git or node_modules by default
 let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git --exclude node_modules'
 
@@ -588,8 +589,15 @@ endif
 "    User Interface Improvements for Code
 "
 " Looks interesting
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/MattesGroeger/vim-bookmarks
-"
+Plug 'MattesGroeger/vim-bookmarks'
+
+highlight BookmarkSign ctermbg=NONE ctermfg=160
+highlight BookmarkLine ctermbg=194 ctermfg=NONE
+let g:bookmark_sign = '♥'
+let g:bookmark_highlight_lines = 1
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " matching pairs
 Plug 'andymass/vim-matchup'
@@ -601,6 +609,10 @@ Plug 'rhysd/git-messenger.vim'
 ":GitMessenger or <Leader>gm
 let g:git_messenger_include_diff = 'current'
 " there are tons of options :https://github.com/rhysd/git-messenger.vim
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"https://github.com/lambdalisue/gina.vim
+Plug 'lambdalisue/gina.vim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
