@@ -959,6 +959,13 @@ command! -nargs=* TranparentTheme call __transparent()
 command! -nargs=* BecomeTransparent :hi! Normal ctermbg=NONE guibg=NONE <bar>
                                   \ :hi! NonText ctermbg=NONE guibg=NONE
 
+" and it's also really easy to make comments italic!!!
+command! -nargs=* ItalicizeComments :hi! Comment cterm=italic gui=italic
+command! -nargs=* ItalicizeCommentsOff :hi! Comment cterm=NONE gui=NONE
+augroup CustomUI
+  autocmd! ColorScheme * :ItalicizeComments
+augroup END
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TODO make this setup by variables
 " Here's the bit that looks at the time when the init.vim is sourced and chooses
