@@ -50,11 +50,6 @@ set t_Co=256
 " these! You _seeeeee_????????? It is a liiieeee about Truecolor.  Dr. Con
 " Boedeo understood.  He understood all too well!
 
-execute "set t_8f=\e[38;2;%lu;%lu;%lum"
-execute "set t_8b=\e[48;2;%lu;%lu;%lum"
-
-set t_Co=256
-
 set t_ZH=[3m
 set t_ZR=[23m
 
@@ -87,7 +82,7 @@ set termguicolors " if you're lying, you'll go blind!!!! (not really, but the
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Configuration Built in Functionality
+" Configure Built In Functions
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
@@ -146,7 +141,7 @@ if winwidth('%') < 70
   set cmdheight=1
 else
   " Give more space for displaying messages.
-  set cmdheight=2
+  set cmdheight=1
 end
 
 " Open new windows to the right and below, it'll be less disorienting
@@ -759,7 +754,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " let g:airline_theme = 'pencil'
-let g:airline_theme = 'understated'
 
 let g:airline_skip_empty_sections = 1
 let g:airline_statusline_ontop = 1
@@ -859,7 +853,7 @@ Plug 'sts10/vim-pink-moon'
 Plug 'dikiaap/minimalist'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'Lokaltog/vim-distinguished'
-"Plug 'chriskempson/base16-vim'
+Plug 'chriskempson/base16-vim'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -879,14 +873,14 @@ function! __light()
   set background=light
   " colorscheme PaperColor
   colorscheme pencil
-  " let g:airline_theme = 'pencil'
+  "let g:airline_theme = 'pencil'
+  let g:airline_theme = 'base16_atelier_sulphurpool_light'
   " let g:material_theme_style = 'lighter'
-  " colorscheme material
+  " colorscheme mateVrial
   " let g:airline_theme = 'material'
   " colorscheme one
   " set background=light
-  let g:airline_theme = 'silver'
-  highlight Comment cterm=italic
+  "let g:airline_theme = 'silver'
 endfunction
 "    ^       Pick fonts
 "    |       In Either of these
@@ -907,8 +901,11 @@ function! __dark()
   " colorscheme pencil
 
   " italic
-  let ayucolor="dark"
-  colorscheme ayu
+  " let ayucolor="dark"
+  " colorscheme ayu
+  "
+  let g:material_theme_style = 'palenight'
+  colorscheme material
 
   " italic
   " let g:tokyonight_style = "night"
@@ -924,8 +921,6 @@ function! __dark()
   " colorscheme orange-moon
   " colorscheme yellow-moon
 
-  let g:airline_theme = 'understated'
-  highlight Comment cterm=italic
 endfunction
 
 function! __transparent()
@@ -934,7 +929,7 @@ function! __transparent()
 
   " let g:tokyonight_style = "night"
   " let g:tokyonight_style = "day"
-  let g:tokyonight_style = "storm"
+  " let g:tokyonight_style = "night"
 
   let g:tokyonight_terminal_colors = 0
 
@@ -951,13 +946,12 @@ function! __transparent()
   let g:tokyonight_dark_sidebar = 1
   let g:tokyonight_dark_float = 1
 
-  let g:tokyonight_colors = { "hint": "orange", "error": "#ff0000" }
+  let g:tokyonight_colors = { "hint": "brightcyan", "error": "#ff0000" }
 
-  "let g:tokyonight_day_brightness = 0.5
+  let g:tokyonight_day_brightness = 0.75
 
   " Load the colorscheme
   colorscheme tokyonight
-  highlight Comment cterm=italic
 endfunction
 
 " Oh! it's really easy to make the ui transparent and still themed :D
@@ -984,20 +978,20 @@ if (exists('g:lights_auto') && g:lights_auto == 1)
 else
   echomsg 'timed theme switching inactive'
   "echo 'running manually selected'
+  call __transparent()   "           <-----------  Comment one of those out and
   "call __light()   "           <-----------  Comment one of those out and
   "call __dark()     "                         let the other set the theme
   "set background=light
   "let g:airline_theme = 'pencil'
-  set background=dark
-  let g:airline_theme = 'base16color'
+  "set background=dark
+  "let g:airline_theme = 'base16color'
   "colorscheme PaperColor
   "colorscheme pencil
 
-  let g:tokyonight_transparent = 0
-  let g:tokyonight_style = "night"
+  "let g:tokyonight_transparent = 0
+  "let g:tokyonight_style = "night"
   "let g:tokyonight_style = "day"
-  colorscheme tokyonight
-  highlight Comment cterm=italic
+  "colorscheme tokyonight
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
