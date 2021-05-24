@@ -343,16 +343,57 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://vimwiki.github.io/
 Plug 'vimwiki/vimwiki'
-let g:vimwiki_list = [
-      \ { 'path': $HOME . '/cronofile/journal',
-      \ 'syntax': 'markdown', 'ext': '.mdx'},
-      \ { 'path': $HOME . '/cronofile/public/diff.mx',
-      \ 'syntax': 'markdown', 'ext': '.mdx'},
-      \ { 'path': $HOME . '/cronofile/public/unknown',
-      \ 'syntax': 'markdown', 'ext': '.mdx'},
-      \]
 let g:vimwiki_key_mappings = { 'lists': 0 }
 let g:vimwiki_folding = 'expr'
+let g:vimwiki_hl_headers = 1
+let g:vimwiki_use_calendar = 1
+let g:vimwiki_dir_link = 'index'
+let g:vimwiki_list = [
+    \ { 'syntax': 'markdown',
+    \   'name': 'journals',
+    \   'description': 'personal todos, notes, scraps, etc.',
+    \   'index': 'index',
+    \   'maxhi': 1,
+    \   'auto_diary_index': 1,
+    \   'auto_tags': 1,
+    \   'auto_generate_links': 1,
+    \   'auto_generate_tags': 1,
+    \   'ext': '.mdx',
+    \   'path': $HOME . '/cronofiles/journal' },
+    \ { 'syntax': 'markdown',
+    \   'name': 'unfiled',
+    \   'description': 'lots of scraps that I will probably never read but may want to find again',
+    \   'index': 'index',
+    \   'maxhi': 0,
+    \   'auto_diary_index': 0,
+    \   'auto_tags': 0,
+    \   'auto_generate_links': 0,
+    \   'auto_generate_tags': 0,
+    \   'ext': '.mdx',
+    \   'path': $HOME . '/cronofiles/unfiled' },
+    \ { 'syntax': 'markdown',
+    \   'name': 'diff.mx',
+    \   'description': 'a blog where I post anything I learn about tech that took a lot of googleing, so maybe it will be easier for you',
+    \   'index': 'about',
+    \   'maxhi': 0,
+    \   'auto_diary_index': 0,
+    \   'auto_tags': 0,
+    \   'auto_generate_links': 0,
+    \   'auto_generate_tags': 0,
+    \   'ext': '.mdx',
+    \   'path': $HOME . '/cronofiles/diff.mx' },
+    \ { 'syntax': 'markdown',
+    \   'name': 'cronofiler',
+    \   'description': 'the software I use to keep my scraps from overwelming me, maybe one day it will be useful enough to share',
+    \   'index': 'readme',
+    \   'maxhi': 0,
+    \   'auto_diary_index': 0,
+    \   'auto_tags': 0,
+    \   'auto_generate_links': 0,
+    \   'auto_generate_tags': 0,
+    \   'ext': '.mdx',
+    \   'path': $HOME . '/Desktop/cronofiler' },
+    \ ]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
