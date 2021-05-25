@@ -31,8 +31,6 @@ Plug 'mbbill/undotree'
 Plug 'preservim/nerdtree'
 nnoremap <Leader>n :NERDTreeToggle<CR>
 nnoremap <Leader>ntr :NERDTreeRefreshRoot<CR>
-au StdinReadPre * let s:std_in=1
-au VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'preservim/nerdcommenter'
