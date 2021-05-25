@@ -135,22 +135,14 @@ set whichwrap=b,s,<,>,[,]
 set scrolloff=10
 set sidescrolloff=15
 
-" echo winwidth('%')
-" reports 61 on the phone
-if winwidth('%') < 70
-  set cmdheight=1
-else
-  " Give more space for displaying messages.
-  set cmdheight=1
-end
+" Give more space for displaying messages.
+set cmdheight=4
 
 " Open new windows to the right and below, it'll be less disorienting
 set splitbelow
 set splitright
 
-" no folding
-
-" What the hell, I just changed my mind
+" I just changed my mind
 set foldlevel=3
 
 " Do not resize splits when closing one, it is very rude
@@ -161,6 +153,12 @@ set noequalalways
 " maintenance.
 set showtabline=2
 set laststatus=2
+
+" echo winwidth('%')
+" reports 61 on the phone
+if winwidth('%') < 70
+else
+end
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Wildmenu
@@ -191,10 +189,10 @@ set timeoutlen=900
 
 " Mobile Responsive Mode
 " note that mobile has a much longer timeout for key entry
-" TODO find another way to test for 'probably mobile'
+" TODO find another way to test for 'probably mobile' |
 if winwidth('%') < 70
   let mapleader = '  '
-  set timeoutlen=2500
+  set timeoutlen=1500
 end
 
 " Claimed Prefixes
