@@ -193,7 +193,7 @@ set timeoutlen=900
 " note that mobile has a much longer timeout for key entry
 " TODO find another way to test for 'probably mobile'
 if winwidth('%') < 70
-  let mapleader = '<Space><Space>'
+  let mapleader = '  '
   set timeoutlen=2500
 end
 
