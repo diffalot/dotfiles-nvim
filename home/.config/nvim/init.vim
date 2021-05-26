@@ -525,6 +525,7 @@ let g:vimwiki_list = [
 
 source $HOME/.config/nvim/init/ui.plug.vim
 source $HOME/.config/nvim/init/themes.plug.vim
+source $HOME/.config/nvim/init/coc.nvim.plug.vim
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
