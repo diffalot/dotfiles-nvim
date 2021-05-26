@@ -352,6 +352,9 @@ let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
 let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
 let g:CtrlSpaceSaveWorkspaceOnExit = 1
 
+let g:CtrlSpaceUseArrowsInTerm = 1
+let g:CtrlSpaceSortHelp = 1
+
 let g:CtrlSpaceProjectRootMarkers = [
       \ ".diffalot",
       \ ".git",
