@@ -1,5 +1,5 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Alice Davis <alice@gigantic.computer>                             2021-05-09
+" Alice Davis <alice@gigantic.computer>                             2021-05-26
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "         The person I copied this config from wants you to remember:
@@ -127,7 +127,8 @@ set list
 " might be good to consider outsourcing gq to fmt or par from inside Vim:
 " :%! fmt -w 13
 " :%! par 13gr
-" You can also set :formatprg to par or fmt and override gq. For more info, call :help formatprg inside Vim.
+" You can also set :formatprg to par or fmt and override gq. For more info,
+" call :help formatprg inside Vim.
 
 " let cursor move across line breaks, please
 set whichwrap=b,s,<,>,[,]
@@ -176,7 +177,7 @@ if has("wildmenu")
   set wildignorecase
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Personal Keybindings
 " I think I better spread these out, cause it's a lot of emotional garbage to
 " go through in just one sitting, and i't not reading quite like the label on
@@ -287,24 +288,14 @@ call plug#begin('~/.config/nvim/plugged')
 "
 " workflow menus under evaluation
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'liuchengxu/vim-which-key'
-"https://github.com/liuchengxu/vim-which-key
-"
 "I've invited all the dashboards down here so It'll be easier to try out one or
 "two at a time adn I asked them to bring their keybindings too
 "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'liuchengxu/vim-which-key'
+"https://github.com/liuchengxu/vim-which-key
 
-" Main Menu Controls
-nnoremap <Space>t :Telescope<CR>
-"nnoremap <Space>y :Files<CR>
-
-" Submenu Controls
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-noremap <leader>fh <cmd>Telescope help_tags<cr>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " #CSpace setting...
 let g:CtrlSpaceDefaultMappingKey = "<C-space> "
@@ -324,12 +315,6 @@ nnoremap <silent>ttr :tabprevious<CR>
 nnoremap <silent><C-m> :tabmove<CR>
 nnoremap <silent><C-t> :tabnew<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://github.com/nvim-telescope/telescope.nvim
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-github.nvim'
-Plug 'TC72/telescope-tele-tabby.nvim'
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FZF (the best search menu I've found :)
 " brew install fsf ag ripgrep perl git-delta
@@ -339,13 +324,14 @@ Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
 " don't search .git or node_modules by default
 let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git --exclude node_modules'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim Finder
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "<C-Space> https://github.com/vim-ctrlspace/vim-ctrlspace
-" outdate docs, but very helpful: https://atlas-vim.readthedocs.io/vim/plugged/vim-ctrlspace/README/#status-line
+" outdate docs, but very helpful:
+" https://atlas-vim.readthedocs.io/vim/plugged/vim-ctrlspace/README/#status-line
 Plug 'vim-ctrlspace/vim-ctrlspace'
 
 let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
@@ -366,7 +352,8 @@ let g:CtrlSpaceProjectRootMarkers = [
       \ ]
 
 if executable('rg')
-  let g:CtrlSpaceGlobCommand = 'rg --color=never --hidden --glob "!.git" --glob "!node_modules" --files'
+  let g:CtrlSpaceGlobCommand =
+    \ 'rg --color=never --hidden --glob "!.git" --glob "!node_modules" --files'
 elseif executable('fd')
   let g:CtrlSpaceGlobCommand = 'fd --type=file --color=never'
 elseif executable('ag')
@@ -381,7 +368,7 @@ endif
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Lua REPL with access to neovim-lsp!!
 Plug 'rafcamlet/nvim-luapad'
 
@@ -396,24 +383,30 @@ Plug 'euclidianAce/BetterLua.vim'
 " REPL
 Plug 'metakirby5/codi.vim'
 
-let g:codi#width = 0.2     " is the width of the Codi split.
-let g:codi#rightsplit = 0  " is whether or not Codi spawns on the right side.
-let g:codi#rightalign = 1  " is whether or not to right-align the Codi buffer.
-let g:codi#autoclose  = 0  " is whether or not to close Codi when the associated buffer is closed.
-let g:codi#raw = 0         " is whether or not to display interpreter results without alignment formatting (useful for debugging).
-let g:codi#sync = 0        " is whether or not to force synchronous execution. No reason to touch this unless you want to compare async to sync.
-" let g:codi#autocmd       " determines what autocommands trigger updates. See the documentation for more information.
+let g:codi#width = 0.2      " is the width of the Codi split.
+let g:codi#rightsplit = 0   " is whether or not Codi spawns on the right side.
+let g:codi#rightalign = 1   " is whether or not to right-align the Codi buffer.
+let g:codi#autoclose  = 0   " is whether or not to close Codi when the
+                            "   associated buffer is closed.
+let g:codi#raw = 0          " is whether or not to display interpreter results
+                            "   without alignment formatting (useful for
+                            "   debugging).
+let g:codi#sync = 0         " is whether or not to force synchronous execution.
+                            "   No reason to touch this unless you want to
+                            "   compare async to sync.
+" let g:codi#autocmd        " determines what autocommands trigger updates. See
+                            "   the documentation for more information.
 let g:codi#aliases = {
       \ 'javascript.jsx': 'javascript',
       \ 'typescript.tsx': 'typescript',
       \ }
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Syntax Highlighting and Indentation
 " (Treesitter should be taking care of most of this)
 "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Respect .editorconfig files
 Plug 'editorconfig/editorconfig-vim'
 
@@ -441,7 +434,7 @@ set foldexpr=nvim_treesitter#foldexpr()
 "echo nvim_treesitter#statusline(90)  " 90 can be any length
 "module->expression_statement->call->identifier
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Writing Well
 "
