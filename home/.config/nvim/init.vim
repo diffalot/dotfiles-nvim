@@ -133,15 +133,15 @@ set list
 " let cursor move across line breaks, please
 set whichwrap=b,s,<,>,[,]
 
-set scrolloff=10
-set sidescrolloff=15
+set scrolloff=20
+set sidescrolloff=25
 
 " Give more space for displaying messages.
-set cmdheight=4
+set cmdheight=3
 
 " Open new windows to the right and below, it'll be less disorienting
-set splitbelow
-set splitright
+"set splitbelow
+"set splitright
 
 " I just changed my mind
 set foldlevel=3
@@ -152,8 +152,8 @@ set noequalalways
 " Tab bar and status bar display by default, and there's very little you can
 " really do about it, so go grab another sugar water and get back to hive
 " maintenance.
-set showtabline=2
-set laststatus=2
+set showtabline=0
+set laststatus=1
 
 " echo winwidth('%')
 " reports 61 on the phone
