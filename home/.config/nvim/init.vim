@@ -472,6 +472,9 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://vimwiki.github.io/
 Plug 'vimwiki/vimwiki'
+
+command! -nargs=* Cronofiler <silent>:!fish -c "cronofiler-git $HOME/cronofiles > /dev/null"
+
 let g:vimwiki_key_mappings = { 'lists': 0 }
 let g:vimwiki_folding = 'expr'
 let g:vimwiki_hl_headers = 1

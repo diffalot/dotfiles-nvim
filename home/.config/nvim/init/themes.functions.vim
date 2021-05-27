@@ -44,14 +44,19 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " timed theme switching (auto mode) setup
 " it will default to dark mode if it is zero or unset
+" TODO make auto variable accept dark, light, and transparent as strings in
+" addition? to 0 and 1
+" force a single mode with a word
+" 1 or auto is auto timer mode
+" 0 is default to dark, or maybe dont do anything??
 " this gets reset to 0 on mobile (dark mode)
 
 let g:lights_auto = 1    "    <------ Set the auto mode on or off right here
 
-" `echo winwidth('%')` reports 61 on the phone
-if winwidth('%') < 70
-  let g:lights_auto = 0
-end
+"" `echo winwidth('%')` reports 61 on the phone
+"if winwidth('%') < 70
+"  let g:lights_auto = 0
+"end
 
 function! __light()
   echomsg 'using light colorscheme'
@@ -61,7 +66,7 @@ function! __light()
   let g:material_theme_style = 'lighter'
   let g:tokyonight_style = "day"
   let g:tokyonight_transparent = 0
-  let g:tokyonight_day_brightness = 0.75
+  let g:tokyonight_day_brightness = 0.8
   let ayucolor="light"
   " let ayucolor="mirage"
 
