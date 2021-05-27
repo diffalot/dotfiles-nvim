@@ -91,6 +91,9 @@ let g:material_terminal_italics = 1
 " dark only
 Plug 'Rigellute/rigel'
 
+" colorscheme wildcherry
+Plug 'sliminality/wild-cherry-vim'
+
 " colorscheme onedark
 " dark only
 Plug 'joshdick/onedark.vim'
