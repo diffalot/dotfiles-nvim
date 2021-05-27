@@ -185,7 +185,8 @@ endif
 " and a splash of twink blood from Peter Thiel's personal stash.  And you know
 " me and you know that's what I'm really going for here.
 
-let mapleader = '\'
+let mapleader = ' '
+"let mapleader = '\'
 let maplocalleader = ','
 set timeoutlen=900
 
@@ -193,38 +194,37 @@ set timeoutlen=900
 " note that mobile has a much longer timeout for key entry
 " TODO find another way to test for 'probably mobile' |
 if winwidth('%') < 70
-  let mapleader = '  '
   set timeoutlen=1500
 end
 
 " Claimed Prefixes
 
-"  🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩
-" +----------------+-------------+-------------------+
-" | Prefix         | Desktop Key | Mobile Resp. Key  |
-" | Description    |             |                   |
-" +----------------+-------------+-------------------+
-" | <leader>       | ✨ \        | ✨ <Space><Space> |
-" +----------------+-------------+-------------------+
-" | Tab Controls   | <C- ↔️  >    | tt                |
-" +----------------+-------------+-------------------+
-" | CtrlSpace      | <C-Space>   | <C-Space>         |
-" +----------------+-------------+-------------------+
-" | Vimwiki        | <C> w       | <C> w             |
-" +----------------+-------------+-------------------+
-" | Table Mode     | <leader> t  | <leader> t        |
-" +----------------+-------------+-------------------+
-" | File Controls  | <leader> f  | <leader> f        |
-" +----------------+-------------+-------------------+
-" | + Git Workflow | <F7>        | <F7>              |
-" +----------------+-------------+-------------------+
-" | - C/G Tags     | <F8>        | <F8>              |
-" +----------------+-------------+-------------------+
-" | English Lang.  |             |                   |
-" | .   Tools      | <F2>        | <F2>              |
-" +----------------+-------------+-------------------+
-" | nvim Help      | <F1>        | <F1>              |
-" +----------------+-------------+-------------------+
+" 🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩
+" +----------------+-------------+------------------+
+" | Prefix         | Desktop Key | Mobile Resp. Key |
+" | Description    |             |                  |
+" +----------------+-------------+------------------+
+" | <leader>       | <Space      | <Space>          |
+" +----------------+-------------+------------------+
+" | Tab Controls   | <C-arrows>  | tt               |
+" +----------------+-------------+------------------+
+" | CtrlSpace      | <C-Space>   | <C-Space>        |
+" +----------------+-------------+------------------+
+" | Vimwiki        | <C> w       | <C> w            |
+" +----------------+-------------+------------------+
+" | Table Mode     | <leader> t  | <leader> t       |
+" +----------------+-------------+------------------+
+" | FZF Controls   | <leader> f  | <leader> f       |
+" +----------------+-------------+------------------+
+" | + Git Workflow | <F7>        | <F7>             |
+" +----------------+-------------+------------------+
+" | + C/G Tags     | <F8>        | <F8>             |
+" +----------------+-------------+------------------+
+" | English Lang.  |             |                  |
+" | .   Tools      | <F2>        | <F2>             |
+" +----------------+-------------+------------------+
+" | nvim Help      | <F1>        | <F1>             |
+" +----------------+-------------+------------------+
 " legend:
 "  ✨ = key only mapped on indicated platform
 "   + = prefix in progress
@@ -233,11 +233,9 @@ end
 
 " Utilities
 nnoremap <F2> :UndotreeToggle<CR>
-nnoremap <F8> :TagbarToggle<CR>
-nnoremap <F9> :Vista!!<CR>
+nnoremap <F8>t :TagbarToggle<CR>
+nnoremap <F8>v :Vista!!<CR>
 " <leader> u OpenUrl (set by plugin)
-" todo(map) find a better mapping
-nmap z<Space> :VimwikiToggleListItem<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " git workflow
@@ -287,26 +285,14 @@ call plug#begin('~/.config/nvim/plugged')
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " workflow menus under evaluation
+
+Plug 'liuchengxu/vim-which-key'
+"https://github.com/liuchengxu/vim-which-key
 "
 "I've invited all the dashboards down here so It'll be easier to try out one or
 "two at a time adn I asked them to bring their keybindings too
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'liuchengxu/vim-which-key'
-"https://github.com/liuchengxu/vim-which-key
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" #CSpace setting...
-let g:CtrlSpaceDefaultMappingKey = "<C-space> "
-
-" FZF
-nmap <C-p> :FZFGitIgnore <CR>
-imap <C-p> <Esc>:FZFGitIgnore <CR>
-nmap <Leader>fzl <Esc>:Lines<CR>
-nmap <Leader>fzb <Esc>:Buffers<CR>
-nmap <Leader>fzc <Esc>:Commits<CR>
-
 " Tab Management
 nnoremap <silent><C-Right> :tabnext<CR>
 nnoremap <silent>tty :tabnext<CR>
@@ -318,9 +304,21 @@ nnoremap <silent><C-t> :tabnew<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FZF (the best search menu I've found :)
 " brew install fsf ag ripgrep perl git-delta
+
+nmap <Leader>fl <Esc>:Lines<CR>
+nmap <Leader>ff <Esc>:Files<CR>
+nmap <Leader>fb <Esc>:Buffers<CR>
+nmap <Leader>fc <Esc>:CocFzfList<CR>
+nmap <Leader>fd <Esc>:CocFzfListResume<CR>
+
+nnoremap <silent> <Leader>cc       :<C-u>CocFzfList commands<CR>
+nnoremap <silent> <Leader>ce       :<C-u>CocFzfList extensions<CR>
+
+" FZF
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
+Plug 'antoinemadec/coc-fzf'
 " don't search .git or node_modules by default
 let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git --exclude node_modules'
 
@@ -328,11 +326,16 @@ let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git --exclude node_m
 " Vim Finder
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 
+nmap <C-p> :Clap <CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 "<C-Space> https://github.com/vim-ctrlspace/vim-ctrlspace
 " outdate docs, but very helpful:
 " https://atlas-vim.readthedocs.io/vim/plugged/vim-ctrlspace/README/#status-line
 Plug 'vim-ctrlspace/vim-ctrlspace'
+
+let g:CtrlSpaceDefaultMappingKey = "<C-space> "
 
 let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
 let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
@@ -359,6 +362,7 @@ elseif executable('fd')
 elseif executable('ag')
   let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
 endif
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Things to Learn
@@ -467,6 +471,9 @@ augroup END
 Plug 'vimwiki/vimwiki'
 
 command! -nargs=* Cronofiler <silent>:!fish -c "cronofiler-git $HOME/cronofiles > /dev/null"
+
+" todo(map) find a better mapping
+nmap z<Space> :VimwikiToggleListItem<CR>
 
 let g:vimwiki_key_mappings = { 'lists': 0 }
 let g:vimwiki_folding = 'expr'
