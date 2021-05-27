@@ -5,9 +5,6 @@
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 
-" the plan is to add these in one at a time, reloading each time, and we'll see
-" how it goes, lol
-
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -85,6 +82,14 @@ xmap <leader>x  <Plug>(coc-convert-snippet)
 "
 " Installed
 "
+" :CocInstall coc-pairs coc-snippets coc-json coc-yaml coc-sh \
+"     coc-vimlsp coc-markdownlint coc-emoji coc-dictionary coc-tag
+" :CocInstall coc-tsserver coc-html coc-css coc-cssmodules \
+"     coc-html-css-support coc-prettier coc-stylelintplus \
+"     coc-tailwindcss coc-sql coc-pyright
+" :CocInstall coc-graphql coc-prisma coc-deno coc-rust-analyzer
+" :CocInstall coc-github coc-git coc-yank
+"
 "" Editor Enhancements
 " coc-pairs
 " coc-snippets
@@ -97,7 +102,7 @@ xmap <leader>x  <Plug>(coc-convert-snippet)
 " coc-yaml
 " coc-sh
 " coc-vimlsp
-" coc-markdown-lint
+" coc-markdownlint
 "
 "" Fun
 " coc-emoji
