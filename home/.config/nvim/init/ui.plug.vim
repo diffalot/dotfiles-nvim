@@ -12,7 +12,7 @@ Plug 'preservim/tagbar'
 " Gutentags - https://github.com/ludovicchabant/vim-gutentags
 
 Plug 'ludovicchabant/vim-gutentags'
-set statusline+=%{gutentags#statusline()}
+"set statusline^=%{gutentags#statusline()}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'kyazdani42/nvim-web-devicons'
