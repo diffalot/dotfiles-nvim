@@ -408,7 +408,6 @@ let g:codi#aliases = {
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Syntax Highlighting and Indentation
-" (Treesitter should be taking care of most of this)
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Respect .editorconfig files
@@ -429,15 +428,17 @@ autocmd FileType fish compiler fish
 autocmd FileType fish setlocal textwidth=79
 autocmd FileType fish setlocal foldmethod=expr
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
-
-"echo nvim_treesitter#statusline(90)  " 90 can be any length
-"module->expression_statement->call->identifier
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" (Treesitter should be taking care of most of this)
+"Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+"
+"set foldmethod=expr
+"set foldexpr=nvim_treesitter#foldexpr()
+"
+""echo nvim_treesitter#statusline(90)  " 90 can be any length
+""module->expression_statement->call->identifier
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Writing Well
@@ -546,34 +547,34 @@ source $HOME/.config/nvim/init/utils.vim
 "                                ¯\_(ツ)_/¯
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = {  "bash", "css", "dockerfile", "fish", "graphql", "html",
-                        "javascript", "jsdoc", "json", "jsonc", "lua", "python",
-                        "regex", "rust", "toml", "tsx", "typescript", "yaml",
-                        "sparql" },
-  indent = {
-    enable = true
-  },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
-      scope_incremental = "grc",
-      node_decremental = "grm",
-    },
-  },
-  highlight = {
-    enable = true,
-    custom_captures = {
-      -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
-      ["foo.bar"] = "Identifier",
-    },
-  },
-  matchup = {
-    enable = true,              -- mandatory, false will disable the whole extension
-    disable = { "c", "ruby" },  -- optional, list of language that will be disabled
-  },
-}
-EOF
+"lua <<EOF
+"require'nvim-treesitter.configs'.setup {
+"  ensure_installed = {  "bash", "css", "dockerfile", "fish", "graphql", "html",
+"                        "javascript", "jsdoc", "json", "jsonc", "lua", "python",
+"                        "regex", "rust", "toml", "tsx", "typescript", "yaml",
+"                        "sparql" },
+"  indent = {
+"    enable = true
+"  },
+"  incremental_selection = {
+"    enable = true,
+"    keymaps = {
+"      init_selection = "gnn",
+"      node_incremental = "grn",
+"      scope_incremental = "grc",
+"      node_decremental = "grm",
+"    },
+"  },
+"  highlight = {
+"    enable = true,
+"    custom_captures = {
+"      -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
+"      ["foo.bar"] = "Identifier",
+"    },
+"  },
+"  matchup = {
+"    enable = true,              -- mandatory, false will disable the whole extension
+"    disable = { "c", "ruby" },  -- optional, list of language that will be disabled
+"  },
+"}
+"EOF
