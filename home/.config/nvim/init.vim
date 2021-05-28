@@ -381,9 +381,6 @@ Plug 'rafcamlet/nvim-luapad'
 Plug 'svermeulen/vimpeccable'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'euclidianAce/BetterLua.vim'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " REPL
 Plug 'metakirby5/codi.vim'
 
@@ -428,6 +425,8 @@ autocmd FileType fish compiler fish
 autocmd FileType fish setlocal textwidth=79
 autocmd FileType fish setlocal foldmethod=expr
 
+""" Lua """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'euclidianAce/BetterLua.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " (Treesitter should be taking care of most of this)
