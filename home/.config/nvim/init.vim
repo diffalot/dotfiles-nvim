@@ -186,7 +186,6 @@ endif
 " me and you know that's what I'm really going for here.
 
 let mapleader = ' '
-"let mapleader = '\'
 let maplocalleader = ','
 set timeoutlen=900
 
@@ -204,7 +203,7 @@ end
 " | Prefix         | Desktop Key | Mobile Resp. Key |
 " | Description    |             |                  |
 " +----------------+-------------+------------------+
-" | <leader>       | <Space      | <Space>          |
+" | <leader>       | <Space>     | <Space>          |
 " +----------------+-------------+------------------+
 " | Tab Controls   | <C-arrows>  | tt               |
 " +----------------+-------------+------------------+
