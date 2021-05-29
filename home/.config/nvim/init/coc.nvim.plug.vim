@@ -88,7 +88,7 @@ xmap <leader>x  <Plug>(coc-convert-snippet)
 "     coc-html-css-support coc-prettier coc-stylelintplus \
 "     coc-tailwindcss coc-sql coc-pyright
 " :CocInstall coc-graphql coc-prisma coc-deno coc-rust-analyzer
-" :CocInstall coc-github coc-git coc-yank
+" :CocInstall coc-github coc-git coc-yank coc-explorer coc-bookmark
 "
 "" Editor Enhancements
 " coc-pairs

@@ -59,7 +59,7 @@ let g:lights_auto = 1    "    <------ Set the auto mode on or off right here
 "end
 
 function! __light()
-  echomsg 'using light colorscheme'
+  "echomsg 'using light colorscheme'
   set background=light
 
   " set vars for light mode themes
@@ -91,7 +91,7 @@ endfunction
 "    |       Functions :)
 "    v
 function! __dark()
-  echomsg 'using dark colorscheme'
+  "echomsg 'using dark colorscheme'
   set background=dark
 
   " set up preferred dark modes for themes
@@ -176,7 +176,7 @@ function! __auto()
 endfunction
 
 if (exists('g:lights_auto') && g:lights_auto == 1)
-  echomsg 'using timed colorscheme'
+  "echomsg 'using timed colorscheme'
   call __auto()
 else
   echomsg 'timed theme switching inactive'

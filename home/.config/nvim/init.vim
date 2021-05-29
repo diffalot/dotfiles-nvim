@@ -96,7 +96,7 @@ set mouse=a
 
 set incsearch
 set ignorecase
-set smartcase
+"set smartcase
 set nohlsearch
 
 set number " Yes, It's Goood!
@@ -111,8 +111,8 @@ set smarttab
 " but not always, so here's to you, Python
 autocmd FileType python set breakindentopt=shift:4
 
-" hard breaks at 80 cols was my emo band in my 20's
-set textwidth=79
+" no hard breaks, but guides at 80 and 120
+set textwidth=0
 set wrapmargin=3
 set colorcolumn=80
 
@@ -121,7 +121,7 @@ set linebreak
 set breakindent
 set smartindent
 
-set nowrap
+set wrap
 set list
 
 " might be good to consider outsourcing gq to fmt or par from inside Vim:
@@ -133,8 +133,8 @@ set list
 " let cursor move across line breaks, please
 set whichwrap=b,s,<,>,[,]
 
-set scrolloff=20
-set sidescrolloff=25
+set scrolloff=14
+set sidescrolloff=8
 
 " Give more space for displaying messages.
 set cmdheight=3
@@ -153,7 +153,7 @@ set noequalalways
 " really do about it, so go grab another sugar water and get back to hive
 " maintenance.
 set showtabline=0
-set laststatus=1
+set laststatus=2
 
 " echo winwidth('%')
 " reports 61 on the phone
@@ -168,8 +168,8 @@ if has("wildmenu")
   set wildmenu
   """set wildmode=longest,list:full
   ""set wildmode=longest,list
-  "set wildmode=longest,lastused,list:full
-  set wildmode=lastused:longest,list:lastused,list:full
+  set wildmode=longest,lastused,list:full
+  "set wildmode=lastused:longest,list:lastused,list:full
   set wildignore+=*.a,*.o
   set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
   set wildignore+=.DS_Store,.git,.hg,.svn
@@ -310,6 +310,7 @@ nmap <Leader>ff <Esc>:Files<CR>
 nmap <Leader>fb <Esc>:Buffers<CR>
 nmap <Leader>fc <Esc>:CocFzfList<CR>
 nmap <Leader>fd <Esc>:CocFzfListResume<CR>
+nmap <Leader>fe <Esc>:CocCommand explorer<CR>
 
 nnoremap <silent> <Leader>cc       :<C-u>CocFzfList commands<CR>
 nnoremap <silent> <Leader>ce       :<C-u>CocFzfList extensions<CR>
@@ -328,6 +329,11 @@ Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 
 nmap <C-p> :Clap <CR>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Plug 'moll/vim-bbye' " optional dependency
+"Plug 'aymericbeaumet/vim-symlink'
+" tpope recommends this for following symlinks it CtrlSpace ever gives trouble
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "<C-Space> https://github.com/vim-ctrlspace/vim-ctrlspace
@@ -366,7 +372,11 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Things to Learn
-"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/glepnir/dashboard-nvim
+Plug 'glepnir/dashboard-nvim'
+let g:dashboard_default_executive ='fzf'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Common Dependencies
 Plug 'nvim-lua/popup.nvim'
