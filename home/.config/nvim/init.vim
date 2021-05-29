@@ -602,7 +602,7 @@ function! ReadOnly() abort
   end
 endfunction
 
-let g:character_info_is_displayed=1
+let g:character_info_is_displayed=0
 command! CharacterInfoToggle :let g:character_info_is_displayed = !g:character_info_is_displayed <Bar> :let &stl=&stl
 
 function! StatusCharacterInfo() abort
@@ -626,9 +626,13 @@ endfunction
 set noshowmode
 
 " colors by how dangerous a mode is:
+" Ex:       Black
 " Replace:  Red
 " Insert:   Orange
-"
+" V-Block:  Yellow
+" V-Line:   Hot Pink
+" Command:  Cyan
+" Normal:   Green
 
 set statusline=
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
@@ -637,24 +641,26 @@ set statusline^=%{gutentags#statusline()}
 set statusline+=⋮        " flags and buf no
 set statusline+=%=
 set statusline+=%<%-0f                    " path
+set statusline+=\ %M
+
 set statusline+=\ %9*
-set statusline+=\ ❰
-set statusline+=\ ⁂
+set statusline+=\ \ ❰
+"set statusline+=\ ⁂
 set statusline+=\ %{ModeCurrent()}
-set statusline+=⁂\ ❰
-"set statusline^=\ ⋄
-set statusline+=\ %n
+"set statusline+=⁂\ ❰
+"set statusline^=\ 
+"set statusline+=\ %n
 set statusline+=\ %*
 
 """ These are in reverse order so that that are in correct order when they are prepended. they should be the last things to be added to the status bar so that they will end up first.
-set statusline^=⋮
-set statusline^=\ %1*
+set statusline^=\ ⋮
+set statusline^=\ \ %1*
 " Total Lines, (line, column) character in hexline and column
 "set statusline^=%{StatusCharacterInfo()}
-set statusline^=%<\ %LL\ ❪%c,%l❫\ \\∪%B\ ❱
+"set statusline^=\ %<\ %LL\ ❪%c,%l❫\ \\∪%B\ ❱
 set statusline^=\ ❱
 " Filetype
-set statusline^=\ %Y
+set statusline^=\ %-0.8Y
 "set statusline^=\ ❱
 "set statusline^=\ %{strlen(&fenc)?&fenc:&enc}
 set statusline^=%8*
@@ -684,87 +690,87 @@ set statusline^=%8*
 ":call timer_start(1000, {-> execute(':let &stl=&stl')}, {'repeat': -1})
 " 🌈☡
 
-" Dark
-" StatusLine Highlights
-hi StatusLine
-  \ ctermfg=5
-  \ ctermbg=5
-  \ cterm=italic
-  \ guifg=LightGrey
-  \ guibg=Black
-  \ gui=none
-hi StatusLineNC
-  \ ctermfg=7
-  \ ctermbg=7
-  \ cterm=none
-  \ guifg=Grey
-  \ guibg=none
-  \ gui=none
-
-" Normal Mode
-hi User1
-  \ ctermfg=lightGrey
-  \ ctermbg=DarkGrey
-  \ cterm=italic
-  \ guifg=#c1c1c1
-  \ guibg=#585858
-  \ gui=italic
-hi User8
-  \ ctermfg=lightGrey
-  \ ctermbg=DarkGrey
-  \ cterm=bold
-  \ guifg=#aaaaaa
-  \ guibg=#3b5ea7
-  \ gui=bold
-hi User9
-  \ ctermfg=lightGrey
-  \ ctermbg=DarkGrey
-  \ cterm=bold
-  \ guifg=#aaaaaa
-  \ guibg=#3b5ea7
-  \ gui=bold
-
-
-
-"" Light
+"" Dark
 "" StatusLine Highlights
 "hi StatusLine
-"  \ ctermfg=8
-"  \ ctermbg=0
+"  \ ctermfg=5
+"  \ ctermbg=5
 "  \ cterm=italic
 "  \ guifg=LightGrey
-"  \ guibg=White
-"  \ gui=italic
+"  \ guibg=Black
+"  \ gui=none
 "hi StatusLineNC
-"  \ ctermfg=9
-"  \ ctermbg=1
-"  \ cterm=italic
-"  \ guifg=DarkMagenta
-"  \ guibg=Yellow
-"  \ gui=italic
+"  \ ctermfg=7
+"  \ ctermbg=7
+"  \ cterm=none
+"  \ guifg=Grey
+"  \ guibg=none
+"  \ gui=none
 "
-"" light backgrouna
+"" Normal Mode
 "hi User1
-"  \ ctermfg=DarkGrey
-"  \ ctermbg=LightGrey
+"  \ ctermfg=lightGrey
+"  \ ctermbg=DarkGrey
 "  \ cterm=italic
-"  \ guifg=#414141
-"  \ guibg=#c1c1c1
+"  \ guifg=#c1c1c1
+"  \ guibg=#585858
 "  \ gui=italic
 "hi User8
-"  \ ctermfg=15
-"  \ ctermbg=14
-"  \ cterm=italic
-"  \ guifg=#f0f0f0
-"  \ guibg=#4fb8cc
-"  \ gui=italic
-"hi User9
-"  \ ctermfg=15
-"  \ ctermbg=14
+"  \ ctermfg=lightGrey
+"  \ ctermbg=DarkGrey
 "  \ cterm=bold
-"  \ guifg=#f0f0f0
-"  \ guibg=#4fb8cc
+"  \ guifg=#aaaaaa
+"  \ guibg=#3b5ea7
 "  \ gui=bold
+"hi User9
+"  \ ctermfg=lightGrey
+"  \ ctermbg=DarkGrey
+"  \ cterm=bold
+"  \ guifg=#aaaaaa
+"  \ guibg=#3b5ea7
+"  \ gui=bold
+
+
+
+" Light
+" StatusLine Highlights
+hi StatusLine
+  \ ctermfg=8
+  \ ctermbg=0
+  \ cterm=italic
+  \ guifg=LightGrey
+  \ guibg=White
+  \ gui=italic
+hi StatusLineNC
+  \ ctermfg=9
+  \ ctermbg=1
+  \ cterm=italic
+  \ guifg=DarkMagenta
+  \ guibg=Yellow
+  \ gui=italic
+
+" light backgrouna
+hi User1
+  \ ctermfg=DarkGrey
+  \ ctermbg=LightGrey
+  \ cterm=italic
+  \ guifg=#414141
+  \ guibg=#cecece
+  \ gui=italic
+hi User8
+  \ ctermfg=15
+  \ ctermbg=14
+  \ cterm=italic
+  \ guifg=#f0f0f0
+  \ guibg=#4fb8cc
+  \ gui=bold,italic
+hi User9
+  \ ctermfg=15
+  \ ctermbg=14
+  \ cterm=bold
+  \ guifg=#f0f0f0
+  \ guibg=#4fb8cc
+  \ gui=bold,italic
 
 "hi User3 guifg=#000000 guibg=#4cbf99
 " file encoding
