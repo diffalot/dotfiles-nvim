@@ -342,9 +342,11 @@ Plug 'vim-ctrlspace/vim-ctrlspace'
 
 let g:CtrlSpaceDefaultMappingKey = "<C-space> "
 
-let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
-let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
-let g:CtrlSpaceSaveWorkspaceOnExit = 1
+let g:CtrlSpaceStatuslineFunction = "ctrlspace#api#Statusline()"
+
+let g:CtrlSpaceLoadLastWorkspaceOnStart = 0
+let g:CtrlSpaceSaveWorkspaceOnSwitch = 0
+let g:CtrlSpaceSaveWorkspaceOnExit = 0
 
 let g:CtrlSpaceUseArrowsInTerm = 1
 let g:CtrlSpaceSortHelp = 1
