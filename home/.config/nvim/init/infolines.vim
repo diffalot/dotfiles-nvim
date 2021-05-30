@@ -57,8 +57,8 @@ set statusline+=%=
 set statusline+=%2*
 set statusline+=%{%StatusCharacterInfo()%}
 set statusline+=\ %{ctrlspace#api#StatuslineModeSegment()}
-set statusline+=\ %{strpart(ctrlspace#api#StatuslineTabSegment(),0,4)}
-set statusline+=%2*
+set statusline+=\ %{ctrlspace#api#StatuslineTabSegment()}
+set statusline+=\ %2*
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " These are in reverse order so that that are in correct order when they are prepended. They will be the last things to be added to the status bar so that
