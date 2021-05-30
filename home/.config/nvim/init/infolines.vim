@@ -95,8 +95,12 @@ set statusline+=\ %{ctrlspace#api#StatuslineTabSegment()}
 set statusline+=\ %2*
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" These are in reverse order so that that are in correct order when they are prepended. They will be the last things to be added to the status bar so that
-" they will end up first. An quick way to reverse the lines is to paste theminto a new buffer and then run teh command,
+" These are in reverse order so that that are in correct order when they are 
+" prepended. They will be the last things to be added to the status bar so that
+" they will end up first. An quick way to reverse the lines is to paste them
+" into a new buffer (because I don't know how to select ranges yet. And then 
+" run the command, `:%!tac` on them.
+
 set statusline^=\ %1*
 set statusline^=❱
 set statusline^=\ %{ModeCurrent()}
@@ -105,7 +109,13 @@ set statusline^=%2*
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Highlight Color Assignment Functions
 "
-" to switch to blue
+" we'll use a minimimal number of highlight groups and change colors on 
+" them as modes switch???
+"
+" There's a big char at the bottom of the file, but it doesn't have enough
+" colors in it yet to be fun
+" 
+" But here's a switch to a blue switch to blue
 " hi User1 guibg=aliceblue guifg=deepskyblue
 " hi User2 guifg=aliceblue guibg=deepskyblue
 
@@ -139,6 +149,9 @@ function! PersonalHighlightsLight()
     \ guifg=lightseagreen
     \ guibg=mintcream
     \ gui=bold,italic
+
+  hi StatusLineNC ctermfg=DarkGray ctermbg=grey cterm=none guibg=grey guifg=DarkGray gui=none
+  hi StatusLine ctermbg=DarkGray ctermfg=grey cterm=none guifg=grey guibg=DarkGray gui=none
 endfunction
 
 
@@ -163,7 +176,7 @@ function! PersonalHighlightsDark()
     \ guifg=#a2ada9
     \ guibg=dimgray
     \ gui=italic
-  hi link CtrlSpaceSelected User2
+  "hi link CtrlSpaceSelected User2
   "hi link CtrlSpaceSearch   User9
   hi CtrlSpaceStatus guibg=#436160 guifg=#a2ada9
 
@@ -178,7 +191,7 @@ endfunction
 "
 " TODO watch for theme changes with an auto command and then load the appropriate highlights
 
-function! PersonalHighlights
+function! PersonalHighlights() abort
   if &background == "light"
     call PersonalHighlightsLight()
   else

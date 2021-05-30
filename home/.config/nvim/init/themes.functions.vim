@@ -29,8 +29,9 @@ command! -nargs=* LightsAuto call __auto()
 
 " Oh! it's really easy to make the ui transparent and still themed :D
 command! -nargs=* TranparentTheme call __transparent()
-command! -nargs=* BecomeTransparent :hi! Normal ctermbg=NONE guibg=NONE <bar>
-                                  \ :hi! NonText ctermbg=NONE guibg=NONE
+command! -nargs=* BecomeTransparent :hi! Normal ctermbg=NONE guibg=NONE <Bar>
+                                  \ :hi! NonText ctermbg=NONE guibg=NONE <Bar>
+                                  \ :call PersonalHighlights()
 
 " and it's also really easy to make comments italic!!!
 command! -nargs=* ItalicizeComments :hi! Comment cterm=italic gui=italic
