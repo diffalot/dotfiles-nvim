@@ -29,7 +29,7 @@ let g:airline_highlighting_cache = 0
 " activated till after plug has loaded every single one, I think, maybe?
 
 " there are soooo many in here i have to turn them off sometimes
-Plug 'chriskempson/base16-vim'
+"Plug 'chriskempson/base16-vim'
 
 " colorscheme PaperColor
 " no dark mode
@@ -119,3 +119,23 @@ Plug 'sts10/vim-pink-moon'
 Plug 'dikiaap/minimalist'
 Plug 'Lokaltog/vim-distinguished'
 
+" Incoming
+"
+" with help files ???
+" https://github.com/sainnhe/everforest
+Plug 'sainnhe/everforest'
+Plug 'sainnhe/edge'
+
+" this is a theme factory :D
+"
+Plug 'rktjmp/lush.nvim'
+
+" specializing in good syntax highlighting
+Plug 'connorholyday/vim-snazzy'
+
+
+Plug 'jaredgorski/SpaceCamp'
+Plug 'aswathkk/DarkScene.vim'
+Plug 'challenger-deep-theme/vim'
+Plug 'zeis/vim-kolor'
+Plug 'tssm/fairyfloss.vim'

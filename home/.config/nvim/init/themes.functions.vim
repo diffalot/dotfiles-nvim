@@ -105,12 +105,12 @@ function! __dark()
   " colorscheme orange-moon
   " colorscheme yellow-moon
   " colorscheme ayu
-  colorscheme neodark
+  " colorscheme neodark
   " colorscheme rigel
   " colorscheme pencil
 
-  " colorscheme lucius
-  " LuciusDark
+  colorscheme lucius
+  LuciusDark
 
   " bug in one requires setting background after theme
   " colorscheme one
