@@ -137,13 +137,13 @@ function! __transparent()
   let g:tokyonight_style = "night"
   " let g:tokyonight_style = "storm"
   let g:tokyonight_day_brightness = 0.75
-  let g:tokyonight_colors = { "hint": "brightcyan", "error": "#ff0000" }
+  let g:tokyonight_colors = { "hint": "cyan", "error": "#ff0000" }
 
   "set background=light
   "let g:tokyonight_style = "day"
   "" let g:tokyonight_style = "storm"
   "let g:tokyonight_day_brightness = 0.75
-  "let g:tokyonight_colors = { "hint": "brightcyan", "error": "#ff0000" }
+  "let g:tokyonight_colors = { "hint": "slateblue", "error": "#ff0000" }
 
   " Load the colorscheme
   colorscheme tokyonight
