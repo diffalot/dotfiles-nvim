@@ -128,14 +128,14 @@ function! PersonalHighlightsDark()
 
   " selected with shaded background
   hi User1
+    \ guifg=#a2ada9
     \ guibg=dimgray
-    \ guifg=mintcream
     \ gui=italic
 
   " Mode 
   hi User2
-    \ guifg=mintcream
-    \ guibg=darkcyan
+    \ guifg=#a2ada9
+    \ guibg=#436160
     \ gui=bold,italic
 
   " to switch to blue
@@ -153,5 +153,5 @@ function! PersonalHighlightsDark()
 endfunction
 
 " TODO watch for theme changes with an auto command and then load the appropriate highlights
-call PersonalHighlightsLight()
-"call PersonalHighlightsDark()
+"call PersonalHighlightsLight()
+call PersonalHighlightsDark()
