@@ -1,26 +1,4 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Status Line and Icons
-"Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
-"Plug 'hoob3rt/lualine.nvim'
-
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
-"Plug 'edkolev/tmuxline.vim'
-"Plug 'lambdalisue/battery.vim'
-
-let g:airline_skip_empty_sections = 1
-let g:airline_statusline_ontop = 0
-let g:airline#extensions#tabline#enabled = 0
-let g:airline_powerline_fonts = 1
-let g:airline_highlighting_cache = 0
-
-" Powerline Theme
-" let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
-
-" TODO i'm seeing a regression, check airline docs
-" fillchars+=stl:\ ,stlnc:\  "fix for special characters in the bar
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Color Themes
 "
