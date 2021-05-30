@@ -92,7 +92,7 @@ command! CharacterInfoToggle :let g:character_info_is_displayed = !g:character_i
 
 function! StatusCharacterInfo() abort
   if g:character_info_is_displayed == 1
-    return "%<\ %LL\ ❪%c,%l❫\ \\∪%B\ ❱"
+    return "\ %<\ %LL\ ❪%c,%l❫\ \\∪%B\ "
   else
     return ''
   end
@@ -102,17 +102,30 @@ endfunction
 set noshowmode
 " Here's were thing will be prepended
 set statusline=
-""" PREPENDED LINES ENTER HERE
+""" PREPENDED LINES LINE UP ABOVE THIS LINE
 set statusline+=%2*
-set statusline+=\ \ %{%StatusCharacterInfo()%}
-set statusline+=\ %1*
+"set statusline+=%M
+"set statusline+=\ 
+set statusline+=%1*
+set statusline+=\ 
+set statusline+=%M
 
 set statusline+=%<\ %-6f
 set statusline+=%=
+set statusline+=%2*
+set statusline+=%{%StatusCharacterInfo()%}
+set statusline+=\ %{ctrlspace#api#StatuslineModeSegment()}
+set statusline+=\ %{strpart(ctrlspace#api#StatuslineTabSegment(),0,4)}
+set statusline+=%2*
+
+" ctrlspace#api#StatuslineTabSegment()
+
+" Returns the info about the plugin mode. It can take an optional separator.
+"
+" ctrlspace#api#StatuslineModeSegment({...})
 
 """ These are in reverse order so that that are in correct order when they are prepended. They will be the last things to be added to the status bar so that they will end up first. An quick way to reverse the lines is to paste theminto a new buffer and then run teh command,
 set statusline^=\ %1*
-set statusline^=\ %M
 set statusline^=❱
 set statusline^=\ %{ModeCurrent()}
 set statusline^=%2*
@@ -137,10 +150,6 @@ set statusline^=%2*
 " +------------+------+--------+
 " | White      | 7    | 15     |
 " +------------+------+--------+
-
-" TODO Fix this dirty hack to make the status bar update
-":call timer_start(1000, {-> execute(':let &stl=&stl')}, {'repeat': -1})
-" 🌈☡
 
 "" Dark
 "" StatusLine Highlights
@@ -182,42 +191,75 @@ set statusline^=%2*
 "  \ guibg=#3b5ea7
 "  \ gui=bold
 
+" light background
+function! PersonalHighlightsLight()
+  " utils
+  hi User9 guibg=none guifg=darkslategray
+  hi User8 guibg=none guifg=darkslategray gui=bold
+  hi User7 guibg=none guifg=darkslategray gui=italic
+
+  " selected with shaded background
+  hi User1
+    \ guifg=lightseagreen
+    \ guibg=mintcream
+    \ gui=italic
+
+  " Mode 
+  hi User2
+    \ guifg=mintcream
+    \ guibg=mediumturquoise
+    \ gui=bold,italic
+
+  " to switch to blue
+  "hi User1 guibg=aliceblue guifg=deepskyblue
+  "hi User2 guifg=aliceblue guibg=deepskyblue
 
 
-" Light
-" StatusLine Highlights
-"hi StatusLine
-"  \ ctermfg=8
-"  \ ctermbg=0
-"  \ cterm=italic
-"  \ guifg=LightGrey
-"  \ guibg=White
-"  \ gui=italic
-"hi StatusLineNC
-"  \ ctermfg=9
-"  \ ctermbg=1
-"  \ cterm=italic
-"  \ guifg=DarkMagenta
-"  \ guibg=Yellow
-"  \ gui=italic
+  hi link CtrlSpaceNormal   User7
+  hi link CtrlSpaceSelected User2
+  hi link CtrlSpaceSearch   User9
+  hi CtrlSpaceStatus    guifg=aliceblue guibg=deepskyblue
+
+endfunction
+"call PersonalHighlightsLight()
 
 " light background
-hi User1
-      \ guifg=cadetblue
-  \ guibg=mintcream
-  \ gui=italic
-hi User2
-  \ guifg=mintcream
-  \ guibg=darkseagreen
-  \ gui=bold,italic
+function! PersonalHighlightsDark()
+
+  " utils
+  "hi User9 guibg=none guifg=darkslategray
+  hi User8 guibg=none guifg=darkslategray gui=bold
+  hi User7 guibg=none guifg=darkslategray gui=italic
+
+  " selected with shaded background
+  hi User1
+    \ guibg=dimgray
+    \ guifg=mintcream
+    \ gui=italic
+
+  " Mode 
+  hi User2
+    \ guifg=mintcream
+    \ guibg=darkcyan
+    \ gui=bold,italic
+
+  " to switch to blue
+  "hi User1 guibg=aliceblue guifg=deepskyblue
+  "hi User2 guifg=aliceblue guibg=deepskyblue
+
+
+  "hi link CtrlSpaceNormal   User7
+  hi link CtrlSpaceSelected User2
+  "hi link CtrlSpaceSearch   User9
+  "hi CtrlSpaceStatus    guifg=aliceblue guibg=deepskyblue
+
+  hi StatusLineNC ctermfg=DarkGray ctermbg=grey cterm=none guibg=grey guifg=DarkGray gui=none
+  hi StatusLine ctermbg=DarkGray ctermfg=grey cterm=none guifg=grey guibg=DarkGray gui=none
+endfunction
+call PersonalHighlightsLight()
 
 
 " Light Mode Colors
 "
 " Medium Light Blue
 "  \ guibg=#67A9D4
-
-"hi link CtrlSpaceNormal   guibg=none
-hi link CtrlSpaceSelected User2
-"hi link CtrlSpaceSearch   Search
-hi link CtrlSpaceStatus   User2
