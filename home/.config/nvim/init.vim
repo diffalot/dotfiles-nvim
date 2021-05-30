@@ -342,9 +342,9 @@ Plug 'vim-ctrlspace/vim-ctrlspace'
 
 let g:CtrlSpaceDefaultMappingKey = "<C-space> "
 
-let g:CtrlSpaceStatuslineFunction = "ctrlspace#api#Statusline()"
+" let g:CtrlSpaceStatuslineFunction = "ctrlspace#api#Statusline()"
 
-let g:CtrlSpaceLoadLastWorkspaceOnStart = 0
+let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
 let g:CtrlSpaceSaveWorkspaceOnSwitch = 0
 let g:CtrlSpaceSaveWorkspaceOnExit = 0
 
@@ -373,11 +373,7 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Things to Learn
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://github.com/glepnir/dashboard-nvim
-Plug 'glepnir/dashboard-nvim'
-let g:dashboard_default_executive ='fzf'
-
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Common Dependencies
 Plug 'nvim-lua/popup.nvim'
