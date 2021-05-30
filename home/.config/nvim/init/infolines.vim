@@ -3,6 +3,7 @@
 """  Custom Status Line
 """
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " from scrooloose's blog post
 " https://got-ravings.blogspot.com/2008/08/vim-pr0n-making-statuslines-that-own.html
 " via https://kadekillary.work/post/statusline-vim/
@@ -10,7 +11,6 @@
 " Dictionary: take mode() input -> longer notation of current mode
 " mode() is defined by Vim
 let g:currentmode={ 'n' : 'Normal ', 'no' : 'N·Operator Pending ', 'v' : 'Visual ', 'V' : 'V·Line ', '^V' : 'V·Block ', 's' : 'Select ', 'S': 'S·Line ', '^S' : 'S·Block ', 'i' : 'Insert ', 'R' : 'Replace ', 'Rv' : 'V·Replace ', 'c' : 'Command ', 'cv' : 'Vim Ex ', 'ce' : 'Ex ', 'r' : 'Prompt ', 'rm' : 'More ', 'r?' : 'Confirm ', '!' : 'Shell ', 't' : 'Terminal '}
-
 
 " Function: return current mode
 " abort -> function will abort soon as error detected
@@ -40,9 +40,43 @@ function! StatusCharacterInfo() abort
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Pastel is an awesome program
+"
+" I've found pastel to be a very handy piece of software for quiickly seeing
+" what colors look like together in the terminal.  It's got some good math
+" tools for doing math with colors in a variety of colorspaces, adn I should
+" look up what these mean:  between colors in a variety os
+" [default: Lab] [possible values: Lab, LCh, RGB, HSL]
+"
+" home/.config/nvim on  💻 [$!] via 🌙 on ☁️ 
+" ➜ pastel color darkslategray mediumturquoise
+"
+"   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  Name: darkslategray
+"   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  Hex: #2f4f4f
+"   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  RGB: rgb(47, 79, 79)
+"   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  HSL: hsl(180, 25.4%, 24.7%)
+"   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+"   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  Most similar:
+"   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀   ▀▀▀▀▀ dimgray
+"   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀   ▀▀▀▀▀ teal
+" 
+"   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  Name: mediumturquoise
+"   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  Hex: #48d1cc
+"   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  RGB: rgb(72, 209, 204)
+"   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  HSL: hsl(178, 59.8%, 55.1%)
+"   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+"   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  Most similar:
+"   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀   ▀▀▀▀▀ darkturquoise
+"   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀   ▀▀▀▀▀ turquoise
+
+" TODO I may need to make these functions part of the themes.functions.vim or 
+" maybe not...  It's not like they will be useful for other parts of a text
+" editor,
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""           
 " Start Puttting the pieces together
 
-" turn off the now extra -- INSERT -- at screen bottom
+" turn off that extra `INSERT` -- at screen bottom
 set noshowmode
 
 set statusline=
@@ -56,7 +90,7 @@ set statusline+=%<\ %-f
 set statusline+=%=
 set statusline+=%2*
 set statusline+=%{%StatusCharacterInfo()%}
-set statusline+=\ %{ctrlspace#api#StatuslineModeSegment()}
+"set statusline+=\ %{ctrlspace#api#StatuslineModeSegment()}
 set statusline+=\ %{ctrlspace#api#StatuslineTabSegment()}
 set statusline+=\ %2*
 
@@ -68,90 +102,121 @@ set statusline^=❱
 set statusline^=\ %{ModeCurrent()}
 set statusline^=%2*
 
-" ANSI Colors by Number
-" +------------+------+--------+
-" | Color Name | Base | Bright |
-" +============+======+========+
-" | Black      | 0    | 8      |
-" +------------+------+--------+
-" | Red        | 1    | 9      |
-" +------------+------+--------+
-" | Green      | 2    | 10     |
-" +------------+------+--------+
-" | Yellow     | 3    | 11     |
-" +------------+------+--------+
-" | Blue       | 4    | 12     |
-" +------------+------+--------+
-" | Purple     | 5    | 13     |
-" +------------+------+--------+
-" | Cyan       | 6    | 14     |
-" +------------+------+--------+
-" | White      | 7    | 15     |
-" +------------+------+--------+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Highlight Color Assignment Functions
+"
+" to switch to blue
+" hi User1 guibg=aliceblue guifg=deepskyblue
+" hi User2 guifg=aliceblue guibg=deepskyblue
 
-" Light background
+"""""""""""""""""""""""""""""""""""""""""
+" Light Background
 function! PersonalHighlightsLight()
-  " utils
-  hi User9 guibg=none guifg=darkslategray
-  hi User8 guibg=none guifg=darkslategray gui=bold
-  hi User7 guibg=none guifg=darkslategray gui=italic
 
-  " selected with shaded background
+  " Normal Menu Item Text 
   hi User1
     \ guifg=lightseagreen
     \ guibg=mintcream
     \ gui=italic
 
-  " Mode 
+  " Mode Indicator
+  " Selected Menu Text
   hi User2
     \ guifg=mintcream
     \ guibg=mediumturquoise
     \ gui=bold,italic
 
-  " to switch to blue
-  "hi User1 guibg=aliceblue guifg=deepskyblue
-  "hi User2 guifg=aliceblue guibg=deepskyblue
-
-  hi link CtrlSpaceNormal   User7
-  hi link CtrlSpaceSelected User2
-  hi link CtrlSpaceSearch   User9
-  hi CtrlSpaceStatus    guifg=aliceblue guibg=deepskyblue
+  " Copies from Menu Items,
+  " does not have good shoes 
+  hi CtrlSpaceStatus
+    \ guifg=lightseagreen
+    \ guibg=mintcream
+    \ gui=none
+  
+  " Copies from Menu Items
+  " Already has a blister
+  hi CtrlSpaceSelected
+    \ guifg=lightseagreen
+    \ guibg=mintcream
+    \ gui=bold,italic
 endfunction
 
+
+"""""""""""""""""""""""""""""""""""""""""
 " Dark background
 function! PersonalHighlightsDark()
 
-  " utils
-  "hi User9 guibg=none guifg=darkslategray
-  hi User8 guibg=none guifg=darkslategray gui=bold
-  hi User7 guibg=none guifg=darkslategray gui=italic
-
-  " selected with shaded background
+  " Normal Menu Text 
   hi User1
     \ guifg=#a2ada9
     \ guibg=dimgray
     \ gui=italic
 
-  " Mode 
+  " Mode Indicator
+  " Selected Menu Text
   hi User2
     \ guifg=#a2ada9
     \ guibg=#436160
     \ gui=bold,italic
 
-  " to switch to blue
-  "hi User1 guibg=aliceblue guifg=deepskyblue
-  "hi User2 guifg=aliceblue guibg=deepskyblue
-
-
-  "hi link CtrlSpaceNormal   User7
+  hi CtrlSpaceNormal
+    \ guifg=#a2ada9
+    \ guibg=dimgray
+    \ gui=italic
   hi link CtrlSpaceSelected User2
   "hi link CtrlSpaceSearch   User9
-  "hi CtrlSpaceStatus    guifg=aliceblue guibg=deepskyblue
+  hi CtrlSpaceStatus guibg=#436160 guifg=#a2ada9
 
   hi StatusLineNC ctermfg=DarkGray ctermbg=grey cterm=none guibg=grey guifg=DarkGray gui=none
   hi StatusLine ctermbg=DarkGray ctermfg=grey cterm=none guifg=grey guibg=DarkGray gui=none
 endfunction
 
+"""""""""""""""""""""""""""""""""""""""""
+" We'll eventually be able to combine those light and dark functions into one
+" that will take care of all the needed outfit changes a proper terminal needs
+" for a night out.
+"
 " TODO watch for theme changes with an auto command and then load the appropriate highlights
-"call PersonalHighlightsLight()
-call PersonalHighlightsDark()
+
+function! PersonalHighlights
+  if &background == "light"
+    call PersonalHighlightsLight()
+  else
+    call PersonalHighlightsDark()
+  endif
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Highlight Color Chart
+"
+" Here are the colors we want to use, well, eventually.  It might be fun to
+" play with the text object model with these to do some very accurate math
+" with colors.
+" 
+
+" ANSI Colors by Number
+" +------------+------+--------+-----------------------------+---------------------------+--------+----+
+" | Color Name | Base | Bright | Theme                       | Theme                     | Chord  |    |
+" |            |      |        | Base                        | Bright                    | Colors |    |
+" +------------+------+--------+-----------------------------+---------------------------+--------+----+
+" | Black      | 0    | 8      |                             |                           |        |    |
+" +------------+------+--------+-----------------------------+---------------------------+--------+----+
+" | Red        | 1    | 9      |                             |                           |        |    |
+" +------------+------+--------+-----------------------------+---------------------------+--------+----+
+" | Green      | 2    | 10     | darkslategray               | mediumturquoise           |        |    |
+" |            |      |        | #2f4f4f                     | #48d1cc                   |        |    |
+" |            |      |        | RGB: rgb(47, 79, 79)        | rgb(72, 209, 204)         |        |    |
+" |            |      |        | HSL: hsl(180, 25.4%, 24.7%) | hsl(178, 59.8%, 55.1%)    |        |    |
+" +------------+------+--------+-----------------------------+---------------------------+--------+----+
+" | Yellow     | 3    | 11     |                             |                           |        |    |
+" +------------+------+--------+-----------------------------+---------------------------+--------+----+
+" | Blue       | 4    | 12     |                             |                           |        |    |
+" +------------+------+--------+-----------------------------+---------------------------+--------+----+
+" | Purple     | 5    | 13     |                             |                           |        |    |
+" +------------+------+--------+-----------------------------+---------------------------+--------+----+
+" | Cyan       | 6    | 14     |                             |                           |        |    |
+" +------------+------+--------+-----------------------------+---------------------------+--------+----+
+" | White      | 7    | 15     |                             |                           |        |    |
+" +------------+------+--------+-----------------------------+---------------------------+--------+----+
+" |            |      |        |                             |                           |        |    |
+" +------------+------+--------+-----------------------------+---------------------------+--------+----+
