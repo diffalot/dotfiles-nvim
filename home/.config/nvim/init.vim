@@ -170,7 +170,7 @@ if has("wildmenu")
   set wildmenu
   """set wildmode=longest,list:full
   ""set wildmode=longest,list
-  set wildmode=longest,lastused,list:full
+  set wildmode=lastused,longest:list,lastused:full
   "set wildmode=lastused:longest,list:lastused,list:full
   set wildignore+=*.a,*.o
   set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
