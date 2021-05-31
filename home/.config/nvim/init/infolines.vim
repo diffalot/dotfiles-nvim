@@ -214,12 +214,42 @@ function! PersonalHighlights() abort
   endif
 endfunction
 
+
+
+
+function! BecomeMoreTransparent() abort
+  hi TabLineFill
+    \ guibg=silver
+    \ gui=dimgray
+  hi TabLineSel
+    \ guibg=fill
+    \ gui=bold,italic
+  hi ColorColumn
+    \ guibg=dimgray
+  hi VertSplit
+    \ guibg=none
+endfunction
+
+
+
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Highlight Color Chart
 "
 " Here are the colors we want to use, well, eventually.  It might be fun to
 " play with the text object model with these to do some very accurate math
 " with colors.
+>
+"  local hsl = require('lush').hsl                 -- include the module
+"  local red = hsl(0, 100, 50)                     -- define a color
+"  local light_red = red.lighten(20)               -- modify
+"  local orange = red.hue(20)                      -- set
+"  local sum_hues = red.h + light_red.h + orange.h -- access
+"  local chained_compliment = red.ro(180)          -- chain via aliases
+                                .da(30)
+                                .sa(10)
+  print(red)                                      -- as string "#FF0000"
 " 
 =
 " ANSI Colors by Number
