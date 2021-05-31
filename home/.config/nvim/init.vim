@@ -112,9 +112,11 @@ set smarttab
 autocmd FileType python set breakindentopt=shift:4
 
 " no hard breaks, but guides at 80 and 120
-set textwidth=0
-set wrapmargin=3
-set colorcolumn=80
+set textwidth=100
+set wrapmargin=10
+set "colorcolumn=72,92,100
+set colorcolumn=99
+hi ColorColumn guibg=aliceblue
 
 " todo:(alice) figure out good settings for markdown lists
 set linebreak
@@ -133,15 +135,15 @@ set list
 " let cursor move across line breaks, please
 set whichwrap=b,s,<,>,[,]
 
-set scrolloff=14
-set sidescrolloff=8
+set scrolloff=7
+set sidescrolloff=7
 
 " Give more space for displaying messages.
-set cmdheight=3
+set cmdheight=2
 
 " Open new windows to the right and below, it'll be less disorienting
-"set splitbelow
-"set splitright
+set splitbelow
+set splitright
 
 " I just changed my mind
 set foldlevel=3
@@ -340,9 +342,9 @@ nmap <C-p> :Clap <CR>
 " https://atlas-vim.readthedocs.io/vim/plugged/vim-ctrlspace/README/#status-line
 Plug 'vim-ctrlspace/vim-ctrlspace'
 
-let g:CtrlSpaceDefaultMappingKey = "<C-space> "
+let g:CtrlSpaceDefaultMappingKey = '<C-space> '
 
-" let g:CtrlSpaceStatuslineFunction = "ctrlspace#api#Statusline()"
+" let g:CtrlSpaceStatuslineFunction = 'ctrlspace#api#Statusline()'
 
 let g:CtrlSpaceLoadLastWorkspaceOnStart = 1
 let g:CtrlSpaceSaveWorkspaceOnSwitch = 0
