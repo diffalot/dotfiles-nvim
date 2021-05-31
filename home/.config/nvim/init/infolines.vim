@@ -150,21 +150,22 @@ function! PersonalHighlightsLight()
     \ guibg=mintcream
     \ gui=bold,italic
 
-  hi StatusLineNC ctermfg=DarkGray ctermbg=grey cterm=none guibg=grey guifg=DarkGray gui=none
-  hi StatusLine ctermbg=DarkGray ctermfg=grey cterm=none guifg=grey guibg=DarkGray gui=none
+  hi StatusLineNC ctermfg=LightGra ctermbg=grey cterm=bold guibg=grey guifg=DarkGray gui=reverse
+  hi StatusLine ctermbg=DarkGray ctermfg=white cterm=none guifg=grey guibg=LightGrey gui=none
 endfunction
 
 
 """""""""""""""""""""""""""""""""""""""""
-" Dark background
-function! PersonalHighlightsDark()
-
-  " Normal Menu Text 
-  hi User1
-    \ guifg=#a2ada9
-    \ guibg=dimgray
-    \ gui=italic
-
+" Dark background                  " 
+function! PersonalHighlightsDark() " 
+                                  " +-------+---+----+-----------------------------+------------------------+--+--+
+  " Normal Menu Text              " | Green | 2 | 10 | darkslategray               | mediumturquoise        |  |  |
+  hi User1                        " |       |   |    | #2f4f4f                     | #48d1cc                |  |  |
+    \ guifg=#a2ada9               " |       |   |    | RGB: rgb(47, 79, 79)        | rgb(72, 209, 204)      |  |  |
+    \ guibg=none                  " |       |   |    | HSL: hsl(180, 25.4%, 24.7%) | hsl(178, 59.8%, 55.1%) |  |  |
+    \ gui=italic                  " +-------+---+----+-----------------------------+------------------------+--+--+
+                                  " Notsure if these are part of the final color scheme or
+                                  " if there will ever be a final come
   " Mode Indicator
   " Selected Menu Text
   hi User2
@@ -176,12 +177,26 @@ function! PersonalHighlightsDark()
     \ guifg=#a2ada9
     \ guibg=dimgray
     \ gui=italic
+
+  hi TabLineSel
+    \ guifg=#a2ada9
+    \ guibg=#436160
+    \ gui=bold,italic
+
+  hi TabLineFill
+    \ guifg=#black
+    \ guibg=dimgray
+    \ gui=italic
+
+  hi VertSplit
+    \ guifg=#a2ada9
+    \ guibg=none
   "hi link CtrlSpaceSelected User2
   "hi link CtrlSpaceSearch   User9
-  hi CtrlSpaceStatus guibg=#436160 guifg=#a2ada9
+  hi CtrlSpaceStatus guibg=#DarkGrey guifg=#grey
 
-  hi StatusLineNC ctermfg=DarkGray ctermbg=grey cterm=none guibg=grey guifg=DarkGray gui=none
-  hi StatusLine ctermbg=DarkGray ctermfg=grey cterm=none guifg=grey guibg=DarkGray gui=none
+  hi StatusLineNC  guibg=darkgrey guifg=none gui=bold
+  hi StatusLine  guifg=none guibg=Gray gui=italic
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""
