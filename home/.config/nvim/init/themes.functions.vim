@@ -51,7 +51,7 @@ augroup END
 " 0 is default to dark, or maybe dont do anything??
 " this gets reset to 0 on mobile (dark mode)
 
-let g:lights_auto = 1    "    <------ Set the auto mode on or off right here
+let g:lights_auto = 0    "    <------ Set the auto mode on or off right here
 
 "" `echo winwidth('%')` reports 61 on the phone
 "if winwidth('%') < 70
@@ -180,5 +180,6 @@ if (exists('g:lights_auto') && g:lights_auto == 1)
   call __auto()
 else
   echomsg 'timed theme switching inactive'
-  call __dark()     "                         let the other set the theme
+  "call __dark()     "                         let the other set the theme
+  call __light()     "                         let the other set the theme
 endif
