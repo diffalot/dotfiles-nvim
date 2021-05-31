@@ -10,8 +10,7 @@ command! -nargs=* LightsOn call __light()
 command! -nargs=* LightsOff call __dark()
 command! -nargs=* LightsAuto call __auto()
 
-" Oh! it's really easy to make the ui transparent and still themed :D
-command! -nargs=* TranparentTheme call __transparent()
+" Oh! it's really easy to make the ui transparent and still theme:command! -nargs=* TranparentTheme call __transparent()
 command! -nargs=* BecomeTransparent :hi! Normal ctermbg=NONE guibg=NONE <bar>
                                   \ :hi! NonText ctermbg=NONE guibg=NONE
 
@@ -109,10 +108,10 @@ function! __dark()
   " colorscheme neodark
   " colorscheme rigel
   " colorscheme pencil
+  colorscheme everforest
 
-  colorscheme lucius
-  LuciusDark
-
+  " colorscheme lucius
+  " LuciusDark
   " bug in one requires setting background after theme
   " colorscheme one
   " set background=dark

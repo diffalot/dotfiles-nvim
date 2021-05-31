@@ -7,8 +7,7 @@
 " activated till after plug has loaded every single one, I think, maybe?
 
 " there are soooo many in here i have to turn them off sometimes
-"Plug 'chriskempson/base16-vim'
-
+"Plug 'chriskempson/base16-vi
 " colorscheme PaperColor
 " no dark mode
 Plug 'NLKNguyen/papercolor-theme'
@@ -40,8 +39,8 @@ let g:tokyonight_dark_float = 1
 " let g:tokyonight_style = "storm"
 
 " colorscheme ayu
-Plug 'ayu-theme/ayu-vim'
-Plug 'ayu-theme/ayu-vim-airline'
+"Plug 'ayu-theme/ayu-vim'
+"Plug 'ayu-theme/ayu-vim-airline'
 " handled in auto functions
 " let ayucolor="dark"
 " let ayucolor="mirage"
@@ -102,11 +101,7 @@ Plug 'Lokaltog/vim-distinguished'
 " with help files ???
 " https://github.com/sainnhe/everforest
 Plug 'sainnhe/everforest'
-Plug 'sainnhe/edge'
 
-" this is a theme factory :D
-"
-Plug 'rktjmp/lush.nvim'
 
 " specializing in good syntax highlighting
 Plug 'connorholyday/vim-snazzy'
@@ -117,3 +112,20 @@ Plug 'aswathkk/DarkScene.vim'
 Plug 'challenger-deep-theme/vim'
 Plug 'zeis/vim-kolor'
 Plug 'tssm/fairyfloss.vim'
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"The following are configured in infolines.vim for syncincolor, etc.
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'rktjmp/lush.nvim'
+
+Plug '$HOME/Desktop/ayu-vim'
+Plug '$HOME/Desktop/cromo'
+" I'm thinking about working
+" with these
+" this is a theme factory :D
+" https://github.com/rktjmp/lush.nvim
+Plug 'sainnhe/edge'

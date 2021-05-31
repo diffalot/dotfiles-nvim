@@ -150,7 +150,7 @@ function! PersonalHighlightsLight()
     \ guibg=mintcream
     \ gui=bold,italic
 
-  hi StatusLineNC ctermfg=LightGra ctermbg=grey cterm=bold guibg=grey guifg=DarkGray gui=reverse
+  hi StatusLineNC ctermfg=LightGray ctermbg=grey cterm=bold guibg=grey guifg=DarkGray gui=reverse
   hi StatusLine ctermbg=DarkGray ctermfg=white cterm=none guifg=grey guibg=LightGrey gui=none
 endfunction
 
