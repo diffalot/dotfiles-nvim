@@ -58,8 +58,8 @@ endfunction
 " stl:\ , stlnc:\
 "
 set list listchars=tab:»\ ,nbsp:¬,trail:◊
-command! -nargs=* CharactersOn set list listchars=stl:\ ,stlnc:\, tab:»\ ,eol:¶,nbsp:¬,trail:-
-command! -nargs=* CharactersOff set list listchars=stl:\ ,stlnc:\, tab:»\ ,nbsp:¬,trail:-
+command! -nargs=* CharactersOn set list listchars=stl:\ ,stlnc:\  , tab:»\ ,eol:¶,nbsp:¬,trail:-
+command! -nargs=* CharactersOff set list listchars=stl:\ ,stlnc:\  , tab:»\ ,nbsp:¬,trail:-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " remove trailing whitespace

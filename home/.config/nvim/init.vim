@@ -91,6 +91,7 @@ set encoding=utf-8
 
 filetype plugin on
 syntax enable
+set autoindent
 
 set mouse=a
 
@@ -111,12 +112,25 @@ set smarttab
 " but not always, so here's to you, Python
 autocmd FileType python set breakindentopt=shift:4
 
+<<<<<<< Updated upstream
 " no hard breaks, but guides at 80 and 120
 set textwidth=100
 set wrapmargin=10
 set "colorcolumn=72,92,100
 set colorcolumn=99
 hi ColorColumn guibg=aliceblue
+||||||| constructed merge base
+" hard breaks at 80 cols was my emo band in my 20's
+set textwidth=79
+set wrapmargin=3
+set colorcolumn=80
+=======
+" hard breaks at 80 cols was my emo band in my 20's
+set textwidth=0
+" set wrapmargin=3
+set colorcolumn=80
+set colorcolumn+=120
+>>>>>>> Stashed changes
 
 " todo:(alice) figure out good settings for markdown lists
 set linebreak
@@ -160,6 +174,7 @@ set laststatus=2
 " echo winwidth('%')
 " reports 61 on the phone
 if winwidth('%') < 70
+  set sidescrolloff=9
 else
 end
 
@@ -374,6 +389,20 @@ endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
+" New Plugins to try
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/tpope/vim-dispatch
+"Plug 'tpope/vim-dispatch'
+"let g:dispatch_no_maps = 1
+"
+" https://github.com/neomake/neomake
+"Plug 'neomake/neomake'
+"let g:neomake_open_list = 2
+"
+Plug 'skywind3000/asyncrun.vim'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
 " Things to Learn
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -479,7 +508,12 @@ augroup END
 " https://vimwiki.github.io/
 Plug 'vimwiki/vimwiki'
 
-command! -nargs=* Cronofiler <silent>:!fish -c "cronofiler-git $HOME/cronofiles > /dev/null"
+
+
+"cronofiler sync command
+"watch vimwiki filetypes for save to run as autocmd
+"run hidden when vim first opens, and when a workspace is shutdown in :wide_enoughCtrlSpace if possible
+
 
 " todo(map) find a better mapping
 nmap z<Space> :VimwikiToggleListItem<CR>

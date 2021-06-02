@@ -129,13 +129,13 @@ function! __transparent()
 
   let g:neodark#terminal_transparent = 1
   let g:tokyonight_transparent = 1
-  let ayucolor="mirage"
+  " let ayucolor="mirage"
   " let ayucolor="light"
-  " let ayucolor="dark"
+  let ayucolor="dark"
 
   set background=dark
-  let g:tokyonight_style = "night"
-  " let g:tokyonight_style = "storm"
+  "let g:tokyonight_style = "night"
+  let g:tokyonight_style = "storm"
   let g:tokyonight_day_brightness = 0.75
   let g:tokyonight_colors = { "hint": "cyan", "error": "#ff0000" }
 
@@ -146,10 +146,10 @@ function! __transparent()
   "let g:tokyonight_colors = { "hint": "slateblue", "error": "#ff0000" }
 
   " Load the colorscheme
-  colorscheme tokyonight
+  " colorscheme tokyonight
 
   " setup airline for dark mode
-  let g:airline_theme = 'pencil'
+  " let g:airline_theme = 'pencil'
   " let g:airline_theme = 'base16color'
   " let g:airline_theme = 'understated'
   " let g:airline_theme = 'serene'
@@ -157,9 +157,12 @@ function! __transparent()
 
   " set light mode airline
   " let g:airline_theme = 'pencil'
-  let g:airline_theme = 'base16_atelier_sulphurpool_light'
+  "let g:airline_theme = 'base16_atelier_sulphurpool_light'
   " let g:airline_theme = 'material'
   " let g:airline_theme = 'silver'
+
+  hi! Normal ctermbg=NONE guibg=NONE
+  hi! NonText ctermbg=NONE guibg=NONE
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -180,6 +183,6 @@ if (exists('g:lights_auto') && g:lights_auto == 1)
   call __auto()
 else
   echomsg 'timed theme switching inactive'
-  "call __dark()     "                         let the other set the theme
-  call __light()     "                         let the other set the theme
+  "call __dark()    
+  call __light()     
 endif
