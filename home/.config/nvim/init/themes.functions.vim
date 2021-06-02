@@ -51,7 +51,7 @@ augroup END
 " 0 is default to dark, or maybe dont do anything??
 " this gets reset to 0 on mobile (dark mode)
 
-let g:lights_auto = 0    "    <------ Set the auto mode on or off right here
+let g:lights_auto = 1    "    <------ Set the auto mode on or off right here
 
 "" `echo winwidth('%')` reports 61 on the phone
 "if winwidth('%') < 70
@@ -102,13 +102,14 @@ function! __dark()
   let g:tokyonight_transparent = 0
   let g:neodark#terminal_transparent = 0
 
+  colorscheme snazzy
   " colorscheme orange-moon
   " colorscheme yellow-moon
   " colorscheme ayu
   " colorscheme neodark
   " colorscheme rigel
   " colorscheme pencil
-  colorscheme everforest
+  " colorscheme everforest
 
   " colorscheme lucius
   " LuciusDark
@@ -183,6 +184,6 @@ if (exists('g:lights_auto') && g:lights_auto == 1)
   call __auto()
 else
   echomsg 'timed theme switching inactive'
-  "call __dark()    
-  call __light()     
+  "call __dark()
+  call __light()
 endif

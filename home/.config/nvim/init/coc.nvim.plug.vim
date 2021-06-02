@@ -69,6 +69,7 @@ xmap <leader>x  <Plug>(coc-convert-snippet)
 "
 " autocmd FileType tex let b:coc_pairs = [["$", "$"]]
 " autocmd FileType markdown let b:coc_pairs_disabled = ['`']
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 "    Language Server and Client Setup
@@ -215,6 +216,6 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-"set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

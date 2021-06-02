@@ -10,7 +10,11 @@
 
 " Dictionary: take mode() input -> longer notation of current mode
 " mode() is defined by Vim
-let g:currentmode={ 'n' : 'Normal ', 'no' : 'N·Operator Pending ', 'v' : 'Visual ', 'V' : 'V·Line ', '^V' : 'V·Block ', 's' : 'Select ', 'S': 'S·Line ', '^S' : 'S·Block ', 'i' : 'Insert ', 'R' : 'Replace ', 'Rv' : 'V·Replace ', 'c' : 'Command ', 'cv' : 'Vim Ex ', 'ce' : 'Ex ', 'r' : 'Prompt ', 'rm' : 'More ', 'r?' : 'Confirm ', '!' : 'Shell ', 't' : 'Terminal '}
+let g:currentmode={ 'n' : 'Normal ', 'no' : 'N·Operator Pending ', 'v' : 'Visual ',
+        \ 'V' : 'V·Line ', '^V' : 'V·Block ', 's' : 'Select ', 'S': 'S·Line ',
+        \ '^S' : 'S·Block ', 'i' : 'Insert ', 'R' : 'Replace ', 'Rv' : 'V·Replace ',
+        \ 'c' : 'Command ', 'cv' : 'Vim Ex ', 'ce' : 'Ex ', 'r' : 'Prompt ', 'rm' : 'More ',
+        \ 'r?' : 'Confirm ', '!' : 'Shell ', 't' : 'Terminal '}
 
 " Function: return current mode
 " abort -> function will abort soon as error detected
@@ -48,7 +52,7 @@ endfunction
 " look up what these mean:  between colors in a variety os
 " [default: Lab] [possible values: Lab, LCh, RGB, HSL]
 "
-" home/.config/nvim on  💻 [$!] via 🌙 on ☁️ 
+" home/.config/nvim on  💻 [$!] via 🌙 on ☁️
 " ➜ pastel color darkslategray mediumturquoise
 "
 "   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  Name: darkslategray
@@ -59,7 +63,7 @@ endfunction
 "   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  Most similar:
 "   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀   ▀▀▀▀▀ dimgray
 "   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀   ▀▀▀▀▀ teal
-" 
+"
 "   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  Name: mediumturquoise
 "   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  Hex: #48d1cc
 "   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  RGB: rgb(72, 209, 204)
@@ -69,11 +73,11 @@ endfunction
 "   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀   ▀▀▀▀▀ darkturquoise
 "   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀   ▀▀▀▀▀ turquoise
 
-" TODO I may need to make these functions part of the themes.functions.vim or 
+" TODO I may need to make these functions part of the themes.functions.vim or
 " maybe not...  It's not like they will be useful for other parts of a text
 " editor,
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""           
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Start Puttting the pieces together
 
 " turn off that extra `INSERT` -- at screen bottom
@@ -83,22 +87,23 @@ set statusline=
 """ PREPENDED LINES LINE UP ABOVE THIS LINE
 set statusline+=%2*
 "set statusline+=%M
-"set statusline+=\ 
+"set statusline+=\
 set statusline+=%1*
 set statusline+=\ %M
 set statusline+=%<\ %-f
 set statusline+=%=
 set statusline+=%2*
+set statusline+=❰
 set statusline+=%{%StatusCharacterInfo()%}
 "set statusline+=\ %{ctrlspace#api#StatuslineModeSegment()}
 set statusline+=\ %{ctrlspace#api#StatuslineTabSegment()}
 set statusline+=\ %2*
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" These are in reverse order so that that are in correct order when they are 
+" These are in reverse order so that that are in correct order when they are
 " prepended. They will be the last things to be added to the status bar so that
 " they will end up first. An quick way to reverse the lines is to paste them
-" into a new buffer (because I don't know how to select ranges yet. And then 
+" into a new buffer (because I don't know how to select ranges yet. And then
 " run the command, `:%!tac` on them.
 
 set statusline^=\ %1*
@@ -109,12 +114,12 @@ set statusline^=%2*
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Highlight Color Assignment Functions
 "
-" we'll use a minimimal number of highlight groups and change colors on 
+" we'll use a minimimal number of highlight groups and change colors on
 " them as modes switch???
 "
 " There's a big char at the bottom of the file, but it doesn't have enough
 " colors in it yet to be fun
-" 
+"
 " But here's a switch to a blue switch to blue
 " hi User1 guibg=aliceblue guifg=deepskyblue
 " hi User2 guifg=aliceblue guibg=deepskyblue
@@ -123,7 +128,7 @@ set statusline^=%2*
 " Light Background
 function! PersonalHighlightsLight()
 
-  " Normal Menu Item Text 
+  " Normal Menu Item Text
   hi User1
     \ guifg=lightseagreen
     \ guibg=mintcream
@@ -137,12 +142,12 @@ function! PersonalHighlightsLight()
     \ gui=bold,italic
 
   " Copies from Menu Items,
-  " does not have good shoes 
+  " does not have good shoes
   hi CtrlSpaceStatus
     \ guifg=lightseagreen
     \ guibg=mintcream
     \ gui=none
-  
+
   " Copies from Menu Items
   " Already has a blister
   hi CtrlSpaceSelected
@@ -156,16 +161,24 @@ endfunction
 
 
 """""""""""""""""""""""""""""""""""""""""
-" Dark background                  " 
-function! PersonalHighlightsDark() " 
-                                  " +-------+---+----+-----------------------------+------------------------+--+--+
-  " Normal Menu Text              " | Green | 2 | 10 | darkslategray               | mediumturquoise        |  |  |
-  hi User1                        " |       |   |    | #2f4f4f                     | #48d1cc                |  |  |
-    \ guifg=#a2ada9               " |       |   |    | RGB: rgb(47, 79, 79)        | rgb(72, 209, 204)      |  |  |
-    \ guibg=none                  " |       |   |    | HSL: hsl(180, 25.4%, 24.7%) | hsl(178, 59.8%, 55.1%) |  |  |
-    \ gui=italic                  " +-------+---+----+-----------------------------+------------------------+--+--+
-                                  " Notsure if these are part of the final color scheme or
-                                  " if there will ever be a final come
+" +-------+---+----+-----------------------------+------------------------+--+--+
+" | Green | 2 | 10 | darkslategray               | mediumturquoise        |  |  |
+" |       |   |    | #2f4f4f                     | #48d1cc                |  |  |
+" |       |   |    | RGB: rgb(47, 79, 79)        | rgb(72, 209, 204)      |  |  |
+" |       |   |    | HSL: hsl(180, 25.4%, 24.7%) | hsl(178, 59.8%, 55.1%) |  |  |
+" +-------+---+----+-----------------------------+------------------------+--+--+
+" Notsure if these are part of the final color scheme or
+" if there will ever be a final come
+
+" Dark background
+function! PersonalHighlightsDark()
+
+  " Normal Menu Text
+  hi User1
+    \ guifg=#a2ada9
+    \ guibg=#3a3d4d
+    \ gui=italic
+
   " Mode Indicator
   " Selected Menu Text
   hi User2
@@ -193,7 +206,7 @@ function! PersonalHighlightsDark() "
     \ guibg=none
   "hi link CtrlSpaceSelected User2
   "hi link CtrlSpaceSearch   User9
-  hi CtrlSpaceStatus guibg=#DarkGrey guifg=#grey
+  hi CtrlSpaceStatus guibg=DarkGrey guifg=grey
 
   hi StatusLineNC  guibg=darkgrey guifg=none gui=bold
   hi StatusLine  guifg=none guibg=Gray gui=italic
@@ -214,9 +227,6 @@ function! PersonalHighlights() abort
   endif
 endfunction
 
-
-
-
 function! BecomeMoreTransparent() abort
   hi TabLineFill
     \ guibg=silver
@@ -225,14 +235,10 @@ function! BecomeMoreTransparent() abort
     \ guibg=fill
     \ gui=bold,italic
   hi ColorColumn
-    \ guibg=dimgray
+    \ guibg=silver
   hi VertSplit
-    \ guibg=none
+    \ guibg=silver
 endfunction
-
-
-
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Highlight Color Chart
@@ -240,18 +246,14 @@ endfunction
 " Here are the colors we want to use, well, eventually.  It might be fun to
 " play with the text object model with these to do some very accurate math
 " with colors.
->
+
 "  local hsl = require('lush').hsl                 -- include the module
 "  local red = hsl(0, 100, 50)                     -- define a color
 "  local light_red = red.lighten(20)               -- modify
 "  local orange = red.hue(20)                      -- set
 "  local sum_hues = red.h + light_red.h + orange.h -- access
 "  local chained_compliment = red.ro(180)          -- chain via aliases
-                                .da(30)
-                                .sa(10)
-  print(red)                                      -- as string "#FF0000"
-" 
-=
+
 " ANSI Colors by Number
 " w
 " +-------------+------+--------+-------------+-------------+--------+---+
@@ -293,7 +295,7 @@ endfunction
 " +-------------+------+--------+-------------+-------------+--------+---+
 " |             |      |        |             |             |        |   |
 " +-------------+------+--------+-------------+-------------+--------+---+
-" 
+"
 " * The ones with an asterix are part of the ANSI numbering system but
 "   I'm going to have to look that up.
 

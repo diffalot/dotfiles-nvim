@@ -117,15 +117,18 @@ Plug 'tssm/fairyfloss.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"The following are configured in infolines.vim for syncincolor, etc.
+"The following are configured in infolines.vim for sync in color, etc.
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'rktjmp/lush.nvim'
+Plug 'sainnhe/edge'
 
+Plug '$HOME/Desktop/vim-dim'
 Plug '$HOME/Desktop/ayu-vim'
-Plug '$HOME/Desktop/cromo'
 " I'm thinking about working
 " with these
+
 " this is a theme factory :D
 " https://github.com/rktjmp/lush.nvim
-Plug 'sainnhe/edge'
+Plug 'rktjmp/lush.nvim'
+Plug '$HOME/Desktop/vim-dim'
+Plug '$HOME/Desktop/cromo'

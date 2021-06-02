@@ -112,25 +112,12 @@ set smarttab
 " but not always, so here's to you, Python
 autocmd FileType python set breakindentopt=shift:4
 
-<<<<<<< Updated upstream
 " no hard breaks, but guides at 80 and 120
 set textwidth=100
 set wrapmargin=10
 set "colorcolumn=72,92,100
 set colorcolumn=99
 hi ColorColumn guibg=aliceblue
-||||||| constructed merge base
-" hard breaks at 80 cols was my emo band in my 20's
-set textwidth=79
-set wrapmargin=3
-set colorcolumn=80
-=======
-" hard breaks at 80 cols was my emo band in my 20's
-set textwidth=0
-" set wrapmargin=3
-set colorcolumn=80
-set colorcolumn+=120
->>>>>>> Stashed changes
 
 " todo:(alice) figure out good settings for markdown lists
 set linebreak
@@ -340,7 +327,7 @@ Plug 'antoinemadec/coc-fzf'
 let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git --exclude node_modules'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vim Finder
+" Vim Clap`
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 
 nmap <C-p> :Clap <CR>
@@ -393,24 +380,24 @@ endif
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/tpope/vim-dispatch
-"Plug 'tpope/vim-dispatch'
-"let g:dispatch_no_maps = 1
+Plug 'tpope/vim-dispatch'
+let g:dispatch_no_maps = 1
 "
 " https://github.com/neomake/neomake
 "Plug 'neomake/neomake'
 "let g:neomake_open_list = 2
 "
-Plug 'skywind3000/asyncrun.vim'
+"Plug 'skywind3000/asyncrun.vim'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Things to Learn
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Common Dependencies
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Lua REPL with access to neovim-lsp!!
 Plug 'rafcamlet/nvim-luapad'
 
@@ -574,19 +561,19 @@ let g:vimwiki_list = [
 
 source $HOME/.config/nvim/init/ui.plug.vim
 source $HOME/.config/nvim/init/themes.plug.vim
-source $HOME/.config/nvim/init/coc.nvim.plug.vim
-
+"source $HOME/.config/nvim/init/coc.nvim.plug.vim
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+"
 call plug#end()
-
-""""""""""""""""""""""""""""""""""""":""""""""""""""""""""""""""""""""""""""""""
-
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
 source $HOME/.config/nvim/init/themes.functions.vim
 source $HOME/.config/nvim/init/utils.vim
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
 source $HOME/.config/nvim/init/infolines.vim
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
