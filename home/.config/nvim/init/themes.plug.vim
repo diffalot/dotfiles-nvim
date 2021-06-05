@@ -112,7 +112,7 @@ Plug 'aswathkk/DarkScene.vim'
 Plug 'challenger-deep-theme/vim'
 Plug 'zeis/vim-kolor'
 Plug 'tssm/fairyfloss.vim'
-
+Plug 'TroyFletcher/vim-colors-synthwave'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -120,15 +120,17 @@ Plug 'tssm/fairyfloss.vim'
 "The following are configured in infolines.vim for sync in color, etc.
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 Plug 'sainnhe/edge'
 
-Plug '$HOME/Desktop/vim-dim'
-Plug '$HOME/Desktop/ayu-vim'
 " I'm thinking about working
 " with these
+Plug '$HOME/Desktop/vim-dim'
+Plug '$HOME/Desktop/ayu-vim'
 
 " this is a theme factory :D
 " https://github.com/rktjmp/lush.nvim
 Plug 'rktjmp/lush.nvim'
-Plug '$HOME/Desktop/vim-dim'
+
+Plug 'savq/melange'
 Plug '$HOME/Desktop/cromo'
